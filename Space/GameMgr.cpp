@@ -70,6 +70,8 @@ void GameMgr::Init()
 	MaxAmmo[1] = 5;
 	MaxAmmo[2] = 1;
 	MaxAmmo[3] = 1;
+	tempdistance = 0;
+	Enemydistance = 9999;
 }
 
 void GameMgr::Release()
@@ -119,6 +121,9 @@ void GameMgr::Update()
 		UI::GetInst()->Update();
 
 	AddScore(MaxScore);
+	if (EnemyCount > 0) {
+		ClosePos();
+	}
 }
 
 void GameMgr::Render()
@@ -274,14 +279,33 @@ void GameMgr::SpawnCoin(Vec2 Pos)
 	ObjMgr->AddObject(new Coin(Pos), "Coin");
 }
 
+
+void GameMgr::ClosePos()
+{
+	for (int i = 0; i < EnemyCount; i++) {
+			tempdistance = 
+				sqrt(pow(PlayerInfo->m_Position.x- EnemyPos[i].x,2)
+				+ pow(PlayerInfo->m_Position.y- EnemyPos[i].y, 2));
+				if (Enemydistance > tempdistance) {
+					tempdistance = Enemydistance;
+					CloseEnemy = EnemyPos[i];
+				}
+	}
+
+}
+
 void GameMgr::SpawnEnemy()
 {
 	if (isSpawnEnemy) {
 		SpawnDelay += dt;
 		if (SpawnDelay > 4) {
 
-			ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 522+519)), "Mine");
-			ObjMgr->AddObject(new Obstacle(Vec2(2000, rand() % 200+700), true), "Mine");
+			ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492+540)), "Mine");
+			if(rand()%2==0)
+				ObjMgr->AddObject(new Obstacle(Vec2(2000, rand() % 200+700), true), "Mine");
+			else 
+				ObjMgr->AddObject(new Obstacle(Vec2(2000, rand() % 200 + 700), false), "Trash");
+
 			//ObjMgr->AddObject(new Obstacle(Vec2(2000, 700), false), "Mine");
 			SpawnDelay = 0.f;
 		}

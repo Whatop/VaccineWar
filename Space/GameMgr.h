@@ -27,7 +27,7 @@ public:
 	Sprite* PSprite;
 	GameMgr();
 	~GameMgr();
-
+	float tempdistance;
 	std::vector<RankingPlayer*> Ranks;
 	RankingPlayer* m_Rank; // 플레이어의 랭크
 	StageScene m_Scene; // 현제 화면 상태
@@ -49,6 +49,8 @@ public:
 
 	bool PlayerHit;
 	bool  MineDamage;
+	bool PlayerSlow;
+	bool isTrash;
 
 	bool isScoreScene; // 마지막 점수 화면
 
@@ -81,8 +83,9 @@ public:
 	int PetCount;
 
 	int EnemyCount;
-	Vec2 EnemyPos[10];
-	Vec2 CloseEnemie;
+	Vec2 EnemyPos[20];
+	Vec2 CloseEnemy;
+	float Enemydistance;
 
 	Vec2 BossPosition;
 	int StageScore;
@@ -93,7 +96,7 @@ public:
 	int PlayerType;
 
 	//재장전
-	bool  isReload;
+	bool isReload;
 
 public:
 	void Init();
@@ -131,5 +134,7 @@ public:
 	void CheatKey();
 
 	void SpawnCoin(Vec2 Pos);
+
+	void ClosePos();
 };
 

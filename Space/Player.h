@@ -15,7 +15,8 @@ class Player : public Object
 
 	float defenseTime; //무적시간
 	float Damage_Received; // 데미지
-	bool isSlow;
+	
+	//bool isSlow; GameMgr 관리
 	float SlowTime;
 
 	//재장전

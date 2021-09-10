@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "Bullet.h"
+#include "Missile.h"
 
 Player::Player(float hp)
 {
@@ -56,7 +57,7 @@ Player::Player(float hp)
 	
 	//슬로우
 	SlowTime = 0.f;
-	isSlow = false;
+	GameInfo->PlayerSlow = false;
 	m_DelayTime = 0.f;
 
 	//재장전
@@ -106,18 +107,22 @@ void Player::Update(float deltaTime, float Time)
 
 		CollisionBox();
 
-
+		if (GameInfo->isTrash) {
+			Camera::GetInst()->ShakeTimeX = 0.3f;
+			GameInfo->isTrash = false;
+			GameInfo->PlayerSlow = true;
+		}
 		if (GameInfo->PlayerHit) {
 			if (!GameInfo->CK_GodMode) {
 				if (HitDelay) {
-					if (GameInfo->MineDamage) {
-						m_Hp -= 35.f;
-						GameInfo->MineDamage = false;
-						isSlow = true;
-					}
-					else
-						m_Hp -= Damage_Received;
-
+						if (GameInfo->MineDamage) {
+							m_Hp -= 35.f;
+							GameInfo->MineDamage = false;
+							GameInfo->PlayerSlow = true;
+						}
+						else if (!GameInfo->MineDamage)
+							m_Hp -= Damage_Received;
+				
 					float randx = (rand() % (int)m_Size.x * m_Scale.x) + m_Position.x - m_Size.x / 2 * m_Scale.x;
 					float randy = (rand() % (int)m_Size.y * m_Scale.y) + m_Position.y - m_Size.y / 2 * m_Scale.y;
 
@@ -148,11 +153,11 @@ void Player::Update(float deltaTime, float Time)
 			m_Player->B = 30;
 			PlayerPlatform->SetAnimeColor(255,255,30,30);
 		}
-		if (isSlow) {
+		if (GameInfo->PlayerSlow) {
 			SlowTime += dt;
 			if (SlowTime > 2) {
 				SlowTime = 0.f;
-				isSlow = false;
+				GameInfo->PlayerSlow = false;
 			}
 			m_Speed = 250.f;
 		}
@@ -245,13 +250,13 @@ void Player::Attack()
 	}
 	
 	if (INPUT->GetKey('Z') == KeyState::PRESS) {
-		if (m_DelayTime > m_Rpm) {
+		if (m_DelayTime > m_Rpm && !isReload) {
 			if (GameInfo->Ammo[GameInfo->PlayerType] > 0) {
 				if (GameInfo->PlayerType == 0) {
 					ObjMgr->AddObject(new Bullet(), "Bullet");
 				}
 				else if (GameInfo->PlayerType == 1) {
-					ObjMgr->AddObject(new Bullet(), "Bullet");
+					ObjMgr->AddObject(new Missile(m_Position), "Bullet");
 				}
 				else if (GameInfo->PlayerType == 2) {
 					ObjMgr->AddObject(new Bullet(), "Bullet");

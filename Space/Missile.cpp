@@ -9,10 +9,10 @@ Missile::Missile(Vec2 Pos)
 	m_Missile->AddContinueFrame(L"Painting/Boss/Missile/missile", 0, 1);
 
 	m_ColBox = Sprite::Create(L"Painting/Boss/Missile/ColBox.png");
-	SetPosition(Pos);
+	SetPosition(Pos); 
 	m_ColBox->m_Visible = true;
 
-	m_Rotation = D3DXToRadian(180);;
+	m_Rotation = D3DXToRadian(0);;
 	turnRadian = m_Rotation;
 	vrad = 0.005f;
 	Delay = 0.f;
@@ -65,7 +65,7 @@ void Missile::Move()
 		if (impellent < 2) {
 			impellent += dt;
 		}
-		Enemy =GameInfo->CloseEnemie - m_Position;
+		Enemy = GameInfo->CloseEnemy - m_Position;
 	
 		D3DXVec2Normalize(&Dire, &Enemy);
 		Delay += dt;

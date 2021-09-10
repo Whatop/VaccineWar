@@ -32,6 +32,7 @@ Oceanic1::~Oceanic1()
 
 void Oceanic1::Update(float deltaTime, float Time)
 {
+	GameInfo->EnemyPos[EnemyTag] = m_Position;
 	if (!GameInfo->isPause) {
 		SpawnMove += dt;
 

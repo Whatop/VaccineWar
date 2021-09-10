@@ -5,8 +5,11 @@ Obstacle::Obstacle(Vec2 SpawnPoint, bool isboom)
 {
 	isMine = isboom;
 	if (!isMine) {
-		m_Obstacle = Sprite::Create(L"Painting/Obstacle/1ColBox.png");
+		m_Obstacle = Sprite::Create(L"Painting/Obstacle/trash.png");
 		m_Obstacle->SetParent(this);
+
+		m_ColBox = Sprite::Create(L"Painting/Obstacle/trash.png");
+		m_ColBox->m_Visible = false;
 	}
 	else {
 		m_Mine = new Animation();
@@ -67,8 +70,10 @@ void Obstacle::Update(float deltaTime, float Time)
 		
 		ObjMgr->CollisionCheak(this, "Player");
 
+		Move();
 		if (!isMine) {
 			m_Obstacle->A = 255;
+			m_ColBox->m_Position = m_Position;
 		}
 		else {
 			m_ColBox->A = 255;
@@ -76,13 +81,18 @@ void Obstacle::Update(float deltaTime, float Time)
 			m_Mine->Update(deltaTime, Time);
 			ColBoxPos();
 		}
-		Move();
 		if (isBoom) {
 			ObjMgr->RemoveObject(this);
-			ObjMgr->AddObject(new EffectMgr(L"Painting/Effect/Mine/", 1, 25, 0.075f, m_Position, 1, 1),"Effect");
+			ObjMgr->AddObject(new EffectMgr(L"Painting/Effect/Mine/", 1, 25, 0.075f, m_Position, 1, 1), "Effect");
 			isBoom = false;
-			GameInfo->PlayerHit = true;
-			GameInfo->MineDamage = true;
+
+			if (isMine) {
+				GameInfo->MineDamage = true; // 마인슬로우는 Player에서
+				GameInfo->PlayerHit = true;
+			}
+			else {
+				GameInfo->isTrash = true;
+			}
 		}
 	}
 	else {
@@ -106,8 +116,8 @@ void Obstacle::Render()
 		ColBox[i]->Render();
 
 		m_Mine->Render();
-		m_ColBox->Render();
 	}
+	m_ColBox->Render();
 }
 
 void Obstacle::Move()
@@ -142,6 +152,12 @@ void Obstacle::OnCollision(Object* obj)
 				if (IntersectRect(&rc, &ColBox[i]->m_Collision, &GameInfo->PSprite->m_Collision)) {
 					isBoom = true;
 				}
+			}
+		}
+		else {
+			RECT rc;
+			if (IntersectRect(&rc, &m_ColBox->m_Collision, &GameInfo->PSprite->m_Collision)) {
+					isBoom = true;
 			}
 		}
 	}
