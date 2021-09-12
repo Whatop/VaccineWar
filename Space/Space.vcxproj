@@ -35,6 +35,7 @@
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Missile.cpp" />
+    <ClCompile Include="NavalProjectile.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectMgr.cpp" />
     <ClCompile Include="Obstacle.cpp" />
@@ -77,6 +78,7 @@
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Missile.h" />
+    <ClInclude Include="NavalProjectile.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectMgr.h" />
     <ClInclude Include="Obstacle.h" />

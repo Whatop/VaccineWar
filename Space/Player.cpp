@@ -2,6 +2,8 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Missile.h"
+#include "Torpedo.h"
+#include "NavalProjectile.h"
 
 Player::Player(float hp)
 {
@@ -22,15 +24,18 @@ Player::Player(float hp)
 	HIT = 4;
 
 	ColBox[LEFT] = Sprite::Create(L"Painting/Player/Height.png");
-	ColBox[LEFT]->SetScale(1, 0.5f);
+	ColBox[LEFT]->SetScale(1, 0.3f);
 	ColBox[RIGHT] = Sprite::Create(L"Painting/Player/Height.png");
-	ColBox[RIGHT]->SetScale(1, 0.5f);
+	ColBox[RIGHT]->SetScale(1, 0.3f);
 	ColBox[UP] = Sprite::Create(L"Painting/Player/Width.png");
 	ColBox[UP]->SetScale(0.3f, 1);
 	ColBox[DOWN] = Sprite::Create(L"Painting/Player/Width.png");
 	ColBox[DOWN]->SetScale(0.3f, 1);
 	ColBox[HIT] = Sprite::Create(L"Painting/Player/HitBox.png");
 	ColBox[HIT]->SetScale(0.75f, 0.75f);
+	Shield = Sprite::Create(L"Painting/Player/Shield.png");
+	Shield->SetScale(0.75f, 0.75f);
+	Shield->m_Visible = false;
 	m_ColBox->SetScale(0.5f, 0.7f);
 	for (int i = 0; i < 5; i++) {
 		ColBox[i]->m_Visible = false;
@@ -134,14 +139,14 @@ void Player::Update(float deltaTime, float Time)
 			}
 		}
 		if (HitDelay) {
-			//Defense->m_Visible = false;
+			Shield->m_Visible = false;
 			m_Player->R = 255;
 			m_Player->G = 255;
 			m_Player->B = 255;
 			PlayerPlatform->SetAnimeColor();
 		}
 		if (!HitDelay) {
-			//Defense->m_Visible = true;
+			Shield->m_Visible = true;
 			defenseTime += dt;
 			if (defenseTime > 2.f) {
 				HitDelay = true;
@@ -153,16 +158,27 @@ void Player::Update(float deltaTime, float Time)
 			m_Player->B = 30;
 			PlayerPlatform->SetAnimeColor(255,255,30,30);
 		}
-		if (GameInfo->PlayerSlow) {
-			SlowTime += dt;
-			if (SlowTime > 2) {
-				SlowTime = 0.f;
-				GameInfo->PlayerSlow = false;
+		if (!isSpeed) {
+			if (GameInfo->PlayerSlow) {
+				SlowTime += dt;
+				if (SlowTime > 2) {
+					SlowTime = 0.f;
+					GameInfo->PlayerSlow = false;
+				}
+				m_Speed = 250.f;
 			}
-			m_Speed = 250.f;
+			else {
+				m_Speed = 500.f;
+			}
 		}
 		else {
-			m_Speed = 500.f;
+			SpeedTime += dt;
+			m_Speed = 750.f;
+			if (SpeedTime > 5) {
+
+				isSpeed = false;
+				SpeedTime = 0.f;
+			}
 		}
 		if (m_Hp < 0) {
 			m_Hp = 0.f; // 게이지 UI때문에 해놈
@@ -175,6 +191,15 @@ void Player::Update(float deltaTime, float Time)
 	else {
 		m_Player->A = 105;
 		PlayerPlatform->SetAnimeColor(105);
+	}
+	if (isInvincible) {
+		Shield->m_Visible = true;
+		InvincibleTime += dt;
+		if (InvincibleTime > 2) {
+			Shield->m_Visible = false;
+			isInvincible = false;
+			InvincibleTime = 0.f;
+		}
 	}
 }
 
@@ -189,6 +214,7 @@ void Player::Render()
 	ColBox[UP]->Render();
 	ColBox[DOWN]->Render();
 	ColBox[HIT]->Render();
+	Shield->Render();
 }
 
 void Player::OnCollision(Object* obj)
@@ -205,15 +231,58 @@ void Player::OnCollision(Object* obj)
 		if (IntersectRect(&rc, &ColBox[3]->m_Collision, &obj->m_Collision))
 			isDown = true;
 	}
-	if (obj->m_Tag == "EnemyBullet")
+	if (obj->m_Tag == "AddMachineGun")
 	{
+		if (GameInfo->Ammo[0]+30 <= 180) {
+			GameInfo->Ammo[0] += 30;
+		}
+		else {
+			GameInfo->Ammo[0] = 180;
+		}
+		obj->SetDestroy(true);
+	}
+	if (obj->m_Tag == "AddTorpedo")
+	{
+		if (GameInfo->Ammo[2] + 5 <= 15) {
+			GameInfo->Ammo[2] += 5;
+		}
+		else {
+			GameInfo->Ammo[2] = 15;
+		}
+		obj->SetDestroy(true);
+	}
+	if (obj->m_Tag == "AddMissile")
+	{
+		if (GameInfo->Ammo[3] + 3 <= 10) {
+			GameInfo->Ammo[3] += 3;
+		}
+		else {
+			GameInfo->Ammo[3] = 10;
+		}
+		obj->SetDestroy(true);
+	}
+	if (obj->m_Tag == "SpeedUp")
+	{
+		isSpeed = true;
+		SpeedTime = 0.f;
+		obj->SetDestroy(true);
+	}
+	if (obj->m_Tag == "Invincibility")
+	{
+		isInvincible = true;
+		InvincibleTime = 0.f;
+		obj->SetDestroy(true);
+	}
+	if (obj->m_Tag == "EnemyBullet") {
 		RECT rc;
-		if (IntersectRect(&rc, &ColBox[HIT]->m_Collision, &obj->m_Collision)) {
-			Damage_Received = obj->m_Atk;
-			GameInfo->PlayerHit = true;
+		if (IntersectRect(&rc, &ColBox[4]->m_Collision, &obj->m_Collision)) {
+			if (!isInvincible) {
+				GameInfo->PlayerHit = true;
+				Damage_Received = obj->m_Atk;
+			}
+			obj->SetDestroy(true);
 		}
 	}
-
 }
 
 void Player::Move()
@@ -236,8 +305,89 @@ void Player::Attack()
 {
 	//MachineGun, NavalProjectile, Torpedo, Missile;
 	m_DelayTime += dt;
+	GunType();
+	// 기관총, 함포 , 어뢰, 미사일 
+	if (INPUT->GetKey('Z') == KeyState::PRESS) {
+		if (m_DelayTime > m_Rpm && !isReload) {
+			if (GameInfo->Ammo[GameInfo->PlayerType] > 0) {
+				if (GameInfo->PlayerType == 0) {
+					ObjMgr->AddObject(new Bullet(), "Bullet");
+					GameInfo->Ammo[GameInfo->PlayerType]--;
+				}
+				else if (GameInfo->PlayerType == 1) {
+					for (int i = 0; i < GameInfo->Ammo[1]; i++) {
+						ObjMgr->AddObject(new NavalProjectile(), "Bullet");
+					}
+					GameInfo->Ammo[GameInfo->PlayerType] = 0;
+				}
+				else if (GameInfo->PlayerType == 2) {
+					ObjMgr->AddObject(new Torpedo(m_Position), "Bullet");
+					GameInfo->Ammo[GameInfo->PlayerType]++;
+					GameInfo->Ammo[GameInfo->PlayerType]--;
+				}
+				else if (GameInfo->PlayerType == 3) {
+					ObjMgr->AddObject(new Missile(m_Position), "Bullet");
+					GameInfo->Ammo[GameInfo->PlayerType]++;
+					GameInfo->Ammo[GameInfo->PlayerType]--;
+				}
+			}
+			m_DelayTime = 0.f;
+		}
+	}
+	if (INPUT->GetKey('R') == KeyState::DOWN && !isReload&& GameInfo->Ammo[0] < GameInfo->MaxAmmo[0]
+		&& GameInfo->PlayerType == 0) {
+		isReload = true;
+	}
+	if (isReload) {
+		ReloadTime += dt;
+		if (ReloadTime > 5.f) {
+			GameInfo->Ammo[0] = GameInfo->MaxAmmo[0];
+			isReload = false;
+			ReloadTime = 0.f;
+		}
+	}
+	else {
+		if (GameInfo->Ammo[GameInfo->PlayerType] <= 0) {
+			isReload = true;
+			ReloadTime += dt;
+			if (ReloadTime > 5.f) {
+				GameInfo->Ammo[0] = GameInfo->MaxAmmo[0];
+				isReload = false;
+				ReloadTime = 0.f;
+			}
+		}
+	}
+	GameInfo->isReload = isReload;
+
+	if(GameInfo->Ammo[1] < 5)
+		chargeTime += dt;
+	else 
+		chargeTime = 0.f;
+
+	if (chargeTime > 1) {
+		GameInfo->Ammo[1]++;
+		chargeTime = 0.f;
+	}
+}
+
+void Player::CollisionBox()
+{
+	ColBox[LEFT]->SetPosition(m_Position.x - m_Size.x / 2+78, m_Position.y);
+	ColBox[RIGHT]->SetPosition(m_Position.x + m_Size.x / 2 - 78, m_Position.y);
+	ColBox[UP]->SetPosition(m_Position.x, m_Position.y - m_Size.y / 2 );
+	ColBox[DOWN]->SetPosition(m_Position.x, m_Position.y +m_Size.y / 2 );
+	ColBox[HIT]->SetPosition(m_Position);
+	m_ColBox->SetPosition(m_Position);
+	Shield->SetPosition(m_Position);
+}
+
+void Player::GunType()
+{
 	if (GameInfo->PlayerType == 0) {
-		m_Rpm = 0.25f;
+		if (GameInfo->SKILL_Focus_attck)
+			m_Rpm = 0.25f / 4.f;
+		else
+			m_Rpm = 0.25f;
 	}
 	else if (GameInfo->PlayerType == 1) {
 		m_Rpm = 0.9f;
@@ -248,64 +398,15 @@ void Player::Attack()
 	else {
 		m_Rpm = 0.7f;
 	}
-	
-	if (INPUT->GetKey('Z') == KeyState::PRESS) {
-		if (m_DelayTime > m_Rpm && !isReload) {
-			if (GameInfo->Ammo[GameInfo->PlayerType] > 0) {
-				if (GameInfo->PlayerType == 0) {
-					ObjMgr->AddObject(new Bullet(), "Bullet");
-				}
-				else if (GameInfo->PlayerType == 1) {
-					ObjMgr->AddObject(new Missile(m_Position), "Bullet");
-				}
-				else if (GameInfo->PlayerType == 2) {
-					ObjMgr->AddObject(new Bullet(), "Bullet");
-				}
-				else if (GameInfo->PlayerType == 3) {
-					ObjMgr->AddObject(new Bullet(), "Bullet");
-				}
-				GameInfo->Ammo[GameInfo->PlayerType]--;
-			}
-			m_DelayTime = 0.f;
-		}
-	}
-	if (INPUT->GetKey('R') == KeyState::DOWN && !isReload) {
-		isReload = true;
-	}
-	if (isReload) {
-		ReloadTime += dt;
-		if (ReloadTime > 5.f) {
-			GameInfo->Ammo[GameInfo->PlayerType] = GameInfo->MaxAmmo[GameInfo->PlayerType];
-			isReload = false;
-		}
-	}
-	else {
-		if (GameInfo->Ammo[0] <= 0) {
-			isReload = true;
-			ReloadTime += dt;
-			if (ReloadTime > 5.f) {
-				GameInfo->Ammo[0] = GameInfo->MaxAmmo[0];
-				isReload = false;
-			}
-		}
-	}
-	GameInfo->isReload = isReload;
-}
 
-void Player::CollisionBox()
-{
-	ColBox[LEFT]->SetPosition(m_Position.x - m_Size.x / 2+78, m_Position.y);
-	ColBox[RIGHT]->SetPosition(m_Position.x + m_Size.x / 2 - 78, m_Position.y);
-	ColBox[UP]->SetPosition(m_Position.x, m_Position.y - m_Size.y / 2 );
-	ColBox[DOWN]->SetPosition(m_Position.x, m_Position.y +m_Size.y / 2 );
-	ColBox[HIT]->SetPosition(m_Position);
-	m_ColBox ->SetPosition(m_Position);
-}
-
-void Player::GunType()
-{
 }
 
 void Player::Buff()
 {
+}
+
+void Player::Skill()
+{
+	GameInfo->SKILL_Air_force = true;
+	GameInfo->SKILL_Focus_attck = true;
 }

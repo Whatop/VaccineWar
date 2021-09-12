@@ -5,6 +5,7 @@ class Player : public Object
 	Sprite* m_Player;// = ColBox
 	Sprite* m_ColBox;
 	Sprite* ColBox[5];// LEFT COLBOX, RIGHT COLBOX, UP COLBOX, DOWN COLBOX, HIT BOX
+	Sprite* Shield;
 
 	int LEFT, RIGHT, UP, DOWN, HIT;
 	bool isLeft, isRight, isUp, isDown, isHit;
@@ -19,13 +20,24 @@ class Player : public Object
 	//bool isSlow; GameMgr 관리
 	float SlowTime;
 
-	//재장전
+	// 재장전
 	float ReloadTime;
 	bool isReload;
+	float chargeTime;
+
+	// 스피드
+	bool isSpeed;
+	float SpeedTime;
+	
+	//무적
+	bool isInvincible;
+	float InvincibleTime;
 
 	// 기관총, 함포 , 어뢰, 미사일 
 	//MachineGun, NavalProjectile, Torpedo, Missile;
 	//int m_Type; GameMgr 관리
+
+
 public:
 	Player(float hp = 100);
 	~Player();
@@ -40,6 +52,9 @@ public:
 	void CollisionBox();
 	void GunType();
 	void Buff();
+
+	void Skill();
+
 
 	float RpmDelayTime;
 };

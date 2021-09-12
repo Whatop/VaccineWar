@@ -159,6 +159,9 @@
     <ClCompile Include="Oceanic1.cpp">
       <Filter>Game\Object\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="NavalProjectile.cpp">
+      <Filter>Game\Object\Player\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -201,9 +204,6 @@
       <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="GameMgr.h">
-      <Filter>Game\Mgr</Filter>
-    </ClInclude>
-    <ClInclude Include="UI.h">
       <Filter>Game\Mgr</Filter>
     </ClInclude>
     <ClInclude Include="Item.h">
@@ -274,6 +274,12 @@
     </ClInclude>
     <ClInclude Include="AerialEnemy1.h">
       <Filter>Game\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="NavalProjectile.h">
+      <Filter>Game\Object\Player\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>Game\Mgr</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

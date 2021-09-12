@@ -26,6 +26,9 @@ class UI : public Singleton<UI>
 	//Cover
 	Sprite* UIScoreFrame;
 
+	//∏Ò«•
+	Sprite* UIAim;
+
 	//Skill
 	Sprite* Skill_1;
 	Sprite* Skill_2;

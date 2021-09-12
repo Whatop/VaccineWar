@@ -9,10 +9,11 @@ Missile::Missile(Vec2 Pos)
 	m_Missile->AddContinueFrame(L"Painting/Boss/Missile/missile", 0, 1);
 
 	m_ColBox = Sprite::Create(L"Painting/Boss/Missile/ColBox.png");
-	SetPosition(Pos); 
-	m_ColBox->m_Visible = true;
+	m_ColBox->SetParent(this);
+	SetPosition(Pos);
+	m_ColBox->m_Visible = false;
 
-	m_Rotation = D3DXToRadian(0);;
+	m_Rotation = D3DXToRadian(-90);;
 	turnRadian = m_Rotation;
 	vrad = 0.005f;
 	Delay = 0.f;
@@ -22,7 +23,7 @@ Missile::Missile(Vec2 Pos)
 	m_Speed = 400.f;
 	SetScale(2.f, 2.f);
 	DestroyTime = 0.f;
-	m_Atk = 20.f;
+	m_Atk = 100.f;
 }
 
 Missile::~Missile()
@@ -56,38 +57,45 @@ void Missile::Move()
 {
 	if (!isHoming) {
 		HomingTime += dt;
-		m_Position.y += 100 * HomingTime * dt;
+		m_Position.y -= 100 * HomingTime * dt;
 		if (HomingTime > 1.7f) {
 			isHoming = true;
+			HomingTime = 0.f;
 		}
 	}
 	else {
 		if (impellent < 2) {
 			impellent += dt;
 		}
-		Enemy = GameInfo->CloseEnemy - m_Position;
-	
-		D3DXVec2Normalize(&Dire, &Enemy);
-		Delay += dt;
-		if (Delay > 1) {
-			vrad += dt * 0.01;
-			Delay = 0;
-		}
-		float pi2 = D3DX_PI * 2;
-		float diff = std::atan2f(Dire.y, Dire.x) - turnRadian;
-		while (diff < -D3DX_PI) diff += pi2;
-		while (diff >= D3DX_PI) diff -= pi2;
+		
+		Enemy = GameInfo->CloseEnemy[2] - m_Position;
 
-		if (abs(diff) < vrad)
-			turnRadian += diff;
+		if (!GameInfo->AerialPos.empty()) {
+			D3DXVec2Normalize(&Dire, &Enemy);
+			Delay += dt;
+			if (Delay > 0.1f) {
+				vrad += dt * 0.01;
+				Delay = 0;
+			}
+			float pi2 = D3DX_PI * 2;
+			float diff = std::atan2f(Dire.y, Dire.x) - turnRadian;
+			while (diff < -D3DX_PI) diff += pi2;
+			while (diff >= D3DX_PI) diff -= pi2;
+
+			if (abs(diff) < vrad)
+				turnRadian += diff;
+			else {
+				turnRadian += (diff < 0 ? -vrad : vrad);
+			}
+			
+			Dire.y = sin(turnRadian);
+			Dire.x = cos(turnRadian);
+			m_Rotation = std::atan2f(Dire.y, Dire.x);
+			Translate(Dire.x * m_Speed * impellent * dt, Dire.y * m_Speed * impellent * dt);
+
+		}
 		else {
-			turnRadian += (diff < 0 ? -vrad : vrad);
+			m_Position.y -= m_Speed * impellent*dt;
 		}
-
-		Dire.y = sin(turnRadian);
-		Dire.x = cos(turnRadian);
-		m_Rotation = std::atan2f(Dire.y, Dire.x);
-		Translate(Dire.x * m_Speed * impellent * dt, Dire.y * m_Speed * impellent * dt);
-
 	}
 }

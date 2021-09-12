@@ -44,6 +44,9 @@ void UI::Init()
 
 	GunTpye = Sprite::Create(L"Painting/UI/GunType/0.png");
 	GunTpye->SetPosition(320 / 2, 160);
+	
+	UIAim = Sprite::Create(L"Painting/UI/Aim.png");
+	UIAim->SetPosition(1920 / 2, 700);
 
 	ObjMgr->AddObject(StateWindow, "UI");
 	ObjMgr->AddObject(SpeedImage, "UI");
@@ -122,6 +125,30 @@ void UI::Update()
 	}
 	GunTpye = Sprite::Create(L"Painting/UI/GunType/"+std::to_wstring(GameInfo->PlayerType)+L".png");
 	GunTpye->SetPosition(320 / 2, 160);
+	
+	if (GameInfo->EnemyCount > 0) {
+		Vec2 Dire,Enemy,A,B;
+		if (GameInfo->PlayerType == 1 || GameInfo->PlayerType == 0) {
+			Enemy = GameInfo->CloseEnemy[0] - UIAim->m_Position;
+			B = GameInfo->CloseEnemy[0];
+		}
+		else if (GameInfo->PlayerType == 2 || GameInfo->PlayerType == 3) {
+			UIAim->m_Position = GameInfo->CloseEnemy[GameInfo->PlayerType - 1];
+			B = GameInfo->CloseEnemy[GameInfo->PlayerType - 1];
+		}
+		D3DXVec2Normalize(&Dire, &Enemy);
+		A = UIAim->m_Position;
+		float limit = (sqrt(pow(A.x - B.x, 2) + pow(A.y - B.y, 2)) / 750.f);
+		if (limit < 0.01f) 
+			UIAim->Translate(Dire.x * 500.f * limit * dt, Dire.y * 500.f * limit * dt);
+		else
+			UIAim->Translate(Dire.x * 500.f  * dt, Dire.y * 500.f * dt);
+
+	
+	}
+	else {
+		UIAim->SetPosition(1920 / 2, 700);
+	}
 
 	if (GameInfo->isReload) {
 		ReloadText->SetColor(255, 255, 255, 255);
@@ -145,6 +172,7 @@ void UI::Render()
 	Bar();
 	Text();
 	GunTpye->Render();
+	UIAim->Render();
 }
 
 void UI::ScoreUI()

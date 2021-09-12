@@ -1,0 +1,20 @@
+#pragma once
+class NavalProjectile : public Object
+{
+	Animation* m_Bolt;
+	Sprite* m_Bullet;
+	Vec2 Dire;
+	Vec2 Spawnpoint;
+	float DelayTime;
+	float DestroyTime;
+public:
+	NavalProjectile(Vec2 spawnpoint = GetPlayer->m_Position, bool minibullet = false);
+	~NavalProjectile();
+
+	void Update(float deltaTime, float Time);
+	void Render();
+	void OnCollision(Object* obj);
+
+	void Move();
+};
+

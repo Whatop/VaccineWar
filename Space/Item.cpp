@@ -3,7 +3,7 @@
 
 Item::Item(Vec2 Pos, bool bonus)
 {
-	ItemCode = rand() % 3 + 0;
+	ItemCode = rand() % 5 + 0;
 	if (bonus) { // 도난 맞은 백신 키트
 		ItemCode = 999;
 		DestroyTime = 10.f;
@@ -31,14 +31,21 @@ void Item::Update(float deltaTime, float Time)
 	if (GameInfo->isScoreScene) {
 		m_Item->m_Visible = false;
 	}
+	//MachineGun, NavalProjectile, Torpedo, Missile;
 	if (ItemCode == 0) {
-		m_Tag = "Heal";
+		m_Tag = "AddMachineGun";
 	}
 	else if (ItemCode == 1) {
-		m_Tag = "AtkUp";
+		m_Tag = "AddMissile";
 	}
 	else if (ItemCode == 2) {
-		m_Tag = "None";
+		m_Tag = "AddTorpedo";
+	}
+	else if (ItemCode == 3) {
+		m_Tag = "Invincibility";
+	}
+	else if (ItemCode == 4) {
+		m_Tag = "SpeedUp";
 	}
 	else if (ItemCode == 999) {
 		m_Tag = "Bonus";
@@ -47,9 +54,9 @@ void Item::Update(float deltaTime, float Time)
 		ObjMgr->CollisionCheak(this, "Player");
 		DestroyTime += dt;
 		Move();
-		if (m_Position.y > 470 - m_Size.y / 2)
+		if (m_Position.y > 1071 - m_Size.y / 2)
 			m_Rotation = m_Rotation * -1;
-		if (m_Position.y < -180 + 72 + m_Size.y / 2)
+		if (m_Position.y < 539 + m_Size.y / 2)
 			m_Rotation = m_Rotation * -1;
 		if (m_Position.x > Camera::GetInst()->m_Position.x + App::GetInst()->m_Width - m_Size.x / 2)
 			m_Rotation = m_Rotation * -1.5f;

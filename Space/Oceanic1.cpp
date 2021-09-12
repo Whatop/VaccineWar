@@ -3,7 +3,7 @@
 #include "EnemyDirBullet.h"
 #include "Item.h"
 
-Oceanic1::Oceanic1(Vec2 Pos)
+Oceanic1::Oceanic1(Vec2 Pos,int enemyCount)
 {
 	m_Oceanic1 = Sprite::Create(L"Painting/Enemy/Oceanic1/Temp.png");
 	m_Oceanic1->SetParent(this);
@@ -20,10 +20,15 @@ Oceanic1::Oceanic1(Vec2 Pos)
 	SpawnMove = 0.f;
 	m_Layer = 2;
 	std::cout << "적 해군 1 생성" << std::endl;
-	EnemyTag = GameInfo->EnemyCount;
+
+	EnemyOcTag = enemyCount;
 	GameInfo->EnemyCount++;
+
+	GameInfo->AllEnemyPos.push_back(Vec2(9999, 9999));
+	GameInfo->OceanicPos.push_back(Vec2(9999, 9999));
 	ones = true;
 	SetScale(2,2);
+	random = rand() % 300;
 }
 
 Oceanic1::~Oceanic1()
@@ -32,12 +37,13 @@ Oceanic1::~Oceanic1()
 
 void Oceanic1::Update(float deltaTime, float Time)
 {
-	GameInfo->EnemyPos[EnemyTag] = m_Position;
+	GameInfo->AllEnemyPos.at(EnemyOcTag) = m_Position;
+	GameInfo->OceanicPos.at(EnemyOcTag) = m_Position;
 	if (!GameInfo->isPause) {
 		SpawnMove += dt;
 
 		if (SpawnMove < 2) {
-			m_Position.x -= (300 + rand() % 100) * dt;
+			m_Position.x -= (100 + random) * dt;
 			ObjMgr->CollisionCheak(this, "Bullet");
 		}
 		else {
@@ -54,22 +60,26 @@ void Oceanic1::Update(float deltaTime, float Time)
 			m_Oceanic1->A = 255;
 			//WaterEffect->SetAnimeColor();
 			//WaterEffect->Update(deltaTime, Time);
-			if (m_Hp <= 0)
-			{
-				if ((rand() % 30) == 0)
-					ObjMgr->AddObject(new Item(m_Position), "Heal");
-				ObjMgr->RemoveObject(this);
-				ObjMgr->AddObject(new EffectMgr(L"Painting/Effect/Big/", 1, 9, 0.1f, m_Position), "Effect");
-				GameInfo->EnemyCount--;
-				GameInfo->MaxScore += 100;
-				GameInfo->KillScore += 100;
-			}
+			
 			
 		}
 	}
 	else {
 		m_Oceanic1->A = 105;
 		//WaterEffect->SetAnimeColor(105);
+	}
+	if (m_Hp <= 0)
+	{
+		ObjMgr->AddObject(new Item(m_Position), "Heal");
+		if ((rand() % 30) == 0)
+			ObjMgr->AddObject(new Item(m_Position), "Heal");
+		ObjMgr->RemoveObject(this);
+		ObjMgr->AddObject(new EffectMgr(L"Painting/Effect/Big/", 1, 9, 0.1f, m_Position), "Effect");
+	
+		GameInfo->MaxScore += 100;
+		GameInfo->KillScore += 100;
+		GameInfo->AllEnemyPos.at(EnemyOcTag) = Vec2(9999, 9999);
+		GameInfo->EnemyCount--;
 	}
 }
 

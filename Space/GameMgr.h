@@ -27,7 +27,7 @@ public:
 	Sprite* PSprite;
 	GameMgr();
 	~GameMgr();
-	float tempdistance;
+
 	std::vector<RankingPlayer*> Ranks;
 	RankingPlayer* m_Rank; // 플레이어의 랭크
 	StageScene m_Scene; // 현제 화면 상태
@@ -82,10 +82,17 @@ public:
 
 	int PetCount;
 
+
+	std::vector<Vec2> AllEnemyPos;
+	std::vector<Vec2> OceanicPos;
+	std::vector<Vec2> AerialPos;
+
+	Vec2 CloseEnemy[3];
+
 	int EnemyCount;
-	Vec2 EnemyPos[20];
-	Vec2 CloseEnemy;
-	float Enemydistance;
+
+	float Enemydistance[3];
+	float tempdistance[3];
 
 	Vec2 BossPosition;
 	int StageScore;
@@ -135,6 +142,8 @@ public:
 
 	void SpawnCoin(Vec2 Pos);
 
-	void ClosePos();
+	void ClosePosAllEnemy();
+	void ClosePosOceanic();
+	void ClosePosAerial();
 };
 

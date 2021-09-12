@@ -63,15 +63,18 @@ void GameMgr::Init()
 	isScoreScene = false;
 	Ammo[0] = 30;
 	Ammo[1] = 5;
-	Ammo[2] = 1;
-	Ammo[3] = 1;
+	Ammo[2] = 5;
+	Ammo[3] = 3;
 
 	MaxAmmo[0] = 30;
 	MaxAmmo[1] = 5;
-	MaxAmmo[2] = 1;
-	MaxAmmo[3] = 1;
-	tempdistance = 0;
-	Enemydistance = 9999;
+	MaxAmmo[2] = 5;
+	MaxAmmo[3] = 3;
+
+
+	AllEnemyPos.clear();
+	OceanicPos.clear();
+	AerialPos.clear();
 }
 
 void GameMgr::Release()
@@ -121,9 +124,10 @@ void GameMgr::Update()
 		UI::GetInst()->Update();
 
 	AddScore(MaxScore);
-	if (EnemyCount > 0) {
-		ClosePos();
-	}
+	ClosePosAllEnemy();
+	ClosePosOceanic();
+	ClosePosAerial();
+	
 }
 
 void GameMgr::Render()
@@ -188,7 +192,7 @@ void GameMgr::CheatKey()
 		//Camera::GetInst()->ShakeTimeY = 0.f;
 		Camera::GetInst()->ShakeTimeX = 0.3f;
 	}
-	if (!isPause) {
+	if (!isPause && !GameInfo->isReload) {
 		if (INPUT->GetKey('1') == KeyState::DOWN) {
 			PlayerType = 0;
 		}
@@ -276,22 +280,55 @@ void GameMgr::CheatKey()
 
 void GameMgr::SpawnCoin(Vec2 Pos)
 {
-	ObjMgr->AddObject(new Coin(Pos), "Coin");
+	ObjMgr->AddObject(new Coin(Pos), "Coin");	
 }
 
-
-void GameMgr::ClosePos()
+void GameMgr::ClosePosAllEnemy()
 {
-	for (int i = 0; i < EnemyCount; i++) {
-			tempdistance = 
-				sqrt(pow(PlayerInfo->m_Position.x- EnemyPos[i].x,2)
-				+ pow(PlayerInfo->m_Position.y- EnemyPos[i].y, 2));
-				if (Enemydistance > tempdistance) {
-					tempdistance = Enemydistance;
-					CloseEnemy = EnemyPos[i];
-				}
+	if (!AllEnemyPos.empty()) {
+		for (int i = 0; i < AllEnemyPos.size(); i++) {
+			tempdistance[0] =
+				sqrt(pow(PlayerInfo->m_Position.x - AllEnemyPos.at(i).x, 2)
+					+ pow(PlayerInfo->m_Position.y - AllEnemyPos.at(i).y, 2));
+			if (Enemydistance[0] > tempdistance[0]) {
+				Enemydistance[0]= tempdistance[0];
+				CloseEnemy[0] = AllEnemyPos.at(i);
+			}
+		}
+		Enemydistance[0] = 9999;
 	}
+}
 
+void GameMgr::ClosePosOceanic()
+{
+	if (!OceanicPos.empty()) {
+		for (int i = 0; i < OceanicPos.size(); i++) {
+			tempdistance[1] =
+				sqrt(pow(PlayerInfo->m_Position.x - OceanicPos.at(i).x, 2)
+					+ pow(PlayerInfo->m_Position.y - OceanicPos.at(i).y, 2));
+			if (Enemydistance[1] > tempdistance[1]) {
+				Enemydistance[1] = tempdistance[1];
+				CloseEnemy[1] = OceanicPos.at(i);
+			}
+		}
+		Enemydistance[1] = 9999;
+	}
+}
+
+void GameMgr::ClosePosAerial()
+{
+	if (!AerialPos.empty()) {
+		for (int i = 0; i < AerialPos.size(); i++) {
+			tempdistance[2] =
+				sqrt(pow(PlayerInfo->m_Position.x - AerialPos.at(i).x, 2)
+					+ pow(PlayerInfo->m_Position.y - AerialPos.at(i).y, 2));
+			if (Enemydistance[2] > tempdistance[2]) {
+				Enemydistance[2] = tempdistance[2];
+				CloseEnemy[2] = AerialPos.at(i);
+			}
+		}
+		Enemydistance[2] = 9999;
+	}
 }
 
 void GameMgr::SpawnEnemy()
@@ -300,14 +337,16 @@ void GameMgr::SpawnEnemy()
 		SpawnDelay += dt;
 		if (SpawnDelay > 4) {
 
-			ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492+540)), "Mine");
+			ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492+540), 0), "Enemy");
+			ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492+540), 1), "Enemy");
+			ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492+540), 2), "Enemy");
 			if(rand()%2==0)
 				ObjMgr->AddObject(new Obstacle(Vec2(2000, rand() % 200+700), true), "Mine");
 			else 
 				ObjMgr->AddObject(new Obstacle(Vec2(2000, rand() % 200 + 700), false), "Trash");
 
 			//ObjMgr->AddObject(new Obstacle(Vec2(2000, 700), false), "Mine");
-			SpawnDelay = 0.f;
+			SpawnDelay = -100000.f;
 		}
 	}
 }

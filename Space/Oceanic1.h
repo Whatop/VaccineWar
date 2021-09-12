@@ -13,9 +13,14 @@ class Oceanic1 : public Object
 
 	float DamegeCoolTime;
 
-	int EnemyTag;
+	int EnemyOcTag;
+	
+	int constEnemyOcTag;
+
+	int	tempOceanic;
+	int	random;
 public:
-	Oceanic1(Vec2 Pos);
+	Oceanic1(Vec2 Pos,int enemyCount);
 	~Oceanic1();
 
 	void Update(float deltaTime, float Time);

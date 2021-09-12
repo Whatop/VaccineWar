@@ -5,7 +5,7 @@ Bullet::Bullet(Vec2 spawnpoint, bool minibullet)
 {
 	m_Bolt = new Animation();
 	m_Bolt->Init(0.1f, true);
-	m_Bolt->AddContinueFrame(L"Painting/Bullet/Bolt/bolt",1,4);
+	m_Bolt->AddContinueFrame(L"Painting/Bullet/Bolt/enemybolt",1,4);
 	m_Bolt->SetParent(this);
 
 	m_Bullet = Sprite::Create(L"Painting/Bullet/Spread.png");
@@ -18,13 +18,17 @@ Bullet::Bullet(Vec2 spawnpoint, bool minibullet)
 	DelayTime = 1.f;
 	DestroyTime = 0.f;
 	m_Layer = 2;
-	m_Atk = 35.f * GameInfo->Player_Coefficient;
-	if (!minibullet)
-		SetScale(1.5f, 1.5f);
-	else
-		SetScale(0.75f, 0.75f);
+	m_Atk = 10.f * GameInfo->Player_Coefficient;
+	SetScale(1.f, 1.f);
+	if (GameInfo->EnemyCount > 0) {
+		Vec2 Enemy = GameInfo->CloseEnemy[0] - m_Position;
+		D3DXVec2Normalize(&Dire, &Enemy);
+	}
+	else {
 
-	m_Rotation = D3DXToRadian(90);
+		Vec2 Enemy = Vec2(1920/2,700) - m_Position;
+		D3DXVec2Normalize(&Dire, &Enemy);
+	}
 }
 
 Bullet::~Bullet()
@@ -62,9 +66,7 @@ void Bullet::OnCollision(Object* obj)
 
 void Bullet::Move()
 {
-	m_Rotation =m_Rotation;
-	Dire.y = cos(m_Rotation);
-	Dire.x = sin(m_Rotation);
 
+	m_Rotation = std::atan2f(Dire.y, Dire.x);
 	Translate(Dire.x * m_Speed*DelayTime * dt, Dire.y * m_Speed* DelayTime * dt);
 }
