@@ -162,6 +162,9 @@
     <ClCompile Include="NavalProjectile.cpp">
       <Filter>Game\Object\Player\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="AirForce.cpp">
+      <Filter>Game\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -280,6 +283,9 @@
     </ClInclude>
     <ClInclude Include="UI.h">
       <Filter>Game\Mgr</Filter>
+    </ClInclude>
+    <ClInclude Include="AirForce.h">
+      <Filter>Game\Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

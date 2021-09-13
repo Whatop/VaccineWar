@@ -11,8 +11,9 @@ class Missile : public Object
 	float m_Speed;
 	bool isHoming;
 	float DestroyTime;
+	bool AllTarget;
 public:
-	Missile(Vec2 Pos);
+	Missile(Vec2 Pos,bool alltarget = false);
 	~Missile();
 
 	void Update(float deltaTime, float Time);

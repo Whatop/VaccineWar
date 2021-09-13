@@ -4,6 +4,7 @@
 #include "Missile.h"
 #include "Torpedo.h"
 #include "NavalProjectile.h"
+#include "AirForce.h"
 
 Player::Player(float hp)
 {
@@ -411,7 +412,6 @@ void Player::Skill()
 	if (INPUT->GetKey('X') == KeyState::DOWN &&
 		GameInfo->SKILL_CoolTime[0] <= 0.f) {
 		GameInfo->SKILL_Focus_attck = true;
-		GameInfo->SKILL_CoolTime[0] = 40.f;
 	}
 	if (INPUT->GetKey('C') == KeyState::DOWN && 
 		GameInfo->SKILL_CoolTime[1] <= 0.f){
@@ -427,7 +427,10 @@ void Player::Skill()
 	}
 	if (GameInfo->SKILL_Air_force) {
 		//Æø°Ý ¼ÒÈ¯
-		GameInfo->SKILL_Air_force = false;
 
+		ObjMgr->AddObject(new AirForce(), "AirForce");
+		//GameInfo->SKILL_Air_force = false; Æø°Ý¿¡ 
+		//GameInfo->SKILL_CoolTime[0] = 40.f;
+		GameInfo->SKILL_Air_force = false;
 	}
 }

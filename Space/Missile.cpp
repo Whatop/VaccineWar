@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Missile.h"
 
-Missile::Missile(Vec2 Pos)
+Missile::Missile(Vec2 Pos,bool allTarget )
 {
 	m_Missile = new Animation();
 	m_Missile->Init(0.1f, true);
@@ -13,7 +13,6 @@ Missile::Missile(Vec2 Pos)
 	SetPosition(Pos);
 	m_ColBox->m_Visible = false;
 
-	m_Rotation = D3DXToRadian(-90);;
 	turnRadian = m_Rotation;
 	vrad = 0.005f;
 	Delay = 0.f;
@@ -24,6 +23,11 @@ Missile::Missile(Vec2 Pos)
 	SetScale(2.f, 2.f);
 	DestroyTime = 0.f;
 	m_Atk = 100.f;
+	AllTarget = allTarget;
+	if(AllTarget)
+		m_Rotation = D3DXToRadian(0);
+	else
+		m_Rotation = D3DXToRadian(-90);
 }
 
 Missile::~Missile()
@@ -57,7 +61,11 @@ void Missile::Move()
 {
 	if (!isHoming) {
 		HomingTime += dt;
-		m_Position.y -= 100 * HomingTime * dt;
+		if(AllTarget )
+			m_Position.y += 100 * HomingTime * dt;
+		else
+			m_Position.y -= 100 * HomingTime * dt;
+
 		if (HomingTime > 1.7f) {
 			isHoming = true;
 			HomingTime = 0.f;
@@ -67,35 +75,65 @@ void Missile::Move()
 		if (impellent < 2) {
 			impellent += dt;
 		}
-		
-		Enemy = GameInfo->CloseEnemy[2] - m_Position;
+		if(!AllTarget )
+			Enemy = GameInfo->CloseEnemy[2] - m_Position;
+		else
+			Enemy = GameInfo->CloseEnemy[0] - m_Position;
 
-		if (!GameInfo->AerialPos.empty()) {
-			D3DXVec2Normalize(&Dire, &Enemy);
-			Delay += dt;
-			if (Delay > 0.1f) {
-				vrad += dt * 0.01;
-				Delay = 0;
+		if (!AllTarget ) {
+			if (!GameInfo->AerialPos.empty()) {
+				D3DXVec2Normalize(&Dire, &Enemy);
+				Delay += dt;
+				vrad += dt;
+					
+				float pi2 = D3DX_PI * 2;
+				float diff = std::atan2f(Dire.y, Dire.x) - turnRadian;
+				while (diff < -D3DX_PI) diff += pi2;
+				while (diff >= D3DX_PI) diff -= pi2;
+
+				if (abs(diff) < vrad)
+					turnRadian += diff;
+				else {
+					turnRadian += (diff < 0 ? -vrad : vrad);
+				}
+
+				Dire.y = sin(turnRadian);
+				Dire.x = cos(turnRadian);
+				m_Rotation = std::atan2f(Dire.y, Dire.x);
+				Translate(Dire.x * m_Speed * impellent * dt, Dire.y * m_Speed * impellent * dt);
+
 			}
-			float pi2 = D3DX_PI * 2;
-			float diff = std::atan2f(Dire.y, Dire.x) - turnRadian;
-			while (diff < -D3DX_PI) diff += pi2;
-			while (diff >= D3DX_PI) diff -= pi2;
-
-			if (abs(diff) < vrad)
-				turnRadian += diff;
 			else {
-				turnRadian += (diff < 0 ? -vrad : vrad);
+				m_Position.y -= m_Speed * dt;
 			}
-			
-			Dire.y = sin(turnRadian);
-			Dire.x = cos(turnRadian);
-			m_Rotation = std::atan2f(Dire.y, Dire.x);
-			Translate(Dire.x * m_Speed * impellent * dt, Dire.y * m_Speed * impellent * dt);
-
 		}
 		else {
-			m_Position.y -= m_Speed * impellent*dt;
-		}
+			if (GameInfo->AllEnemyPos.empty()) 
+			Enemy = Vec2(1920/2,1080/2) - m_Position;
+
+				D3DXVec2Normalize(&Dire, &Enemy);
+				Delay += dt;
+				if (Delay > 0.1f) {
+					vrad += dt * 0.01;
+					Delay = 0;
+				}
+				float pi2 = D3DX_PI * 2;
+				float diff = std::atan2f(Dire.y, Dire.x) - turnRadian;
+				while (diff < -D3DX_PI) diff += pi2;
+				while (diff >= D3DX_PI) diff -= pi2;
+
+				if (abs(diff) < vrad)
+					turnRadian += diff;
+				else {
+					turnRadian += (diff < 0 ? -vrad : vrad);
+				}
+
+				Dire.y = sin(turnRadian);
+				Dire.x = cos(turnRadian);
+				m_Rotation = std::atan2f(Dire.y, Dire.x);
+				Translate(Dire.x * m_Speed * impellent * dt, Dire.y * m_Speed * impellent * dt);
+			}
+
+		
 	}
 }

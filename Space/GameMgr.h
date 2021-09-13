@@ -77,7 +77,8 @@ public:
 	float SKILL_Air_force; 
 	float SKILL_Focus_attck;
 
-	float SKILL_CoolTime[2];
+	
+	float SKILL_CoolTime[2]; // Focus_attck , Air_Force
 
 	// CheatKey
 	bool CK_BossSpawn;

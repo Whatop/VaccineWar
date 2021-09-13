@@ -31,8 +31,8 @@ class UI : public Singleton<UI>
 	//∏Ò«•
 	Sprite* UIAim;
 
-	//Skill
-	Sprite* Skill_1[2];
+	//Skill Air Attack
+	Sprite* Skill_1[2];// 0 Skill 1 CoolDown
 	Sprite* Skill_2[2];
 
 	// KILL, ITEM, BONUS, ALL
