@@ -20,10 +20,12 @@ class GameMgr : public Singleton<GameMgr>
 {
 	Object* PlayerInfo;
 
+	// UI Hpbar
 	float MaxHp, Hp;
 	float BossMaxHp, BossHp;
 	float MiniBossMaxHp, MiniBossHp;
 public:
+	// PlayerColBox
 	Sprite* PSprite;
 	GameMgr();
 	~GameMgr();
@@ -32,57 +34,63 @@ public:
 	RankingPlayer* m_Rank; // 플레이어의 랭크
 	StageScene m_Scene; // 현제 화면 상태
 
+	// Check
 	bool m_isCreatePlayer;
 	bool m_isCreateUI;
-	bool m_DebugMode;
 
-	bool AutoCamera;
-	bool CameraStop;
-
+	// BossCheck
 	bool isBossSpawn;
 	bool isMiniBossSpawn;
-
 	bool isOneBoss;
 	bool isOneMiniBoss;
 
+	// EnemyCheck
 	bool isSpawnEnemy;
 
+	// HitCheck
 	bool PlayerHit;
+
+	// Obstacle
 	bool  MineDamage;
 	bool PlayerSlow;
 	bool isTrash;
 
-	bool isScoreScene; // 마지막 점수 화면
+	// 결과 창 ScoreScene
+	bool isScoreScene; 
 
+	// Score
 	int MaxScore;
 	float m_Score;
 	float KillScore, ItemScore, BonusScore;
-	
-	float m_Money;
 
 	float Player_Coefficient; // 플레이어 공격력 계수
 	
 	float Enemy_Coefficient; // 적 공격력 계수
 
+	// EnemySpawn
 	float SpawnDelay;
 	float AddDelay;
-	
-	int ChargeCount;
 
 	bool isNoHit; //노히트 판정체크
 
+	//Skill
 	float SKILL_Air_force; 
 	float SKILL_Focus_attck;
 
+	float SKILL_CoolTime[2];
+
+	// CheatKey
 	bool CK_BossSpawn;
 	bool CK_MiniBossSpawn;
 	bool CK_GodMode;
 	bool CK_TimePause;
 	bool isPause;
 
-	int PetCount;
-
-
+	bool m_DebugMode;
+	bool AutoCamera;
+	bool CameraStop;
+	
+	// EnemyPosition
 	std::vector<Vec2> AllEnemyPos;
 	std::vector<Vec2> OceanicPos;
 	std::vector<Vec2> AerialPos;
@@ -105,6 +113,8 @@ public:
 	//재장전
 	bool isReload;
 
+	//pet
+	int PetCount;
 public:
 	void Init();
 	void Release();

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+	#include "stdafx.h"
 #include "Obstacle.h"
 
 Obstacle::Obstacle(Vec2 SpawnPoint, bool isboom)

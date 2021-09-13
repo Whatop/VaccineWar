@@ -22,6 +22,8 @@ class UI : public Singleton<UI>
 	TextMgr* AmmoText;
 	TextMgr* ReloadText;
 	
+	//Buff : 스피드, 무적, 집중 공격
+	Sprite* BuffState[3];
 
 	//Cover
 	Sprite* UIScoreFrame;
@@ -30,8 +32,8 @@ class UI : public Singleton<UI>
 	Sprite* UIAim;
 
 	//Skill
-	Sprite* Skill_1;
-	Sprite* Skill_2;
+	Sprite* Skill_1[2];
+	Sprite* Skill_2[2];
 
 	// KILL, ITEM, BONUS, ALL
 	float limit[4];

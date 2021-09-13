@@ -47,7 +47,20 @@ void UI::Init()
 	
 	UIAim = Sprite::Create(L"Painting/UI/Aim.png");
 	UIAim->SetPosition(1920 / 2, 700);
+	
+	for (int i = 0; i < 2; i++) {
+		Skill_1[0] = Sprite::Create(L"Painting/UI/ShieldSkill.png");
+		Skill_1[1] = Sprite::Create(L"Painting/UI/SkillCooldown.png");
 
+		Skill_2[0] = Sprite::Create(L"Painting/UI/airsupport.png");
+		Skill_2[1] = Sprite::Create(L"Painting/UI/SkillCooldown.png");	
+
+		Skill_1[i]->SetPosition(220 / 2, 1080 - 220 / 2 - 20);
+		Skill_1[i]->SetScale(2.f, 2.f);
+
+		Skill_2[i]->SetPosition(320, 1080 - 220 / 2-20);
+		Skill_2[i]->SetScale(2.f, 2.f);
+	}
 	ObjMgr->AddObject(StateWindow, "UI");
 	ObjMgr->AddObject(SpeedImage, "UI");
 	ObjMgr->AddObject(SpeedFrameImage, "UI");
@@ -58,7 +71,7 @@ void UI::Init()
 	ObjMgr->AddObject(MiniBossBar, "UI");
 	ObjMgr->AddObject(UIScoreFrame, "UI");
 	ObjMgr->AddObject(ScoreImage, "UI");
-
+	
 	ScoreText = new TextMgr();
 	ScoreText->Init(80, true, false, "±¼¸²");
 	ScoreText->SetColor(255, 255, 255, 0);
@@ -133,18 +146,15 @@ void UI::Update()
 			B = GameInfo->CloseEnemy[0];
 		}
 		else if (GameInfo->PlayerType == 2 || GameInfo->PlayerType == 3) {
-			UIAim->m_Position = GameInfo->CloseEnemy[GameInfo->PlayerType - 1];
+			Enemy = GameInfo->CloseEnemy[GameInfo->PlayerType - 1]- UIAim->m_Position;
 			B = GameInfo->CloseEnemy[GameInfo->PlayerType - 1];
 		}
 		D3DXVec2Normalize(&Dire, &Enemy);
 		A = UIAim->m_Position;
-		float limit = (sqrt(pow(A.x - B.x, 2) + pow(A.y - B.y, 2)) / 750.f);
-		if (limit < 0.01f) 
-			UIAim->Translate(Dire.x * 500.f * limit * dt, Dire.y * 500.f * limit * dt);
-		else
+		float limit = (sqrt(pow(A.x - B.x, 2) + pow(A.y - B.y, 2)) / 500.f);
+		
+		if(limit > 0.01f)
 			UIAim->Translate(Dire.x * 500.f  * dt, Dire.y * 500.f * dt);
-
-	
 	}
 	else {
 		UIAim->SetPosition(1920 / 2, 700);
@@ -164,6 +174,13 @@ void UI::Update()
 	else {
 		ReloadText->SetColor(0, 255, 255, 255);
 	}
+
+	for (int i = 0; i < 2; i++) {
+		Skill_1[i]->SetPosition(190 / 2, 330);
+		Skill_2[i]->SetPosition(190 / 2, 500);
+		Skill_2[i]->SetScale(1.5f, 1.5f);
+		Skill_1[i]->SetScale(1.5f, 1.5f);
+	}
 }
 
 
@@ -173,6 +190,11 @@ void UI::Render()
 	Text();
 	GunTpye->Render();
 	UIAim->Render();
+
+	for (int i = 0; i < 2; i++) {
+		Skill_1[i]->Render();
+		Skill_2[i]->Render();
+	}
 }
 
 void UI::ScoreUI()

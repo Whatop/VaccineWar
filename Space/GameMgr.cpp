@@ -40,7 +40,6 @@ void GameMgr::Init()
 
 	BossMaxHp = 0, BossHp = 0;
 	MiniBossMaxHp = 0, MiniBossHp = 0;
-	ChargeCount = 0;
 	Player_Coefficient = 1.f;
 	isSpawnEnemy = false;
 
@@ -71,6 +70,8 @@ void GameMgr::Init()
 	MaxAmmo[2] = 5;
 	MaxAmmo[3] = 3;
 
+	SKILL_CoolTime[0] = 0.f;
+	SKILL_CoolTime[1] = 0.f;
 
 	AllEnemyPos.clear();
 	OceanicPos.clear();

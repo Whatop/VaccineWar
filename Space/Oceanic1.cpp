@@ -51,6 +51,8 @@ void Oceanic1::Update(float deltaTime, float Time)
 				//519~1041
 				m_RandomPosition = Vec2((rand() % 920 + 1000), (rand() % 519 + 520));
 				ones = false;
+				GameInfo->AllEnemyPos.at(EnemyOcTag) = m_Position;
+				GameInfo->OceanicPos.at(EnemyOcTag) = m_Position;
 			}
 			ObjMgr->CollisionCheak(this, "Bullet");
 			m_LastMoveTime += dt;
@@ -79,6 +81,7 @@ void Oceanic1::Update(float deltaTime, float Time)
 		GameInfo->MaxScore += 100;
 		GameInfo->KillScore += 100;
 		GameInfo->AllEnemyPos.at(EnemyOcTag) = Vec2(9999, 9999);
+		GameInfo->OceanicPos.at(EnemyOcTag) = Vec2(9999, 9999);
 		GameInfo->EnemyCount--;
 	}
 }
@@ -124,10 +127,10 @@ void Oceanic1::Move()
 	else
 	{
 		if (m_Position.y < 777.5f)
-			m_RandomPosition = Vec2((rand() % 920 + 1000), (rand() % 522 + 519));
+			m_RandomPosition = Vec2((rand() % 920 + 1000), (rand() % 519 + 522));
 
 		else
-			m_RandomPosition = Vec2((rand() % 920 + 1000), (rand() % 522 + 519));
+			m_RandomPosition = Vec2((rand() % 920 + 1000), (rand() % 519 + 522));
 
 		m_LastMoveTime = 2.f;
 	
@@ -140,5 +143,6 @@ void Oceanic1::Move()
 		D3DXVec2Normalize(&Dir, &Dir);
 
 		ObjMgr->AddObject(new EnemyDirBullet(Vec2(m_Position.x - 10, m_Position.y), Dir), "EnemyBullet");
+
 	}
 }

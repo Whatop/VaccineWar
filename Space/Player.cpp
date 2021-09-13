@@ -183,7 +183,7 @@ void Player::Update(float deltaTime, float Time)
 		if (m_Hp < 0) {
 			m_Hp = 0.f; // °ÔÀÌÁö UI¶§¹®¿¡ ÇØ³ð
 		}
-		if (m_Hp <= 0) {
+		if (m_Hp <= 0) { 
 			//ÆøÆÄÈÄ Fail..
 		}
 		GameInfo->PlayerHpUpdate(m_MaxHp, m_Hp);
@@ -201,6 +201,7 @@ void Player::Update(float deltaTime, float Time)
 			InvincibleTime = 0.f;
 		}
 	}
+	Skill();
 }
 
 void Player::Render()
@@ -407,6 +408,26 @@ void Player::Buff()
 
 void Player::Skill()
 {
-	GameInfo->SKILL_Air_force = true;
-	GameInfo->SKILL_Focus_attck = true;
+	if (INPUT->GetKey('X') == KeyState::DOWN &&
+		GameInfo->SKILL_CoolTime[0] <= 0.f) {
+		GameInfo->SKILL_Focus_attck = true;
+		GameInfo->SKILL_CoolTime[0] = 40.f;
+	}
+	if (INPUT->GetKey('C') == KeyState::DOWN && 
+		GameInfo->SKILL_CoolTime[1] <= 0.f){
+		GameInfo->SKILL_Air_force = true;
+		GameInfo->SKILL_CoolTime[1] = 20.f;
+	}
+	
+	GameInfo->SKILL_CoolTime[0] -= dt;
+	GameInfo->SKILL_CoolTime[1] -= dt;
+	
+	if (GameInfo->GameInfo->SKILL_CoolTime[0] < 15) {
+		GameInfo->SKILL_Focus_attck = false;
+	}
+	if (GameInfo->SKILL_Air_force) {
+		//Æø°Ý ¼ÒÈ¯
+		GameInfo->SKILL_Air_force = false;
+
+	}
 }
