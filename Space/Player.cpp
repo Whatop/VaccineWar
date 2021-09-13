@@ -349,7 +349,7 @@ void Player::Attack()
 		}
 	}
 	else {
-		if (GameInfo->Ammo[GameInfo->PlayerType] <= 0) {
+		if (GameInfo->Ammo[0] <= 0) {
 			isReload = true;
 			ReloadTime += dt;
 			if (ReloadTime > 5.f) {
@@ -359,6 +359,8 @@ void Player::Attack()
 			}
 		}
 	}
+	if (GameInfo->Ammo[0] >= 30)
+		isReload = false;
 	GameInfo->isReload = isReload;
 
 	if(GameInfo->Ammo[1] < 5)
@@ -370,6 +372,7 @@ void Player::Attack()
 		GameInfo->Ammo[1]++;
 		chargeTime = 0.f;
 	}
+	
 }
 
 void Player::CollisionBox()
@@ -412,11 +415,11 @@ void Player::Skill()
 	if (INPUT->GetKey('X') == KeyState::DOWN &&
 		GameInfo->SKILL_CoolTime[0] <= 0.f) {
 		GameInfo->SKILL_Focus_attck = true;
+		GameInfo->SKILL_CoolTime[0] = 20.f;
 	}
-	if (INPUT->GetKey('C') == KeyState::DOWN && 
+	if (INPUT->GetKey('C') == KeyState::DOWN &&		
 		GameInfo->SKILL_CoolTime[1] <= 0.f){
 		GameInfo->SKILL_Air_force = true;
-		GameInfo->SKILL_CoolTime[1] = 20.f;
 	}
 	
 	GameInfo->SKILL_CoolTime[0] -= dt;

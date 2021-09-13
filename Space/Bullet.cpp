@@ -25,8 +25,8 @@ Bullet::Bullet(Vec2 spawnpoint, bool minibullet)
 		D3DXVec2Normalize(&Dire, &Enemy);
 	}
 	else {
-
-		Vec2 Enemy = Vec2(1920/2,700) - m_Position;
+		Vec2 B = Vec2(GetPlayer->m_Position.x + 500, GetPlayer->m_Position.y);
+		Vec2 Enemy = B - m_Position;
 		D3DXVec2Normalize(&Dire, &Enemy);
 	}
 }

@@ -6,9 +6,9 @@ Missile::Missile(Vec2 Pos,bool allTarget )
 	m_Missile = new Animation();
 	m_Missile->Init(0.1f, true);
 	m_Missile->SetParent(this);
-	m_Missile->AddContinueFrame(L"Painting/Boss/Missile/missile", 0, 1);
+	m_Missile->AddContinueFrame(L"Painting/Missile/missile", 0, 1);
 
-	m_ColBox = Sprite::Create(L"Painting/Boss/Missile/ColBox.png");
+	m_ColBox = Sprite::Create(L"Painting/Missile/ColBox.png");
 	m_ColBox->SetParent(this);
 	SetPosition(Pos);
 	m_ColBox->m_Visible = false;
@@ -41,7 +41,7 @@ void Missile::Update(float deltaTime, float Time)
 		m_Missile->Update(deltaTime, Time);
 		Move();
 	}
-	if (DestroyTime > 22.f || GameInfo->isScoreScene) {
+	if (DestroyTime > 22.f || GameInfo->isScoreScene || m_Position.x > 2000.f) {
 		ObjMgr->RemoveObject(this);
 		ObjMgr->AddObject(new EffectMgr(L"Painting/Effect/Big/", 1, 9, 0.1f, m_Position), "Effect");
 	}

@@ -6,7 +6,7 @@ AirForce::AirForce()
 {
 	m_AirForce = Sprite::Create(L"Painting/Skill/Player1.png");
 	m_AirForce->SetParent(this);
-	SetPosition(-m_Size.x , 300);
+	SetPosition(-m_Size.x , 200);
 	SetScale(1.5f, 1.5f);
 
 	AttackDelay = 0.15f;
@@ -18,12 +18,12 @@ AirForce::~AirForce()
 
 void AirForce::Update(float deltaTime, float Time)
 {
+	GameInfo->SKILL_CoolTime[1] = 40.f;
 	DestroyTime += 5*dt;
 	AttackTime += dt;
 	Move();
 	if (DestroyTime> 30.f) {
 		ObjMgr->RemoveObject(this);
-		GameInfo->SKILL_CoolTime[0] = 40.f;
 		std::cout << "Áö¿öÁü!" << std::endl;
 	}
 	Attack();

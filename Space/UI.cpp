@@ -61,6 +61,8 @@ void UI::Init()
 		Skill_2[i]->SetPosition(320, 1080 - 220 / 2-20);
 		Skill_2[i]->SetScale(2.f, 2.f);
 	}
+	Skill_1[1]->m_Rotation = D3DXToRadian(-90);
+	Skill_2[1]->m_Rotation = D3DXToRadian(-90);
 	ObjMgr->AddObject(StateWindow, "UI");
 	ObjMgr->AddObject(SpeedImage, "UI");
 	ObjMgr->AddObject(SpeedFrameImage, "UI");
@@ -157,7 +159,15 @@ void UI::Update()
 			UIAim->Translate(Dire.x * 500.f  * dt, Dire.y * 500.f * dt);
 	}
 	else {
-		UIAim->SetPosition(1920 / 2, 700);
+		Vec2 Dire, Enemy, A, B;
+		Enemy = Vec2(GetPlayer->m_Position.x + 500, GetPlayer->m_Position.y) - UIAim->m_Position;
+		B = Vec2(GetPlayer->m_Position.x+ 500, GetPlayer->m_Position.y);
+		D3DXVec2Normalize(&Dire, &Enemy);
+		A = UIAim->m_Position;
+		float limit = (sqrt(pow(A.x - B.x, 2) + pow(A.y - B.y, 2)) / 500.f);
+
+		if (limit > 0.01f)
+			UIAim->Translate(Dire.x * 500.f * dt, Dire.y * 500.f * dt);
 	}
 
 	if (GameInfo->isReload) {
@@ -180,8 +190,6 @@ void UI::Update()
 		Skill_2[i]->SetPosition(190 / 2, 500);
 		Skill_2[i]->SetScale(1.5f, 1.5f);
 		Skill_1[i]->SetScale(1.5f, 1.5f);
-		Skill_1[1]->m_Rotation = D3DXToRadian(-90);
-		Skill_2[1]->m_Rotation = D3DXToRadian(-90);
 	}
 }
 
@@ -336,8 +344,8 @@ void UI::Bar()
 	SpeedFrameImage->m_Rect.right = SpeedFrameImage->m_Size.x - (Speed * SpeedGage);
 
 	if (GameInfo->SKILL_CoolTime[0] >= 0.f) {
-		float AirCoolGage = Skill_1[1]->m_Size.x / 40.f;
-		int AirCoolTime = 40.f - GameInfo->SKILL_CoolTime[0];
+		float AirCoolGage = Skill_1[1]->m_Size.x / 20.f;
+		int AirCoolTime = 20.f - GameInfo->SKILL_CoolTime[0];
 		SetRect(&Skill_1[1]->m_Collision, Skill_1[1]->m_Position.x - Skill_1[1]->m_Size.x / 2, Skill_1[1]->m_Position.y - Skill_1[1]->m_Size.y / 2,
 			Skill_1[1]->m_Position.x + Skill_1[1]->m_Size.x / 2, Skill_1[1]->m_Position.y + Skill_1[1]->m_Size.y / 2);
 
@@ -347,8 +355,8 @@ void UI::Bar()
 		GameInfo->SKILL_CoolTime[0] = 0.f;
 	}
 	if (GameInfo->SKILL_CoolTime[1] >= 0.f) {
-		float AttackCoolGage = Skill_2[1]->m_Size.x / 20.f;
-		int AttackCoolTime = 20.f - GameInfo->SKILL_CoolTime[1];
+		float AttackCoolGage = Skill_2[1]->m_Size.x / 40.f;
+		int AttackCoolTime = 40.f - GameInfo->SKILL_CoolTime[1];
 		SetRect(&Skill_2[1]->m_Collision, Skill_2[1]->m_Position.x - Skill_2[1]->m_Size.x / 2, Skill_2[1]->m_Position.y - Skill_2[1]->m_Size.y / 2,
 			Skill_2[1]->m_Position.x + Skill_2[1]->m_Size.x / 2, Skill_2[1]->m_Position.y + Skill_2[1]->m_Size.y / 2);
 
