@@ -8,8 +8,8 @@
 #include "Stage2.h"
 
 #include "Oceanic1.h"
+#include "AerialEnemy1.h"
 
-#include "Coin.h"
 #include "Obstacle.h"
 
 #include <algorithm>
@@ -31,6 +31,7 @@ void GameMgr::Init()
 	CameraStop = false;
 
 	EnemyCount = 0;
+	EnemyAllTag = 0;
 
 	SpawnDelay = 0.f;
 	AddDelay = 0.f;
@@ -73,9 +74,11 @@ void GameMgr::Init()
 	SKILL_CoolTime[0] = 0.f;
 	SKILL_CoolTime[1] = 0.f;
 
+
 	AllEnemyPos.clear();
 	OceanicPos.clear();
 	AerialPos.clear();
+
 }
 
 void GameMgr::Release()
@@ -279,11 +282,6 @@ void GameMgr::CheatKey()
 	}
 }
 
-void GameMgr::SpawnCoin(Vec2 Pos)
-{
-	ObjMgr->AddObject(new Coin(Pos), "Coin");	
-}
-
 void GameMgr::ClosePosAllEnemy()
 {
 	if (!AllEnemyPos.empty()) {
@@ -338,6 +336,8 @@ void GameMgr::SpawnEnemy()
 		SpawnDelay += dt;
 		if (SpawnDelay > 4) {
 
+			ObjMgr->AddObject(new AerialEnemy1(Vec2(2000, rand() % 492+73), 0), "Enemy");
+		
 			ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492+540), 0), "Enemy");
 			ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492+540), 1), "Enemy");
 			ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492+540), 2), "Enemy");

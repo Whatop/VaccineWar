@@ -99,6 +99,7 @@ public:
 	Vec2 CloseEnemy[3];
 
 	int EnemyCount;
+	int EnemyAllTag;
 
 	float Enemydistance[3];
 	float tempdistance[3];
@@ -150,8 +151,6 @@ public:
 	void SortRanking();
 	
 	void CheatKey();
-
-	void SpawnCoin(Vec2 Pos);
 
 	void ClosePosAllEnemy();
 	void ClosePosOceanic();

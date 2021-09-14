@@ -22,12 +22,14 @@ Oceanic1::Oceanic1(Vec2 Pos,int enemyCount)
 	std::cout << "적 해군 1 생성" << std::endl;
 
 	EnemyOcTag = enemyCount;
+	EnemyAllTag = GameInfo->EnemyAllTag;
 	GameInfo->EnemyCount++;
+	GameInfo->EnemyAllTag++;
 
 	GameInfo->AllEnemyPos.push_back(Vec2(9999, 9999));
 	GameInfo->OceanicPos.push_back(Vec2(9999, 9999));
 	ones = true;
-	SetScale(2,2);
+	SetScale(1.5f, 1.5f);
 	random = rand() % 300;
 }
 
@@ -37,7 +39,7 @@ Oceanic1::~Oceanic1()
 
 void Oceanic1::Update(float deltaTime, float Time)
 {
-	GameInfo->AllEnemyPos.at(EnemyOcTag) = m_Position;
+	GameInfo->AllEnemyPos.at(EnemyAllTag) = m_Position;
 	GameInfo->OceanicPos.at(EnemyOcTag) = m_Position;
 	if (!GameInfo->isPause) {
 		SpawnMove += dt;
@@ -51,8 +53,8 @@ void Oceanic1::Update(float deltaTime, float Time)
 				//519~1041
 				m_RandomPosition = Vec2((rand() % 920 + 1000), (rand() % 519 + 520));
 				ones = false;
-				GameInfo->AllEnemyPos.at(EnemyOcTag) = m_Position;
-				GameInfo->OceanicPos.at(EnemyOcTag) = m_Position;
+			///	GameInfo->AllEnemyPos.at(EnemyAllTag) = m_Position;
+			///	GameInfo->OceanicPos.at(EnemyOcTag) = m_Position;
 			}
 			ObjMgr->CollisionCheak(this, "Bullet");
 			m_LastMoveTime += dt;
@@ -80,7 +82,7 @@ void Oceanic1::Update(float deltaTime, float Time)
 	
 		GameInfo->MaxScore += 100;
 		GameInfo->KillScore += 100;
-		GameInfo->AllEnemyPos.at(EnemyOcTag) = Vec2(9999, 9999);
+		GameInfo->AllEnemyPos.at(EnemyAllTag) = Vec2(9999, 9999);
 		GameInfo->OceanicPos.at(EnemyOcTag) = Vec2(9999, 9999);
 		GameInfo->EnemyCount--;
 	}

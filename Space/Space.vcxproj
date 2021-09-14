@@ -34,7 +34,6 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="MainScene.cpp" />
-    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="NavalProjectile.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -53,6 +52,7 @@
     <ClCompile Include="Space.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stage1.cpp" />
+    <ClCompile Include="Stage1Boss.cpp" />
     <ClCompile Include="Stage2.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -78,7 +78,6 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MainScene.h" />
-    <ClInclude Include="Coin.h" />
     <ClInclude Include="Missile.h" />
     <ClInclude Include="NavalProjectile.h" />
     <ClInclude Include="Object.h" />
@@ -97,6 +96,7 @@
     <ClInclude Include="SoundMgr.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage1.h" />
+    <ClInclude Include="Stage1Boss.h" />
     <ClInclude Include="Stage2.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TextMgr.h" />

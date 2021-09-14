@@ -344,23 +344,23 @@ void UI::Bar()
 	SpeedFrameImage->m_Rect.right = SpeedFrameImage->m_Size.x - (Speed * SpeedGage);
 
 	if (GameInfo->SKILL_CoolTime[0] >= 0.f) {
-		float AirCoolGage = Skill_1[1]->m_Size.x / 20.f;
-		int AirCoolTime = 20.f - GameInfo->SKILL_CoolTime[0];
+		float AttackCoolGage = Skill_1[1]->m_Size.x / 20.f;
+		float AttackCoolTime = 20.f - GameInfo->SKILL_CoolTime[0];
 		SetRect(&Skill_1[1]->m_Collision, Skill_1[1]->m_Position.x - Skill_1[1]->m_Size.x / 2, Skill_1[1]->m_Position.y - Skill_1[1]->m_Size.y / 2,
 			Skill_1[1]->m_Position.x + Skill_1[1]->m_Size.x / 2, Skill_1[1]->m_Position.y + Skill_1[1]->m_Size.y / 2);
 
-		Skill_1[1]->m_Rect.right = Skill_1[1]->m_Size.x - (AirCoolTime * AirCoolGage);
+		Skill_1[1]->m_Rect.right = Skill_1[1]->m_Size.x - (AttackCoolTime * AttackCoolGage);
 	}
 	else {
 		GameInfo->SKILL_CoolTime[0] = 0.f;
 	}
 	if (GameInfo->SKILL_CoolTime[1] >= 0.f) {
-		float AttackCoolGage = Skill_2[1]->m_Size.x / 40.f;
-		int AttackCoolTime = 40.f - GameInfo->SKILL_CoolTime[1];
+		float AirCoolGage = Skill_2[1]->m_Size.x / 40.f;
+		int AirCoolTime = 40.f - GameInfo->SKILL_CoolTime[1];
 		SetRect(&Skill_2[1]->m_Collision, Skill_2[1]->m_Position.x - Skill_2[1]->m_Size.x / 2, Skill_2[1]->m_Position.y - Skill_2[1]->m_Size.y / 2,
 			Skill_2[1]->m_Position.x + Skill_2[1]->m_Size.x / 2, Skill_2[1]->m_Position.y + Skill_2[1]->m_Size.y / 2);
 
-		Skill_2[1]->m_Rect.right = Skill_2[1]->m_Size.x - (AttackCoolTime * AttackCoolGage);
+		Skill_2[1]->m_Rect.right = Skill_2[1]->m_Size.x - (AirCoolTime * AirCoolGage);
 	}
 	else {
 		GameInfo->SKILL_CoolTime[1] = 0.f;

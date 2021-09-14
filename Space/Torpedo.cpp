@@ -6,9 +6,9 @@ Torpedo::Torpedo(Vec2 Pos)
 	m_Torpedo = new Animation();
 	m_Torpedo->Init(0.1f, true);
 	m_Torpedo->SetParent(this);
-	m_Torpedo->AddContinueFrame(L"Painting/Boss/Missile/missile", 0, 1);
+	m_Torpedo->AddContinueFrame(L"Painting/Missile/missile", 0, 1);
 
-	m_ColBox = Sprite::Create(L"Painting/Boss/Missile/ColBox.png");
+	m_ColBox = Sprite::Create(L"Painting/Missile/ColBox.png");
 	m_ColBox->SetParent(this);
 	SetPosition(Pos);
 	m_ColBox->m_Visible = false;

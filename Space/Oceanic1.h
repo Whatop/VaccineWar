@@ -14,7 +14,8 @@ class Oceanic1 : public Object
 	float DamegeCoolTime;
 
 	int EnemyOcTag;
-	
+	int EnemyAllTag;
+
 	int constEnemyOcTag;
 
 	int	tempOceanic;

@@ -2,6 +2,8 @@
 class AerialEnemy1 : public Object
 {
 	Sprite* m_AerialEnemy1;
+	Animation* HelicopterWing;
+	Animation* HelicopterBackWing;
 	float m_Hp;
 
 	float MoveTime;
@@ -12,7 +14,8 @@ class AerialEnemy1 : public Object
 
 	float DamegeCoolTime;
 
-	int EnemyOcTag;
+	int EnemyAirTag;
+	int EnemyAllTag;
 
 	int constEnemyOcTag;
 

@@ -5,29 +5,38 @@
 
 AerialEnemy1::AerialEnemy1(Vec2 Pos, int enemyCount)
 {
-	m_AerialEnemy1 = Sprite::Create(L"Painting/Enemy/AerialEnemy1/Enemy.png");
+	m_AerialEnemy1 = Sprite::Create(L"Painting/Enemy/AerialEnemy1/Enemy0.png");
 	m_AerialEnemy1->SetParent(this);
+	m_AerialEnemy1->m_Visible = false;
 
-	//WaterEffect = new Animation();
-	//WaterEffect->Init(0.2f, true);
-	//WaterEffect->SetParent(this);
-	//WaterEffect->AddContinueFrame(L"Painting/Enemy/Oceanic1/", 0, 4);
+	HelicopterWing = new Animation();
+	HelicopterWing->Init(0.1f, true);
+	HelicopterWing->SetParent(this);
+	HelicopterWing->AddContinueFrame(L"Painting/Enemy/AerialEnemy1/", 0, 1,COLORKEY_GREEN);
+	
+	HelicopterBackWing = new Animation();
+	HelicopterBackWing->Init(0.1f, true);
+	HelicopterBackWing->SetParent(this);
+	HelicopterBackWing->AddContinueFrame(L"Painting/Enemy/AerialEnemy1/Enemy", 0, 1,COLORKEY_GREEN);
 
 	SetPosition(Pos);
-	m_Hp = 100;
+	m_Hp = 150;
 	m_Speed = 450.f;
 	m_LastMoveTime = 2.f;
 	SpawnMove = 0.f;
 	m_Layer = 2;
 	std::cout << "적 공군 1 생성" << std::endl;
 
-	EnemyOcTag = enemyCount;
+	EnemyAirTag = enemyCount;
+	EnemyAllTag = GameInfo->EnemyAllTag;
 	GameInfo->EnemyCount++;
+	GameInfo->EnemyAllTag++;
+
 
 	GameInfo->AllEnemyPos.push_back(Vec2(9999, 9999));
-	GameInfo->OceanicPos.push_back(Vec2(9999, 9999));
+	GameInfo->AerialPos.push_back(Vec2(9999, 9999));
 	ones = true;
-	SetScale(2, 2);
+	SetScale(1.5f, 1.5f);
 	random = rand() % 300;
 }
 
@@ -37,22 +46,24 @@ AerialEnemy1::~AerialEnemy1()
 
 void AerialEnemy1::Update(float deltaTime, float Time)
 {
-	GameInfo->AllEnemyPos.at(EnemyOcTag) = m_Position;
-	GameInfo->OceanicPos.at(EnemyOcTag) = m_Position;
+	GameInfo->AllEnemyPos.at(EnemyAllTag) = m_Position;
+	GameInfo->AerialPos.at(EnemyAirTag) = m_Position;
 	if (!GameInfo->isPause) {
 		SpawnMove += dt;
 
 		if (SpawnMove < 2) {
 			m_Position.x -= (100 + random) * dt;
 			ObjMgr->CollisionCheak(this, "Bullet");
+			HelicopterWing->Update(deltaTime, Time);
+			HelicopterBackWing->Update(deltaTime, Time);
 		}
 		else {
 			if (ones) {
 				//519~1041
-				m_RandomPosition = Vec2((rand() % 920 + 1000), (rand() % 519 + 520));
+				m_RandomPosition = Vec2((rand() % 920 + 1000), (rand() % 492 + 73 + m_Size.y/2));
 				ones = false;
-				GameInfo->AllEnemyPos.at(EnemyOcTag) = m_Position;
-				GameInfo->OceanicPos.at(EnemyOcTag) = m_Position;
+				GameInfo->AllEnemyPos.at(EnemyAllTag) = m_Position;
+				GameInfo->AerialPos.at(EnemyAirTag) = m_Position;
 			}
 			ObjMgr->CollisionCheak(this, "Bullet");
 			m_LastMoveTime += dt;
@@ -60,15 +71,16 @@ void AerialEnemy1::Update(float deltaTime, float Time)
 				Move();
 
 			m_AerialEnemy1->A = 255;
-			//WaterEffect->SetAnimeColor();
-			//WaterEffect->Update(deltaTime, Time);
-
-
+			HelicopterWing->SetAnimeColor();
+			HelicopterBackWing->SetAnimeColor();
+			HelicopterWing->Update(deltaTime, Time);
+			HelicopterBackWing->Update(deltaTime, Time);
 		}
 	}
 	else {
 		m_AerialEnemy1->A = 105;
-		//WaterEffect->SetAnimeColor(105);
+		HelicopterWing->SetAnimeColor(105);
+		HelicopterBackWing->SetAnimeColor(105);
 	}
 	if (m_Hp <= 0)
 	{
@@ -80,16 +92,17 @@ void AerialEnemy1::Update(float deltaTime, float Time)
 
 		GameInfo->MaxScore += 100;
 		GameInfo->KillScore += 100;
-		GameInfo->AllEnemyPos.at(EnemyOcTag) = Vec2(9999, 9999);
-		GameInfo->OceanicPos.at(EnemyOcTag) = Vec2(9999, 9999);
+		GameInfo->AllEnemyPos.at(EnemyAllTag) = Vec2(9999, 9999);
+		GameInfo->AerialPos.at(EnemyAirTag) = Vec2(9999, 9999);
 		GameInfo->EnemyCount--;
 	}
 }
 
 void AerialEnemy1::Render()
 {
+	HelicopterWing->Render();
+	HelicopterBackWing->Render();
 	m_AerialEnemy1->Render();
-	//WaterEffect->Render();
 }
 
 void AerialEnemy1::OnCollision(Object* obj)
@@ -127,10 +140,10 @@ void AerialEnemy1::Move()
 	else
 	{
 		if (m_Position.y < 777.5f)
-			m_RandomPosition = Vec2((rand() % 920 + 1000), (rand() % 519 + 522));
+			m_RandomPosition = Vec2((rand() % 920 + 1000), (rand() % 492 + 73 + m_Size.y / 2));
 
 		else
-			m_RandomPosition = Vec2((rand() % 920 + 1000), (rand() % 519 + 522));
+			m_RandomPosition = Vec2((rand() % 920 + 1000), (rand() % 492 + 73 + m_Size.y / 2));
 
 		m_LastMoveTime = 2.f;
 

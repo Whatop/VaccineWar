@@ -123,9 +123,6 @@
     <ClCompile Include="Pet.cpp">
       <Filter>Game\Object\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>Game\Object</Filter>
-    </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>FrameWork\Node</Filter>
     </ClCompile>
@@ -164,6 +161,9 @@
     </ClCompile>
     <ClCompile Include="AirForce.cpp">
       <Filter>Game\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage1Boss.cpp">
+      <Filter>Game\Object\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -242,9 +242,6 @@
     <ClInclude Include="Pet.h">
       <Filter>Game\Object\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>Game\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>FrameWork\Node</Filter>
     </ClInclude>
@@ -286,6 +283,9 @@
     </ClInclude>
     <ClInclude Include="AirForce.h">
       <Filter>Game\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage1Boss.h">
+      <Filter>Game\Object\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
