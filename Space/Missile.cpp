@@ -24,7 +24,7 @@ Missile::Missile(Vec2 Pos,bool allTarget )
 	DestroyTime = 0.f;
 	m_Atk = 100.f;
 	AllTarget = allTarget;
-	if(AllTarget)
+	if (AllTarget)
 		m_Rotation = D3DXToRadian(0);
 	else
 		m_Rotation = D3DXToRadian(-90);
@@ -36,6 +36,7 @@ Missile::~Missile()
 
 void Missile::Update(float deltaTime, float Time)
 {
+	
 	if (!GameInfo->isPause) {
 		DestroyTime += dt;
 		m_Missile->Update(deltaTime, Time);
@@ -81,7 +82,7 @@ void Missile::Move()
 			Enemy = GameInfo->CloseEnemy[0] - m_Position;
 
 		if (!AllTarget ) {
-			if (!GameInfo->AerialPos.empty()) {
+			if (!GameInfo->EnemyCount[2]==0) {
 				D3DXVec2Normalize(&Dire, &Enemy);
 				Delay += dt;
 				vrad += dt;
@@ -105,10 +106,11 @@ void Missile::Move()
 			}
 			else {
 				m_Position.y -= m_Speed * dt;
+				m_Rotation = D3DXToRadian(-90);
 			}
 		}
 		else {
-			if (GameInfo->AllEnemyPos.empty()) 
+			if (GameInfo->EnemyCount[0]==0) 
 			Enemy = Vec2(1920/2,1080/2) - m_Position;
 
 				D3DXVec2Normalize(&Dire, &Enemy);

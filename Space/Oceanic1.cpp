@@ -23,7 +23,8 @@ Oceanic1::Oceanic1(Vec2 Pos,int enemyCount)
 
 	EnemyOcTag = enemyCount;
 	EnemyAllTag = GameInfo->EnemyAllTag;
-	GameInfo->EnemyCount++;
+	GameInfo->EnemyCount[0]++;
+	GameInfo->EnemyCount[1]++;
 	GameInfo->EnemyAllTag++;
 
 	GameInfo->AllEnemyPos.push_back(Vec2(9999, 9999));
@@ -84,7 +85,8 @@ void Oceanic1::Update(float deltaTime, float Time)
 		GameInfo->KillScore += 100;
 		GameInfo->AllEnemyPos.at(EnemyAllTag) = Vec2(9999, 9999);
 		GameInfo->OceanicPos.at(EnemyOcTag) = Vec2(9999, 9999);
-		GameInfo->EnemyCount--;
+		GameInfo->EnemyCount[0]--;
+		GameInfo->EnemyCount[1]--;
 	}
 }
 

@@ -35,6 +35,9 @@ void InputScoreScene::Init()
 
 	m_isTextEntered = true;
 	GameInfo->m_Scene = StageScene::NONE;
+	ScoreTime = 0.f;
+	TempScore = GameInfo->m_Score;
+    //GameInfo->MaxScore = 100.f;
 }
 
 void InputScoreScene::Release()
@@ -43,6 +46,11 @@ void InputScoreScene::Release()
 
 void InputScoreScene::Update(float deltaTime, float Time)
 {
+	if(ScoreTime >= 1)
+		ScoreTime = 1;
+	else
+		ScoreTime += dt;
+
 	if (m_isTextEntered)
 	{
 		if (name.size() > 10)
@@ -86,8 +94,9 @@ void InputScoreScene::Update(float deltaTime, float Time)
 		if (CollisionMgr::GetInst()->MouseWithBoxSize(m_BackButton) && INPUT->GetButtonDown())
 		{
 			GameInfo->m_Rank->name = name;
-			GameInfo->m_Rank->score = GameInfo->m_Score;
+			GameInfo->m_Rank->score = TempScore;
 			SceneDirector::GetInst()->ChangeScene(new MainScene());
+			INPUT->ButtonDown(false);
 		}
 	}
 }
@@ -100,7 +109,7 @@ void InputScoreScene::Render()
 	m_BackButton->Render();
 
 	Renderer::GetInst()->GetSprite()->Begin(D3DXSPRITE_ALPHABLEND);
-	m_Score->print(std::to_string(int(GameMgr::GetInst()->m_Score)), 1100, 570);
+	m_Score->print(std::to_string(int(TempScore * ScoreTime)), 1100, 570);
 	m_Name->print(name, 1100, 270);
 	Renderer::GetInst()->GetSprite()->End();
 }

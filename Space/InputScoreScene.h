@@ -15,8 +15,12 @@ public:
 
 	bool m_isTextEntered;
 	bool m_OverOne;
+	
 	int m_Key[256];
 	int m_PrevKey[256];
+
+	float ScoreTime;
+	int TempScore;
 
 	std::string name;
 

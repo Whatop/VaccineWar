@@ -2,6 +2,7 @@
 class MainScene : public Scene
 {
 	Sprite* m_MainScene;
+	Sprite* m_Blind;
 	Sprite* m_Button[4];
 
 public:

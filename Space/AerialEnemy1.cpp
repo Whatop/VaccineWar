@@ -29,7 +29,8 @@ AerialEnemy1::AerialEnemy1(Vec2 Pos, int enemyCount)
 
 	EnemyAirTag = enemyCount;
 	EnemyAllTag = GameInfo->EnemyAllTag;
-	GameInfo->EnemyCount++;
+	GameInfo->EnemyCount[0]++;
+	GameInfo->EnemyCount[2]++;
 	GameInfo->EnemyAllTag++;
 
 
@@ -94,7 +95,8 @@ void AerialEnemy1::Update(float deltaTime, float Time)
 		GameInfo->KillScore += 100;
 		GameInfo->AllEnemyPos.at(EnemyAllTag) = Vec2(9999, 9999);
 		GameInfo->AerialPos.at(EnemyAirTag) = Vec2(9999, 9999);
-		GameInfo->EnemyCount--;
+		GameInfo->EnemyCount[0]--;
+		GameInfo->EnemyCount[2]--;
 	}
 }
 

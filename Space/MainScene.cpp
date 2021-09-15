@@ -24,18 +24,21 @@ void MainScene::Init()
 
     m_MainScene = Sprite::Create(L"Painting/MainScreen/Main.png");
     m_MainScene->SetPosition(1920 / 2, 1080 / 2);
+  
+    m_Blind = Sprite::Create(L"Painting/MainScreen/blind.png");
+    m_Blind->SetPosition(1920 / 2, 1080 / 2);
 
-    m_Button[0] = Sprite::Create(L"Painting/Button/start.png");
-    m_Button[0]->SetPosition(300, 100);
+    m_Button[0] = Sprite::Create(L"Painting/MainScreen/Start.png");
+    m_Button[0]->SetPosition(250, 940);
 
-    m_Button[1] = Sprite::Create(L"Painting/Button/way.png");
-    m_Button[1]->SetPosition(300, 300);
+    m_Button[1] = Sprite::Create(L"Painting/MainScreen/Ranking.png");
+    m_Button[1]->SetPosition(700, 940);
 
-    m_Button[2] = Sprite::Create(L"Painting/Button/rank.png");
-    m_Button[2]->SetPosition(300, 500);
+    m_Button[2] = Sprite::Create(L"Painting/MainScreen/Ranking.png");
+    m_Button[2]->SetPosition(1150, 940);
 
-    m_Button[3] = Sprite::Create(L"Painting/Button/exit.png");
-    m_Button[3]->SetPosition(300, 700);
+    m_Button[3] = Sprite::Create(L"Painting/MainScreen/Exit.png");
+    m_Button[3]->SetPosition(1600, 940);
 
     std::cout << "MainScene ÀÌµ¿" << std::endl;
     GameInfo->m_Scene = StageScene::NONE;
@@ -87,6 +90,7 @@ void MainScene::Update(float deltaTime, float time)
 void MainScene::Render()
 {
     m_MainScene->Render();
+    m_Blind->Render();
     m_Button[0]->Render();
     m_Button[1]->Render();
     m_Button[2]->Render();

@@ -21,14 +21,14 @@ void UI::Init()
 	MiniBossBar->SetPosition(1920 / 2, 100);
 
 	UIScoreFrame = Sprite::Create(L"Painting/UI/Cover.png");
-	UIScoreFrame->SetPosition(1920 / 2, 1080/2);
+	UIScoreFrame->SetPosition(1920 / 2, 1080 / 2);
 
 	StateWindow = Sprite::Create(L"Painting/UI/Window.png");
 	StateWindow->SetPosition(1920 / 2, 72 / 2);
-	
+
 	ScoreImage = Sprite::Create(L"Painting/UI/Money.png");
 	ScoreImage->SetPosition(1920 / 2 - 270, 72 / 2);
-	
+
 	HpImage = Sprite::Create(L"Painting/UI/HpUI.png");
 	HpImage->SetPosition(130, 35);
 
@@ -36,7 +36,7 @@ void UI::Init()
 	TimeLmitImage->SetPosition(1920 / 2 + 600, 72 / 2);
 
 	SpeedImage = Sprite::Create(L"Painting/UI/SpeedBar.png");
-	SpeedImage->SetPosition(76/2, 72 / 2);
+	SpeedImage->SetPosition(76 / 2, 72 / 2);
 
 	SpeedFrameImage = Sprite::Create(L"Painting/UI/Speed.png");
 	SpeedFrameImage->SetPosition(76 / 2, 72 / 2);
@@ -44,36 +44,28 @@ void UI::Init()
 
 	GunTpye = Sprite::Create(L"Painting/UI/GunType/0.png");
 	GunTpye->SetPosition(320 / 2, 160);
-	
+
 	UIAim = Sprite::Create(L"Painting/UI/Aim.png");
 	UIAim->SetPosition(1920 / 2, 700);
-	
+
 	for (int i = 0; i < 2; i++) {
 		Skill_1[0] = Sprite::Create(L"Painting/UI/ShieldSkill.png");
 		Skill_1[1] = Sprite::Create(L"Painting/UI/SkillCooldown.png");
 
 		Skill_2[0] = Sprite::Create(L"Painting/UI/airsupport.png");
-		Skill_2[1] = Sprite::Create(L"Painting/UI/SkillCooldown.png");	
+		Skill_2[1] = Sprite::Create(L"Painting/UI/SkillCooldown.png");
 
 		Skill_1[i]->SetPosition(220 / 2, 1080 - 220 / 2 - 20);
 		Skill_1[i]->SetScale(2.f, 2.f);
 
-		Skill_2[i]->SetPosition(320, 1080 - 220 / 2-20);
+		Skill_2[i]->SetPosition(320, 1080 - 220 / 2 - 20);
 		Skill_2[i]->SetScale(2.f, 2.f);
 	}
 	Skill_1[1]->m_Rotation = D3DXToRadian(-90);
 	Skill_2[1]->m_Rotation = D3DXToRadian(-90);
-	ObjMgr->AddObject(StateWindow, "UI");
-	ObjMgr->AddObject(SpeedImage, "UI");
-	ObjMgr->AddObject(SpeedFrameImage, "UI");
-	ObjMgr->AddObject(PlayerBar, "UI");
-	ObjMgr->AddObject(HpImage, "UI");
-	ObjMgr->AddObject(TimeLmitImage, "UI");
-	ObjMgr->AddObject(BossBar, "UI");
-	ObjMgr->AddObject(MiniBossBar, "UI");
-	ObjMgr->AddObject(UIScoreFrame, "UI");
-	ObjMgr->AddObject(ScoreImage, "UI");
-	
+	//State
+
+
 	ScoreText = new TextMgr();
 	ScoreText->Init(80, true, false, "굴림");
 	ScoreText->SetColor(255, 255, 255, 0);
@@ -89,11 +81,11 @@ void UI::Init()
 	Timelimit = new TextMgr();
 	Timelimit->Init(80, true, false, "굴림");
 	Timelimit->SetColor(255, 255, 255, 255);
-	
+
 	TestText = new TextMgr();
 	TestText->Init(80, true, false, "굴림");
 	TestText->SetColor(255, 255, 255, 255);
-	
+
 	ReloadText = new TextMgr();
 	ReloadText->Init(30, true, false, "굴림");
 	ReloadText->SetColor(255, 255, 255, 255);
@@ -111,6 +103,19 @@ void UI::Init()
 	UIScoreFrame->m_Visible = false;
 	memset(limit, 0, sizeof(limit));
 	ScoredaleyTime = 0.f;
+
+	//ObjMgr->AddObject(StateWindow, "UI");
+	//ObjMgr->AddObject(SpeedImage, "UI");
+	//ObjMgr->AddObject(SpeedFrameImage, "UI");
+	//ObjMgr->AddObject(PlayerBar, "UI");
+	//ObjMgr->AddObject(HpImage, "UI");
+	//ObjMgr->AddObject(TimeLmitImage, "UI");
+	//ObjMgr->AddObject(BossBar, "UI");
+	//ObjMgr->AddObject(MiniBossBar, "UI");
+	//ObjMgr->AddObject(UIScoreFrame, "UI");
+	//ObjMgr->AddObject(ScoreImage, "UI");
+
+
 }
 
 void UI::Release()
@@ -129,7 +134,7 @@ void UI::Update()
 		UIScoreFrame->m_Visible = false;
 		ResultScoreText->SetColor(0, 255, 255, 255);
 	}
-	if(!GameInfo->isPause)
+	if (!GameInfo->isPause)
 		Timer();
 
 	if (GameInfo->m_DebugMode) {
@@ -138,30 +143,68 @@ void UI::Update()
 	else {
 		TestText->SetColor(0, 255, 255, 255);
 	}
-	GunTpye = Sprite::Create(L"Painting/UI/GunType/"+std::to_wstring(GameInfo->PlayerType)+L".png");
+	GunTpye = Sprite::Create(L"Painting/UI/GunType/" + std::to_wstring(GameInfo->PlayerType) + L".png");
 	GunTpye->SetPosition(320 / 2, 160);
-	
-	if (GameInfo->EnemyCount > 0) {
-		Vec2 Dire,Enemy,A,B;
-		if (GameInfo->PlayerType == 1 || GameInfo->PlayerType == 0) {
-			Enemy = GameInfo->CloseEnemy[0] - UIAim->m_Position;
-			B = GameInfo->CloseEnemy[0];
-		}
-		else if (GameInfo->PlayerType == 2 || GameInfo->PlayerType == 3) {
-			Enemy = GameInfo->CloseEnemy[GameInfo->PlayerType - 1]- UIAim->m_Position;
-			B = GameInfo->CloseEnemy[GameInfo->PlayerType - 1];
-		}
+	Vec2 Dire, Enemy, A, B;
+	if (GameInfo->PlayerType == 1 || GameInfo->PlayerType == 0) {
+		Enemy = GameInfo->CloseEnemy[0] - UIAim->m_Position;
+		B = GameInfo->CloseEnemy[0];
+	}
+	else if (GameInfo->PlayerType == 2 || GameInfo->PlayerType == 3) {
+		Enemy = GameInfo->CloseEnemy[GameInfo->PlayerType - 1] - UIAim->m_Position;
+		B = GameInfo->CloseEnemy[GameInfo->PlayerType - 1];
+	}
+	// 적이 있고 플레이어 좋이 머신건 or 함포 상태
+	if (GameInfo->EnemyCount[0] > 0 && (GameInfo->PlayerType == 1 || GameInfo->PlayerType == 0)) {
+
 		D3DXVec2Normalize(&Dire, &Enemy);
 		A = UIAim->m_Position;
 		float limit = (sqrt(pow(A.x - B.x, 2) + pow(A.y - B.y, 2)) / 500.f);
-		
-		if(limit > 0.01f)
-			UIAim->Translate(Dire.x * 500.f  * dt, Dire.y * 500.f * dt);
+
+		if (limit > 0.01f)
+			UIAim->Translate(Dire.x * 500.f * dt, Dire.y * 500.f * dt);
+
 	}
-	else {
-		Vec2 Dire, Enemy, A, B;
+	// 모든 적이 없을때
+	if (GameInfo->EnemyCount[0] <= 0) {
 		Enemy = Vec2(GetPlayer->m_Position.x + 500, GetPlayer->m_Position.y) - UIAim->m_Position;
-		B = Vec2(GetPlayer->m_Position.x+ 500, GetPlayer->m_Position.y);
+		B = Vec2(GetPlayer->m_Position.x + 500, GetPlayer->m_Position.y);
+		D3DXVec2Normalize(&Dire, &Enemy);
+		A = UIAim->m_Position;
+		float limit = (sqrt(pow(A.x - B.x, 2) + pow(A.y - B.y, 2)) / 500.f);
+
+		if (limit > 0.01f)
+			UIAim->Translate(Dire.x * 500.f * dt, Dire.y * 500.f * dt);
+	}
+	// 어뢰이고 바다적이 없는 경우
+	if (GameInfo->PlayerType == 2 && GameInfo->EnemyCount[1] == 0) {
+		D3DXVec2Normalize(&Dire, &Enemy);
+		A = UIAim->m_Position;
+		float limit = (sqrt(pow(A.x - B.x, 2) + pow(A.y - B.y, 2)) / 500.f);
+
+		if (limit > 0.01f)
+			UIAim->Translate(Dire.x * 500.f * dt, Dire.y * 500.f * dt);
+	}
+	else if(GameInfo->PlayerType == 2 && GameInfo->EnemyCount[1] != 0){
+		D3DXVec2Normalize(&Dire, &Enemy);
+		A = UIAim->m_Position;
+		float limit = (sqrt(pow(A.x - B.x, 2) + pow(A.y - B.y, 2)) / 500.f);
+
+		if (limit > 0.01f)
+			UIAim->Translate(Dire.x * 500.f * dt, Dire.y * 500.f * dt);
+	}
+	// 미사일이고 공중적이 없는 경우
+	if (GameInfo->PlayerType == 3 && GameInfo->EnemyCount[2] == 0) {
+		Enemy = Vec2(GetPlayer->m_Position.x + 500, GetPlayer->m_Position.y) - UIAim->m_Position;
+		B = Vec2(GetPlayer->m_Position.x + 500, GetPlayer->m_Position.y);
+		D3DXVec2Normalize(&Dire, &Enemy);
+		A = UIAim->m_Position;
+		float limit = (sqrt(pow(A.x - B.x, 2) + pow(A.y - B.y, 2)) / 500.f);
+
+		if (limit > 0.01f)
+			UIAim->Translate(Dire.x * 500.f * dt, Dire.y * 500.f * dt);
+	}
+	else if (GameInfo->PlayerType == 3 && GameInfo->EnemyCount[2] != 0) {
 		D3DXVec2Normalize(&Dire, &Enemy);
 		A = UIAim->m_Position;
 		float limit = (sqrt(pow(A.x - B.x, 2) + pow(A.y - B.y, 2)) / 500.f);
@@ -196,15 +239,26 @@ void UI::Update()
 
 void UI::Render()
 {
-	Bar();
-	Text();
 	GunTpye->Render();
 	UIAim->Render();
+
+	StateWindow->Render();
+	SpeedImage->Render();
+	SpeedFrameImage->Render();
+	PlayerBar->Render();
+	HpImage->Render();
+	TimeLmitImage->Render();
+	BossBar->Render();
+	MiniBossBar->Render();
+	UIScoreFrame->Render();
+	ScoreImage->Render();
 
 	for (int i = 0; i < 2; i++) {
 		Skill_1[i]->Render();
 		Skill_2[i]->Render();
 	}
+	Bar();
+	Text();
 }
 
 void UI::ScoreUI()
@@ -272,7 +326,7 @@ void UI::Timer()
 				Time[1] -= 1;
 				Time[2] = 5;
 			}
-			if (Time[1] == 0&&Time[2] == 0 && Time[3] == 0 && Time[4] == 0) {
+			if (Time[1] == 0 && Time[2] == 0 && Time[3] == 0 && Time[4] == 0) {
 				Time[1] = 0;
 				Time[2] = 0;
 				Time[3] = 0;
@@ -384,8 +438,8 @@ void UI::Text()
 		+ " / " + std::to_string(GameInfo->MaxAmmo[GameInfo->PlayerType]), 170, 90);
 
 	TestText->print(std::to_string(int(GetPlayer->m_Position.x)) + " / " + std::to_string(int(GetPlayer->m_Position.y)), 1920 / 2, -4);
-	
-	ReloadText->print("Reload"+ a, GetPlayer->m_Position.x -40, GetPlayer->m_Position.y - GetPlayer->m_Size.y/2);
+
+	ReloadText->print("Reload" + a, GetPlayer->m_Position.x - 40, GetPlayer->m_Position.y - GetPlayer->m_Size.y / 2);
 
 	Renderer::GetInst()->GetSprite()->End();
 }

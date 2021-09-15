@@ -14,7 +14,7 @@ Item::Item(Vec2 Pos, bool bonus)
 	m_ColBox->SetParent(this);
 	m_ColBox->m_Visible = false;
 	SetPosition(Pos);
-	m_Speed = 300.f;
+	m_Speed = 450.f;
 	m_Rotation = D3DXToRadian(rand()%360+0);
 	Under = false;
 	Over = true;
@@ -54,9 +54,9 @@ void Item::Update(float deltaTime, float Time)
 		ObjMgr->CollisionCheak(this, "Player");
 		DestroyTime += dt;
 		Move();
-		if (m_Position.y > 1071 - m_Size.y / 2)
+		if (m_Position.y > 1080 - m_Size.y / 2)
 			m_Rotation = m_Rotation * -1;
-		if (m_Position.y < 549 + m_Size.y / 2)
+		if (m_Position.y < 0 + m_Size.y / 2)
 			m_Rotation = m_Rotation * -1;
 		if (m_Position.x > Camera::GetInst()->m_Position.x + App::GetInst()->m_Width - m_Size.x / 2)
 			m_Rotation = m_Rotation * -1.5f;

@@ -69,7 +69,7 @@ void Torpedo::Move()
 
 		D3DXVec2Normalize(&Dire, &Enemy);
 	
-		if (!GameInfo->OceanicPos.empty()) {
+		if (!GameInfo->EnemyCount[1]==0) {
 			if (impellent < 2) {
 				impellent += dt;
 			}

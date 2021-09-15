@@ -98,7 +98,8 @@ public:
 
 	Vec2 CloseEnemy[3];
 
-	int EnemyCount;
+	int EnemyCount[3];// All, Oc, Air
+
 	int EnemyAllTag;
 
 	float Enemydistance[3];

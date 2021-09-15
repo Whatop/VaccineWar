@@ -19,7 +19,7 @@ void RankScene::Init()
 	m_Rank = Sprite::Create(L"Painting/Scene/Rank.png");
 	m_Rank->SetPosition(1920 / 2, 100);
 
-	m_Back = Sprite::Create(L"Painting/Button/ReturnTitle.png");
+	m_Back = Sprite::Create(L"Painting/MainScreen/Exit.png");
 	m_Back->SetPosition(1700, 900);
 
 	m_First = new TextMgr();
@@ -43,6 +43,7 @@ void RankScene::Update(float deltaTime, float Time)
 	if (CollisionMgr::GetInst()->MouseWithBoxSize(m_Back) && INPUT->GetButtonDown() == true)
 	{
 		SceneDirector::GetInst()->ChangeScene(new MainScene());
+		INPUT->ButtonDown(false);
 	}
 }
 
