@@ -1,6 +1,5 @@
 #pragma once
 
-
 #ifndef DOMONEPLAYER_H
 #define DOMONEPLAYER_H
 class SoundMgr :public Singleton<SoundMgr>

@@ -1,5 +1,127 @@
-﻿  AerialEnemy1.cpp
-D:\VaccineWar\Space\AerialEnemy1.cpp(63,43): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\AerialEnemy1.cpp(143,42): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\AerialEnemy1.cpp(146,42): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Space.vcxproj -> D:\VaccineWar\x64\Debug\Space.exe
+﻿  stdafx.cpp
+  AerialEnemy1.cpp
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\AerialEnemy1.cpp(63,43): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\AerialEnemy1.cpp(143,42): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\AerialEnemy1.cpp(146,42): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  AirForce.cpp
+  Animation.cpp
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Animation.cpp(109,31): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Animation.cpp(108,29): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Animation.cpp(107,29): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Animation.cpp(106,29): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Animation.cpp(116,46): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Animation.cpp(116,17): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Animation.cpp(115,67): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Animation.cpp(115,38): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  App.cpp
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\App.cpp(31,12): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\App.cpp(41,19): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  BossBullet.cpp
+  Bullet.cpp
+  Camera.cpp
+  CollisionMgr.cpp
+  EffectMgr.cpp
+  InputScoreScene.cpp
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\InputScoreScene.cpp(89,38): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  EnemyDirBullet.cpp
+  GameMgr.cpp
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\GameMgr.cpp(47,15): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\GameMgr.cpp(154,13): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\GameMgr.cpp(290,9): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\GameMgr.cpp(306,9): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\GameMgr.cpp(322,9): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\GameMgr.cpp(339,62): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\GameMgr.cpp(341,58): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\GameMgr.cpp(342,58): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\GameMgr.cpp(343,58): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\GameMgr.cpp(345,59): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\GameMgr.cpp(347,60): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Input.cpp
+  Item.cpp
+  MainScene.cpp
+  Missile.cpp
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Missile.cpp(117,23): warning C4244: '+=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  NavalProjectile.cpp
+  Object.cpp
+  ObjectMgr.cpp
+  Obstacle.cpp
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Obstacle.cpp(22,17): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
+  컴파일하고 있습니다...
+  Oceanic1.cpp
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Oceanic1.cpp(54,66): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Oceanic1.cpp(54,43): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Oceanic1.cpp(132,65): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Oceanic1.cpp(132,42): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Oceanic1.cpp(135,65): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Oceanic1.cpp(135,42): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Pet.cpp
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Pet.cpp(17,18): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Pet.cpp(82,54): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Player.cpp
+  RankScene.cpp
+  Renderer.cpp
+  ResourceMgr.cpp
+  EnemyRotationBullet.cpp
+  Scene.cpp
+  SceneDirector.cpp
+  SoundMgr.cpp
+  Space.cpp
+  Sprite.cpp
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Sprite.cpp(56,31): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Sprite.cpp(55,29): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Sprite.cpp(54,29): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Sprite.cpp(53,29): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Sprite.cpp(62,60): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Sprite.cpp(62,17): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Sprite.cpp(61,81): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Sprite.cpp(61,38): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Stage1.cpp
+  Stage1Boss.cpp
+  Stage2.cpp
+  TextMgr.cpp
+  Texture.cpp
+  Torpedo.cpp
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Torpedo.cpp(78,22): warning C4244: '+=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  UI.cpp
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(156,15): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(167,15): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(293,16): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(297,80): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(297,29): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(296,112): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(296,61): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(299,50): warning C4244: '=': 'FLOAT'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(305,14): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(309,74): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(309,27): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(308,104): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(308,57): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(311,46): warning C4244: '=': 'FLOAT'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(323,18): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(327,86): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(327,31): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(326,120): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(326,65): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(329,54): warning C4244: '=': 'FLOAT'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(340,12): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(342,96): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(342,33): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(341,134): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(341,71): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(344,60): warning C4244: '=': 'FLOAT'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(350,82): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(350,29): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(349,115): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(349,62): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(352,51): warning C4244: '=': 'FLOAT'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(359,19): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(361,82): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(361,29): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(360,115): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(360,62): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(363,51): warning C4244: '=': 'FLOAT'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(388,86): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\UI.cpp(388,57): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
+  Space.vcxproj -> C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\x64\Debug\Space.exe
