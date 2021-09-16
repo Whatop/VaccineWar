@@ -37,7 +37,7 @@ void Torpedo::Update(float deltaTime, float Time)
 		m_Torpedo->Update(deltaTime, Time);
 		Move();
 	}
-	if (DestroyTime > 22.f || GameInfo->isScoreScene) {
+	if (DestroyTime > 22.f || GameInfo->isScoreScene || m_Position.y < 451) {
 		ObjMgr->RemoveObject(this);
 		ObjMgr->AddObject(new EffectMgr(L"Painting/Effect/Big/", 1, 9, 0.1f, m_Position), "Effect");
 	}
@@ -93,7 +93,10 @@ void Torpedo::Move()
 			Translate(Dire.x * m_Speed * impellent * dt, Dire.y * m_Speed * impellent * dt);
 		}
 		else {
-			m_Position.x += m_Speed * impellent * dt;
+			Dire.y = sin(m_Rotation);
+			Dire.x = cos(m_Rotation);
+			D3DXVec2Normalize(&Dire, &Dire);
+			Translate(Dire.x * m_Speed * impellent * dt, Dire.y * m_Speed * impellent * dt);
 		}
 	}
 }

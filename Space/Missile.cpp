@@ -105,8 +105,10 @@ void Missile::Move()
 
 			}
 			else {
-				m_Position.y -= m_Speed * dt;
-				m_Rotation = D3DXToRadian(-90);
+				Dire.y = sin(m_Rotation);
+				Dire.x = cos(m_Rotation);
+				D3DXVec2Normalize(&Dire, &Dire);
+				Translate(Dire.x * m_Speed * impellent * dt, Dire.y * impellent * m_Speed * dt);
 			}
 		}
 		else {

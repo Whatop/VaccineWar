@@ -100,7 +100,7 @@ public:
 
 	int EnemyCount[3];// All, Oc, Air
 
-	int EnemyAllTag;
+	int EnemyTag[3];
 
 	float Enemydistance[3];
 	float tempdistance[3];
@@ -118,6 +118,9 @@ public:
 
 	//pet
 	int PetCount;
+
+	//Stage Level Patturn
+	int Level_Petturn;
 public:
 	void Init();
 	void Release();

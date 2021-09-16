@@ -28,10 +28,11 @@ AerialEnemy1::AerialEnemy1(Vec2 Pos, int enemyCount)
 	std::cout << "적 공군 1 생성" << std::endl;
 
 	EnemyAirTag = enemyCount;
-	EnemyAllTag = GameInfo->EnemyAllTag;
+	EnemyAllTag = GameInfo->EnemyTag[0];
 	GameInfo->EnemyCount[0]++;
 	GameInfo->EnemyCount[2]++;
-	GameInfo->EnemyAllTag++;
+	GameInfo->EnemyTag[0]++;
+	GameInfo->EnemyTag[2]++;
 
 
 	GameInfo->AllEnemyPos.push_back(Vec2(9999, 9999));

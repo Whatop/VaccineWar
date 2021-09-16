@@ -4,7 +4,7 @@
 
 Stage1Boss::Stage1Boss(int enemyCount)
 {
-	m_Boss = Sprite::Create(L"Painting/Boss/Stage1/Boss.png",D3DCOLOR_XRGB(255,255,255));
+	m_Boss = Sprite::Create(L"Painting/Boss/Stage1/Boss.png", D3DCOLOR_XRGB(255, 255, 255));
 	m_Boss->SetParent(this);
 
 	Turret[0] = Sprite::Create(L"Painting/Boss/Stage1/Turret.png");
@@ -19,30 +19,35 @@ Stage1Boss::Stage1Boss(int enemyCount)
 	//float AttackTime;
 	//float DelayTime;
 
-	SetPosition(1920/2,220);
+	SetPosition(1920 / 2, -300);
 	m_Hp = 150;
 	m_Speed = 450.f;
 	m_Layer = 2;
 	std::cout << "적 공군 1 생성" << std::endl;
 
 	EnemyAirTag = enemyCount;
-	EnemyAllTag = GameInfo->EnemyAllTag;
+	EnemyAllTag = GameInfo->EnemyTag[0];
 	GameInfo->EnemyCount[0]++;
-	GameInfo->EnemyAllTag++;
+	GameInfo->EnemyTag[0]++;
+	GameInfo->EnemyTag[2]++;
 
 
 	GameInfo->AllEnemyPos.push_back(Vec2(9999, 9999));
 	GameInfo->AerialPos.push_back(Vec2(9999, 9999));
 	ones = true;
 	SetScale(1.1f, 1.1f);
+	isSpawnMove = true;
 }
-
 Stage1Boss::~Stage1Boss()
 {
 }
 
 void Stage1Boss::Update(float deltaTime, float Time)
 {
+	if (isSpawnMove) {
+		m_Position.y += 100 * dt;
+	}
+	//220
 	if (m_Hp <= 0)
 	{
 		ObjMgr->AddObject(new Item(m_Position), "Heal");

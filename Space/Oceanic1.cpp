@@ -22,10 +22,11 @@ Oceanic1::Oceanic1(Vec2 Pos,int enemyCount)
 	std::cout << "적 해군 1 생성" << std::endl;
 
 	EnemyOcTag = enemyCount;
-	EnemyAllTag = GameInfo->EnemyAllTag;
+	EnemyAllTag = GameInfo->EnemyTag[0];
 	GameInfo->EnemyCount[0]++;
 	GameInfo->EnemyCount[1]++;
-	GameInfo->EnemyAllTag++;
+	GameInfo->EnemyTag[0]++;
+	GameInfo->EnemyTag[1]++;
 
 	GameInfo->AllEnemyPos.push_back(Vec2(9999, 9999));
 	GameInfo->OceanicPos.push_back(Vec2(9999, 9999));

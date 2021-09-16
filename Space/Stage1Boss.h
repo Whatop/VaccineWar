@@ -21,6 +21,9 @@ class Stage1Boss : public Object
 	// Attack
 	float AttackTime;
 	float DelayTime;
+
+	bool isSpawnMove;
+
 public:
 	Stage1Boss(int enemyCount);
 	~Stage1Boss();

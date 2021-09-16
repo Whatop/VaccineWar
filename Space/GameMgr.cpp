@@ -34,7 +34,9 @@ void GameMgr::Init()
 	EnemyCount[0] = 0;
 	EnemyCount[1] = 0;
 	EnemyCount[2] = 0;
-	EnemyAllTag = 0;
+	EnemyTag[0] = 0;
+	EnemyTag[1] = 0;
+	EnemyTag[2] = 0;
 
 	SpawnDelay = 0.f;
 	AddDelay = 0.f;
@@ -82,6 +84,7 @@ void GameMgr::Init()
 	OceanicPos.clear();
 	AerialPos.clear();
 
+	Level_Petturn = 0;
 }
 
 void GameMgr::Release()
@@ -336,22 +339,92 @@ void GameMgr::ClosePosAerial()
 void GameMgr::SpawnEnemy()
 {
 	if (isSpawnEnemy) {
-		SpawnDelay += dt;
-		if (SpawnDelay > 4) {
+		if (GameInfo->EnemyCount[0] == 0) {
 
-			ObjMgr->AddObject(new AerialEnemy1(Vec2(2000, rand() % 492+73), 0), "Enemy");
-			ObjMgr->AddObject(new Stage1Boss(1), "Enemy");
-
-			ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492+540), 0), "Enemy");
-			ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492+540), 1), "Enemy");
-			ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492+540), 2), "Enemy");
-			if(rand()%2==0)
-				ObjMgr->AddObject(new Obstacle(Vec2(2000, rand() % 200+700), true), "Mine");
-			else 
-				ObjMgr->AddObject(new Obstacle(Vec2(2000, rand() % 200 + 700), false), "Trash");
-
-			//ObjMgr->AddObject(new Obstacle(Vec2(2000, 700), false), "Mine");
-			SpawnDelay = -100000.f;
+			if (Level_Petturn == 0) {
+				if (m_Scene == StageScene::STAGE1) {
+					ObjMgr->AddObject(new AerialEnemy1(Vec2(2000, rand() % 492 + 73), 0), "Enemy");
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 0), "Enemy");
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 1), "Enemy");
+				}
+				else {
+					ObjMgr->AddObject(new AerialEnemy1(Vec2(2000, rand() % 492 + 73), 0), "Enemy");
+					ObjMgr->AddObject(new AerialEnemy1(Vec2(2000, rand() % 492 + 73), 1), "Enemy");
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 0), "Enemy");
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 1), "Enemy");
+				}
+				Level_Petturn++;
+			}
 		}
+		if (GameInfo->EnemyCount[0] == 0) {
+			if (Level_Petturn == 1) {
+				if (m_Scene == StageScene::STAGE1) {
+					ObjMgr->AddObject(new AerialEnemy1(Vec2(2000, rand() % 492 + 73), 2), "Enemy");
+					ObjMgr->AddObject(new AerialEnemy1(Vec2(2000, rand() % 492 + 73), 0), "Enemy");
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 1), "Enemy");
+				}
+				else {
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 1), "Enemy");
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 1), "Enemy");
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 1), "Enemy");
+					ObjMgr->AddObject(new AerialEnemy1(Vec2(2000, rand() % 492 + 73), 0), "Enemy");
+				}
+				Level_Petturn++;
+			}
+		}
+		if (GameInfo->EnemyCount[0] == 0) {
+			if (Level_Petturn == 2) {
+				if (m_Scene == StageScene::STAGE1) {
+					ObjMgr->AddObject(new AerialEnemy1(Vec2(2000, rand() % 492 + 73), 0), "Enemy");
+					ObjMgr->AddObject(new AerialEnemy1(Vec2(2000, rand() % 492 + 73), 0), "Enemy");
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 0), "Enemy");
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 1), "Enemy");
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 1), "Enemy");
+				}
+				else {
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 0), "Enemy");
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 0), "Enemy");
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 0), "Enemy");
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 1), "Enemy");
+
+				}
+				Level_Petturn++;
+			}
+		}
+		if (GameInfo->EnemyCount[0] == 0) {
+			if (Level_Petturn == 3) {
+				if (m_Scene == StageScene::STAGE1) {
+					ObjMgr->AddObject(new AerialEnemy1(Vec2(2000, rand() % 492 + 73), 0), "Enemy");
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 1), "Enemy");
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 1), "Enemy");
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 1), "Enemy");
+				}
+				else {
+					ObjMgr->AddObject(new AerialEnemy1(Vec2(2000, rand() % 492 + 73), 0), "Enemy");
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 1), "Enemy");
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 1), "Enemy");
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 1), "Enemy");
+					ObjMgr->AddObject(new Oceanic1(Vec2(2000, rand() % 492 + 540), 1), "Enemy");
+
+				}
+				Level_Petturn++;
+			}
+		}
+		if (GameInfo->EnemyCount[0] == 0) {
+			if (Level_Petturn == 4) {
+				if (m_Scene == StageScene::STAGE1) {
+					ObjMgr->AddObject(new Stage1Boss(1), "Enemy");
+				}
+				else {
+					ObjMgr->AddObject(new Stage1Boss(1), "Enemy");
+				}
+				Level_Petturn++;
+			}
+		}
+
+		//if (rand() % 2 == 0)
+		//	ObjMgr->AddObject(new Obstacle(Vec2(2000, rand() % 200 + 700), true), "Mine");
+		//else
+		//	ObjMgr->AddObject(new Obstacle(Vec2(2000, rand() % 200 + 700), false), "Trash");
 	}
 }
