@@ -93,6 +93,9 @@ void Torpedo::Move()
 			Translate(Dire.x * m_Speed * impellent * dt, Dire.y * m_Speed * impellent * dt);
 		}
 		else {
+			if (impellent < 2) {
+				impellent += dt;
+			}
 			Dire.y = sin(m_Rotation);
 			Dire.x = cos(m_Rotation);
 			D3DXVec2Normalize(&Dire, &Dire);

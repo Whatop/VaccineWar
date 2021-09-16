@@ -46,7 +46,11 @@ void Stage1Boss::Update(float deltaTime, float Time)
 {
 	if (isSpawnMove) {
 		m_Position.y += 100 * dt;
+		if (m_Position.y > 220) {
+			isSpawnMove = false;
+		}
 	}
+
 	//220
 	if (m_Hp <= 0)
 	{
