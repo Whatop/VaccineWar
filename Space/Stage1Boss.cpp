@@ -4,7 +4,7 @@
 
 Stage1Boss::Stage1Boss(int enemyCount)
 {
-	m_Boss = Sprite::Create(L"Painting/Boss/Stage1/Boss.png", D3DCOLOR_XRGB(255, 255, 255));
+	m_Boss = Sprite::Create(L"Painting/Boss/Stage1/BossFrame.png", D3DCOLOR_XRGB(255, 255, 255));
 	m_Boss->SetParent(this);
 
 	Turret[0] = Sprite::Create(L"Painting/Boss/Stage1/Turret.png");
@@ -12,14 +12,11 @@ Stage1Boss::Stage1Boss(int enemyCount)
 	Turret[2] = Sprite::Create(L"Painting/Boss/Stage1/Turret.png");
 	Turret[3] = Sprite::Create(L"Painting/Boss/Stage1/Turret.png");
 
-	//for (int i = 0; i < 4; i++)
-	//	Turret[i]->SetPosition()
-	//
-	//// Attack
-	//float AttackTime;
-	//float DelayTime;
-
-	SetPosition(1920 / 2, -300);
+	SetPosition(1920 / 2, -200);
+	for (int i = 0; i < 4; i++) {
+		Turret[i]->SetPosition(m_Position.x+50 + i * 100, m_Position.y+m_Size.y/2-50);
+		Turret[i]->SetScale(1.1f, 1.1f);
+	}
 	m_Hp = 150;
 	m_Speed = 450.f;
 	m_Layer = 2;
@@ -37,6 +34,8 @@ Stage1Boss::Stage1Boss(int enemyCount)
 	ones = true;
 	SetScale(1.1f, 1.1f);
 	isSpawnMove = true;
+	GameInfo->isDangerBoss = true;
+	Camera::GetInst()->ShakeTimeX = -4.5f;
 }
 Stage1Boss::~Stage1Boss()
 {
@@ -44,13 +43,18 @@ Stage1Boss::~Stage1Boss()
 
 void Stage1Boss::Update(float deltaTime, float Time)
 {
+	RotationTurret();
 	if (isSpawnMove) {
 		m_Position.y += 100 * dt;
 		if (m_Position.y > 220) {
 			isSpawnMove = false;
 		}
 	}
-
+	else {
+		if (Camera::GetInst()->ShakeTimeX > 0.4f) {
+			GameInfo->isDangerBoss = false;
+		}
+	}
 	//220
 	if (m_Hp <= 0)
 	{
@@ -65,7 +69,7 @@ void Stage1Boss::Update(float deltaTime, float Time)
 		GameInfo->AllEnemyPos.at(EnemyAllTag) = Vec2(9999, 9999);
 		GameInfo->AerialPos.at(EnemyAirTag) = Vec2(9999, 9999);
 		GameInfo->EnemyCount[0]--;
-		//GameInfo->EnemyCount[2]--;
+		GameInfo->EnemyCount[2]--;
 	}
 }
 
@@ -87,6 +91,8 @@ void Stage1Boss::Move()
 
 void Stage1Boss::RotationTurret()
 {
+	for (int i = 0; i < 4; i++)
+		Turret[i]->SetPosition(m_Position.x + 50 + i * 100, m_Position.y + m_Size.y / 2 - 50);
 }
 
 void Stage1Boss::Attack()

@@ -81,6 +81,9 @@ void Player::Init()
 
 void Player::Update(float deltaTime, float Time)
 {
+	if (INPUT->GetKey('1') == KeyState::DOWN) {
+		GameInfo->Level_Petturn = 4;
+	}
 	GameInfo->SpriteUpdate(ColBox[HIT]); // 지뢰 충돌 판정
 	if (GameInfo->m_DebugMode) {
 		for (int i = 0; i < 5; i++) {

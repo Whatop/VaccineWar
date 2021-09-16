@@ -81,9 +81,9 @@ void Camera::Update(float deltaTime, float time)
 		m_Position.x += (sin(2.0f * 3.14159f * ShakeTimeX * 4) * 2.3f +
 			sin(2.0f * 3.14159f * ShakeTimeX * 8 + 0.2f) * 2.2f +
 			sin(2.0f * 3.14159f * ShakeTimeX * 16 + 0.5f) * 2.1f) * (5 - ShakeTimeX) / 5;
-	}
-	else {
-		m_Position = Vec2(0, 0);
+		if (m_Position.x < 100) {
+			m_Position.x -= 5 * dt;
+		}
 	}
 	/*
 	ÆøÅº ÅÍÆ®¸±¶§ Ãß°¡ÇÒ±î?

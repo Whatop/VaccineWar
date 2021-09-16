@@ -4,7 +4,6 @@ class UI : public Singleton<UI>
 	// HpBar
 	Sprite* PlayerBar;
 	Sprite* BossBar;
-	Sprite* MiniBossBar;
 	
 	//StateWindow
 	Sprite* StateWindow;

@@ -17,15 +17,12 @@ void UI::Init()
 	BossBar = Sprite::Create(L"Painting/UI/BossHp.png");
 	BossBar->SetPosition(1920 / 2, 100);
 
-	MiniBossBar = Sprite::Create(L"Painting/UI/BossHp.png");
-	MiniBossBar->SetPosition(1920 / 2, 100);
-
 	UIScoreFrame = Sprite::Create(L"Painting/UI/Cover.png");
 	UIScoreFrame->SetPosition(1920 / 2, 1080 / 2);
 
 	StateWindow = Sprite::Create(L"Painting/UI/Window.png");
 	StateWindow->SetPosition(1920 / 2, 72 / 2);
-
+	StateWindow->SetScale(1.5f, 1);
 	ScoreImage = Sprite::Create(L"Painting/UI/Money.png");
 	ScoreImage->SetPosition(1920 / 2 - 270, 72 / 2);
 
@@ -99,7 +96,6 @@ void UI::Init()
 
 	PlayerBar->m_Visible = false;
 	BossBar->m_Visible = false;
-	MiniBossBar->m_Visible = false;
 	UIScoreFrame->m_Visible = false;
 	memset(limit, 0, sizeof(limit));
 	ScoredaleyTime = 0.f;
@@ -249,7 +245,6 @@ void UI::Render()
 	HpImage->Render();
 	TimeLmitImage->Render();
 	BossBar->Render();
-	MiniBossBar->Render();
 	UIScoreFrame->Render();
 	ScoreImage->Render();
 
@@ -372,24 +367,7 @@ void UI::Bar()
 	else {
 		BossBar->m_Visible = false;
 	}
-	if (GameInfo->isMiniBossSpawn) {
-		float m_MiniBossHpGage = MiniBossBar->m_Size.x / GameInfo->GetMiniBossMaxHp();
-		int MiniBossHp = GameInfo->GetMiniBossMaxHp() - GameInfo->GetMiniBossHp();
-		if (GameInfo->GetMiniBossHp() > 0)
-		{
-			SetRect(&MiniBossBar->m_Collision, MiniBossBar->m_Position.x - MiniBossBar->m_Size.x / 2, MiniBossBar->m_Position.y - MiniBossBar->m_Size.y / 2,
-				MiniBossBar->m_Position.x + MiniBossBar->m_Size.x / 2, MiniBossBar->m_Position.y + MiniBossBar->m_Size.y / 2);
-
-			MiniBossBar->m_Rect.right = MiniBossBar->m_Size.x - (MiniBossHp * m_MiniBossHpGage);
-			MiniBossBar->m_Visible = true;
-		}
-		else {
-			MiniBossBar->m_Visible = false;
-		}
-	}
-	else {
-		MiniBossBar->m_Visible = false;
-	}
+	
 	float SpeedGage = SpeedFrameImage->m_Size.x / 500.f;
 	int Speed = 500.f - GetPlayer->m_Speed;
 	SetRect(&SpeedFrameImage->m_Collision, SpeedFrameImage->m_Position.x - SpeedFrameImage->m_Size.x / 2, SpeedFrameImage->m_Position.y - SpeedFrameImage->m_Size.y / 2,

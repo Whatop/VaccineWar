@@ -23,7 +23,6 @@ class GameMgr : public Singleton<GameMgr>
 	// UI Hpbar
 	float MaxHp, Hp;
 	float BossMaxHp, BossHp;
-	float MiniBossMaxHp, MiniBossHp;
 public:
 	// PlayerColBox
 	Sprite* PSprite;
@@ -40,9 +39,9 @@ public:
 
 	// BossCheck
 	bool isBossSpawn;
-	bool isMiniBossSpawn;
 	bool isOneBoss;
-	bool isOneMiniBoss;
+
+	bool isDangerBoss;
 
 	// EnemyCheck
 	bool isSpawnEnemy;
@@ -76,7 +75,6 @@ public:
 	//Skill
 	float SKILL_Air_force; 
 	float SKILL_Focus_attck;
-
 	
 	float SKILL_CoolTime[2]; // Focus_attck , Air_Force
 
@@ -121,6 +119,8 @@ public:
 
 	//Stage Level Patturn
 	int Level_Petturn;
+
+	// BossSpawn
 public:
 	void Init();
 	void Release();
@@ -139,11 +139,9 @@ public:
 	float GetPlayerHp() { return Hp; }
 public:
 	void BossHpUpdate(float maxhp,float hp) { BossMaxHp = maxhp, BossHp = hp; }
-	void MiniBossHpUpdate(float maxhp,float hp) { MiniBossMaxHp = maxhp, MiniBossHp = hp; }
 	float GetBossMaxHp() { return BossMaxHp; }
 	float GetBossHp() { return BossHp; }
-	float GetMiniBossMaxHp() { return MiniBossMaxHp; }
-	float GetMiniBossHp() { return MiniBossHp; }
+	
 
 	void SpawnEnemy();
 public:

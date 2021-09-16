@@ -41,11 +41,7 @@ void GameMgr::Init()
 	SpawnDelay = 0.f;
 	AddDelay = 0.f;
 
-	isOneBoss = true;
-	isOneMiniBoss = true;
-
 	BossMaxHp = 0, BossHp = 0;
-	MiniBossMaxHp = 0, MiniBossHp = 0;
 	Player_Coefficient = 1.f;
 	isSpawnEnemy = false;
 
@@ -85,6 +81,7 @@ void GameMgr::Init()
 	AerialPos.clear();
 
 	Level_Petturn = 0;
+
 }
 
 void GameMgr::Release()
