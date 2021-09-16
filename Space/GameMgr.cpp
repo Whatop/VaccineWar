@@ -287,7 +287,7 @@ void GameMgr::CheatKey()
 
 void GameMgr::ClosePosAllEnemy()
 {
-	if (!AllEnemyPos.empty()) {
+	if (EnemyCount[0] != 0) {
 		for (int i = 0; i < AllEnemyPos.size(); i++) {
 			tempdistance[0] =
 				sqrt(pow(PlayerInfo->m_Position.x - AllEnemyPos.at(i).x, 2)
@@ -303,7 +303,7 @@ void GameMgr::ClosePosAllEnemy()
 
 void GameMgr::ClosePosOceanic()
 {
-	if (!OceanicPos.empty()) {
+	if (EnemyCount[1] != 0) {
 		for (int i = 0; i < OceanicPos.size(); i++) {
 			tempdistance[1] =
 				sqrt(pow(PlayerInfo->m_Position.x - OceanicPos.at(i).x, 2)
@@ -319,7 +319,7 @@ void GameMgr::ClosePosOceanic()
 
 void GameMgr::ClosePosAerial()
 {
-	if (!AerialPos.empty()) {
+	if (EnemyCount[2] != 0) {
 		for (int i = 0; i < AerialPos.size(); i++) {
 			tempdistance[2] =
 				sqrt(pow(PlayerInfo->m_Position.x - AerialPos.at(i).x, 2)

@@ -63,9 +63,7 @@ void Torpedo::Move()
 		}
 	}
 	else {
-	
-
-		Enemy = GameInfo->CloseEnemy[0] - m_Position;
+		Enemy = GameInfo->CloseEnemy[1] - m_Position;
 
 		D3DXVec2Normalize(&Dire, &Enemy);
 	

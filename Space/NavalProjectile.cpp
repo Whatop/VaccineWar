@@ -21,7 +21,7 @@ NavalProjectile::NavalProjectile(Vec2 spawnpoint, bool minibullet)
 	m_Atk = 20.f * GameInfo->Player_Coefficient;
 	
 	SetScale(0.75f, 0.75f);
-	if (GameInfo->EnemyCount > 0) {
+	if (GameInfo->EnemyCount[0] > 0) {
 		Vec2 Enemy =
 			Vec2(GameInfo->CloseEnemy[0].x + rand() % 100
 				, GameInfo->CloseEnemy[0].y + rand() % 100) - m_Position;

@@ -20,7 +20,7 @@ Bullet::Bullet(Vec2 spawnpoint, bool minibullet)
 	m_Layer = 2;
 	m_Atk = 10.f * GameInfo->Player_Coefficient;
 	SetScale(1.f, 1.f);
-	if (GameInfo->EnemyCount > 0) {
+	if (GameInfo->EnemyCount[0] > 0) {
 		Vec2 Enemy = GameInfo->CloseEnemy[0] - m_Position;
 		D3DXVec2Normalize(&Dire, &Enemy);
 	}

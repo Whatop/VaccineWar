@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Missile.h"
 
-Missile::Missile(Vec2 Pos,bool allTarget )
+Missile::Missile(Vec2 Pos,bool allTarget)
 {
 	m_Missile = new Animation();
 	m_Missile->Init(0.1f, true);
