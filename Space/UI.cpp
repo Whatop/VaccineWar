@@ -15,7 +15,10 @@ void UI::Init()
 	PlayerBar->SetPosition(390, 35);
 
 	BossBar = Sprite::Create(L"Painting/UI/BossHp.png");
-	BossBar->SetPosition(1920 / 2, 100);
+	BossBar->SetPosition(1920 / 2+90, 1080-169/2+10 + 200);
+	BossBar->m_Scale.y = 0.9f;
+	BossBackGround = Sprite::Create(L"Painting/UI/BossBar1.png");
+	BossBackGround->SetPosition(1920 / 2, 1080-169/2 + 200);
 
 	UIScoreFrame = Sprite::Create(L"Painting/UI/Cover.png");
 	UIScoreFrame->SetPosition(1920 / 2, 1080 / 2);
@@ -96,6 +99,7 @@ void UI::Init()
 
 	PlayerBar->m_Visible = false;
 	BossBar->m_Visible = false;
+	BossBackGround->m_Visible = false;
 	UIScoreFrame->m_Visible = false;
 	memset(limit, 0, sizeof(limit));
 	ScoredaleyTime = 0.f;
@@ -130,8 +134,15 @@ void UI::Update()
 		UIScoreFrame->m_Visible = false;
 		ResultScoreText->SetColor(0, 255, 255, 255);
 	}
-	if (!GameInfo->isPause)
+	if (!GameInfo->isPause) {
 		Timer();
+	
+		if (GameInfo->isDangerBoss) {
+			BossBackGround->m_Position.y -= 40 * dt;
+			BossBar->m_Position.y -= 40 * dt;
+			BossBackGround->m_Visible = true;
+		}
+	}
 
 	if (GameInfo->m_DebugMode) {
 		TestText->SetColor(255, 255, 255, 255);
@@ -244,9 +255,10 @@ void UI::Render()
 	PlayerBar->Render();
 	HpImage->Render();
 	TimeLmitImage->Render();
-	BossBar->Render();
 	UIScoreFrame->Render();
 	ScoreImage->Render();
+	BossBackGround->Render();
+	BossBar->Render();
 
 	for (int i = 0; i < 2; i++) {
 		Skill_1[i]->Render();

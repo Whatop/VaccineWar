@@ -5,10 +5,10 @@ Bullet::Bullet(Vec2 spawnpoint, bool minibullet)
 {
 	m_Bolt = new Animation();
 	m_Bolt->Init(0.1f, true);
-	m_Bolt->AddContinueFrame(L"Painting/Bullet/Bolt/enemybolt",1,4);
+	m_Bolt->AddContinueFrame(L"Painting/Bullet/Spread/",0,1);
 	m_Bolt->SetParent(this);
 
-	m_Bullet = Sprite::Create(L"Painting/Bullet/Spread.png");
+	m_Bullet = Sprite::Create(L"Painting/Bullet/Spread/0.png");
 	m_Bullet->SetParent(this);
 	m_Bullet->m_Visible = false;
 	Spawnpoint = Vec2(spawnpoint.x + (GetPlayer->m_Size.x * 0.4f) / 2, spawnpoint.y-2);

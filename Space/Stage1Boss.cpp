@@ -17,7 +17,8 @@ Stage1Boss::Stage1Boss(int enemyCount)
 		Turret[i]->SetPosition(m_Position.x+50 + i * 100, m_Position.y+m_Size.y/2-50);
 		Turret[i]->SetScale(1.1f, 1.1f);
 	}
-	m_Hp = 150;
+	m_MaxHp = 12000;
+	m_Hp = m_MaxHp;
 	m_Speed = 450.f;
 	m_Layer = 2;
 	std::cout << "적 공군 1 생성" << std::endl;
@@ -34,7 +35,9 @@ Stage1Boss::Stage1Boss(int enemyCount)
 	ones = true;
 	SetScale(1.1f, 1.1f);
 	isSpawnMove = true;
+
 	GameInfo->isDangerBoss = true;
+	GameInfo->isBossSpawn = true;
 	Camera::GetInst()->ShakeTimeX = -4.5f;
 }
 Stage1Boss::~Stage1Boss()
@@ -43,7 +46,10 @@ Stage1Boss::~Stage1Boss()
 
 void Stage1Boss::Update(float deltaTime, float Time)
 {
-	RotationTurret();
+	GameInfo->BossHpUpdate(m_MaxHp, m_Hp);
+	GameInfo->AllEnemyPos.at(EnemyAllTag) = m_Position;
+	GameInfo->AerialPos.at(EnemyAirTag) = m_Position;
+	Move();
 	if (isSpawnMove) {
 		m_Position.y += 100 * dt;
 		if (m_Position.y > 220) {
@@ -70,6 +76,7 @@ void Stage1Boss::Update(float deltaTime, float Time)
 		GameInfo->AerialPos.at(EnemyAirTag) = Vec2(9999, 9999);
 		GameInfo->EnemyCount[0]--;
 		GameInfo->EnemyCount[2]--;
+		GameInfo->isBossSpawn = false;
 	}
 }
 
@@ -87,12 +94,13 @@ void Stage1Boss::OnCollision(Object* obj)
 
 void Stage1Boss::Move()
 {
+	for (int i = 0; i < 4; i++)
+		Turret[i]->SetPosition(m_Position.x + 50 + i * 100, m_Position.y + m_Size.y / 2 - 50);
 }
 
 void Stage1Boss::RotationTurret()
 {
-	for (int i = 0; i < 4; i++)
-		Turret[i]->SetPosition(m_Position.x + 50 + i * 100, m_Position.y + m_Size.y / 2 - 50);
+
 }
 
 void Stage1Boss::Attack()

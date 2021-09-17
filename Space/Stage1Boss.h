@@ -4,7 +4,7 @@ class Stage1Boss : public Object
 	Sprite* m_Boss;
 	Sprite* Turret[4];
 	
-	float m_Hp;
+	float m_Hp, m_MaxHp;
 
 	bool ones;
 

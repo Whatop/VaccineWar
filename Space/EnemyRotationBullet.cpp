@@ -6,10 +6,10 @@ EnemyRotationBullet::EnemyRotationBullet(Vec2 Pos, float r)
 
 	m_Bolt = new Animation();
 	m_Bolt->Init(0.1f, true);
-	m_Bolt->AddContinueFrame(L"Painting/Bullet/Bolt/enemybolt", 1, 4);
+	m_Bolt->AddContinueFrame(L"Painting/Bullet/Spread/Spread", 1, 5);
 	m_Bolt->SetParent(this);
 
-	m_Bullet = Sprite::Create(L"Painting/Bullet/EnemyBullet.png");
+	m_Bullet = Sprite::Create(L"Painting/Bullet/Spread/Spread5.png");
 	m_Bullet->SetParent(this);
 	SetPosition(Pos);
 
