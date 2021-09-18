@@ -6,6 +6,7 @@
 enum class StageScene {
 	STAGE1,
 	STAGE2,
+	MAINSCENE,
 	NONE
 };
 

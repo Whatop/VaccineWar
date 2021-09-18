@@ -115,7 +115,18 @@ void UI::Init()
 	//ObjMgr->AddObject(UIScoreFrame, "UI");
 	//ObjMgr->AddObject(ScoreImage, "UI");
 
-
+	GunTpye->A = 0;
+	UIAim->A = 0;
+	StateWindow->A = 0;
+	SpeedImage->A = 0;
+	SpeedFrameImage->A = 0;
+	PlayerBar->A = 0;
+	HpImage->A = 0;
+	TimeLmitImage->A = 0;
+	UIScoreFrame->A = 0;
+	ScoreImage->A = 0;
+	BossBackGround->A = 0;
+	BossBar->A = 0;
 }
 
 void UI::Release()
@@ -124,6 +135,34 @@ void UI::Release()
 
 void UI::Update()
 {
+	if (GunTpye->A < 255) {
+		GunTpye->A += 1;
+		UIAim->A += 1;
+		StateWindow->A += 1;
+		SpeedImage->A += 1;
+		SpeedFrameImage->A += 1;
+		PlayerBar->A += 1;
+		HpImage->A += 1;
+		TimeLmitImage->A += 1;
+		UIScoreFrame->A += 1;
+		ScoreImage->A += 1;
+		BossBackGround->A += 1;
+		BossBar->A += 1;
+	}
+	else {
+		GunTpye->A = 255;
+		UIAim->A = 255;
+		StateWindow->A = 255;
+		SpeedImage->A = 255;
+		SpeedFrameImage->A = 255;
+		PlayerBar->A = 255;
+		HpImage->A = 255;
+		TimeLmitImage->A = 255;
+		UIScoreFrame->A = 255;
+		ScoreImage->A = 255;
+		BossBackGround->A = 255;
+		BossBar->A = 255;
+	}
 	if (GameInfo->isScoreScene) {
 		if (ScoredaleyTime < 4)
 			ScoredaleyTime += dt;

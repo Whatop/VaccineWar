@@ -54,7 +54,7 @@ void Stage1::Init()
 	if (!GameInfo->m_isCreatePlayer)
 		GameMgr::GetInst()->CreatePlayer();
 
-	GameInfo->isSpawnEnemy = true;
+	GameInfo->isSpawnEnemy = false;
 }
 
 void Stage1::Release()
@@ -78,8 +78,19 @@ void Stage1::Update(float deltaTime, float time)
 			Right_Limit->m_Visible = false;
 		}
 		if (!GameInfo->isPause) {
-			ResetBG();
+			for (int i = 0; i < 6; i++) {
+				if (m_BackGround[i][0]->A < 255)
+					m_BackGround[i][0]->A += 1;
+				else
+					m_BackGround[i][0]->A = 255;
+
+				if (m_BackGround[i][1]->A < 255)
+					m_BackGround[i][1]->A += 1;
+				else
+					m_BackGround[i][1]->A = 255;
+			}
 			MoveBG();
+			ResetBG();
 			m_Cover->m_Visible = false;
 			GameInfo->SpawnEnemy();
 		}
@@ -104,8 +115,10 @@ void Stage1::BGInit()
 		m_BackGround[i][0]->SetPosition(1920 / 2, 1080 / 2);
 		m_BackGround[i][1] = Sprite::Create(L"Painting/GameScreen/Stage1/" + std::to_wstring(i) + L".png");
 		m_BackGround[i][1]->SetPosition(m_BackGround[i][0]->m_Position.x + 1920, 1080 / 2);
-		m_BackGround[i][0]->SetScale(1.1f, 1);
-		m_BackGround[i][1]->SetScale(1.1f, 1);
+		m_BackGround[i][0]->SetScale(1, 1);
+		m_BackGround[i][1]->SetScale(1, 1);
+		m_BackGround[i][0]->A = 0;
+		m_BackGround[i][1]->A = 0;
 	}
 }
 

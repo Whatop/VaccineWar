@@ -2,7 +2,7 @@
 class Stage1Boss : public Object
 {
 	Sprite* m_Boss;
-	Sprite* Turret[4];
+	Sprite* Turret[7];
 	
 	float m_Hp, m_MaxHp;
 

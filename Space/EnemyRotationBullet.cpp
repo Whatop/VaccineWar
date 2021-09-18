@@ -13,7 +13,7 @@ EnemyRotationBullet::EnemyRotationBullet(Vec2 Pos, float r)
 	m_Bullet->SetParent(this);
 	SetPosition(Pos);
 
-	m_Rotation = D3DXToRadian(r);
+	m_Rotation=r;
 	m_Speed = 500.f;
 	m_Atk = 15.f;
 	if (GameInfo->m_Scene == StageScene::STAGE1)

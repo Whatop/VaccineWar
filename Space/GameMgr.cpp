@@ -274,7 +274,7 @@ void GameMgr::CheatKey()
 			std::cout << "제한시간 활성화" << std::endl;
 		}
 	}
-	if (INPUT->GetKey(VK_F4) == KeyState::DOWN && m_Scene != StageScene::NONE) {
+	if (INPUT->GetKey(VK_F4) == KeyState::DOWN && m_Scene != StageScene::MAINSCENE) {
 		SceneDirector::GetInst()->ChangeScene(new MainScene());
 	}
 	else if (INPUT->GetKey(VK_F5) == KeyState::DOWN && m_Scene != StageScene::STAGE1) {

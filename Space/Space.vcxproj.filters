@@ -90,9 +90,6 @@
     <ClCompile Include="UI.cpp">
       <Filter>Game\Mgr</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>Game\Object</Filter>
-    </ClCompile>
     <ClCompile Include="BossBullet.cpp">
       <Filter>Game\Object\Enemy\EnemyBullet</Filter>
     </ClCompile>
@@ -141,9 +138,6 @@
     <ClCompile Include="Camera.cpp">
       <Filter>FrameWork\Node</Filter>
     </ClCompile>
-    <ClCompile Include="Obstacle.cpp">
-      <Filter>Game\Object</Filter>
-    </ClCompile>
     <ClCompile Include="Torpedo.cpp">
       <Filter>Game\Object\Player\Bullet</Filter>
     </ClCompile>
@@ -159,10 +153,16 @@
     <ClCompile Include="NavalProjectile.cpp">
       <Filter>Game\Object\Player\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="AirForce.cpp">
-      <Filter>Game\Object</Filter>
-    </ClCompile>
     <ClCompile Include="Stage1Boss.cpp">
+      <Filter>Game\Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="AirForce.cpp">
+      <Filter>Game\Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Game\Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Obstacle.cpp">
       <Filter>Game\Object\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
@@ -208,9 +208,6 @@
     </ClInclude>
     <ClInclude Include="GameMgr.h">
       <Filter>Game\Mgr</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>Game\Object</Filter>
     </ClInclude>
     <ClInclude Include="BossBullet.h">
       <Filter>Game\Object\Enemy\EnemyBullet</Filter>
@@ -260,9 +257,6 @@
     <ClInclude Include="Texture.h">
       <Filter>FrameWork\Node</Filter>
     </ClInclude>
-    <ClInclude Include="Obstacle.h">
-      <Filter>Game\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Torpedo.h">
       <Filter>Game\Object\Player\Bullet</Filter>
     </ClInclude>
@@ -281,10 +275,16 @@
     <ClInclude Include="UI.h">
       <Filter>Game\Mgr</Filter>
     </ClInclude>
-    <ClInclude Include="AirForce.h">
-      <Filter>Game\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Stage1Boss.h">
+      <Filter>Game\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="AirForce.h">
+      <Filter>Game\Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Game\Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Obstacle.h">
       <Filter>Game\Object\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

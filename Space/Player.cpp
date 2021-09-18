@@ -15,7 +15,7 @@ Player::Player(float hp)
 
 	m_Player = Sprite::Create(L"Painting/Player/Player0.png");
 	m_Player->SetParent(this);
-
+	
 	m_ColBox = Sprite::Create(L"Painting/Player/CatchBox.png");
 
 	LEFT = 0;
