@@ -13,7 +13,6 @@ Missile::Missile(Vec2 Pos,bool allTarget)
 	SetPosition(Pos);
 	m_ColBox->m_Visible = false;
 
-	turnRadian = m_Rotation;
 	vrad = 0.005f;
 	Delay = 0.f;
 	isHoming = false;
@@ -25,9 +24,10 @@ Missile::Missile(Vec2 Pos,bool allTarget)
 	m_Atk = 100.f;
 	AllTarget = allTarget;
 	if (AllTarget)
-		m_Rotation = D3DXToRadian(0);
+		m_Rotation = D3DXToRadian(0); 
 	else
 		m_Rotation = D3DXToRadian(-90);
+	turnRadian = m_Rotation;
 }
 
 Missile::~Missile()

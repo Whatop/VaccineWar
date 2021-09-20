@@ -43,7 +43,7 @@ class UI : public Singleton<UI>
 	float Time[6];
 
 	//MiniMap
-	Sprite* MiniMap;
+	Sprite* MiniMap[2];
 
 	//Gun
 	//MachineGun, NavalProjectile, Torpedo, Missile;

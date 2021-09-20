@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Stage1.h"
+#include "Stage2.h"
 
 Stage1::Stage1()
 {
@@ -18,6 +19,7 @@ void Stage1::Init()
 
 	m_Cover = Sprite::Create(L"Painting/UI/Cover.png");
 	m_Cover->SetPosition(1920 / 2, 1080/2);
+	m_Cover->m_Visible = false;
 
 	UpWall = Sprite::Create(L"Painting/Wall.png");
 	UpWall->SetPosition(1920 / 2, 500);
@@ -35,7 +37,7 @@ void Stage1::Init()
 	Right_Limit->SetPosition(1970, 1080 / 2);
 	Right_Limit->SetScale(1, 10.8f);
 
-	ObjMgr->AddObject(m_Cover, "UI");
+	//ObjMgr->AddObject(, "UI");
 	ObjMgr->AddObject(UpWall, "Wall");
 	ObjMgr->AddObject(DownWall, "Wall");
 	ObjMgr->AddObject(Left_Limit, "Wall");
@@ -46,6 +48,13 @@ void Stage1::Init()
 	Left_Limit->m_Visible = false;
 	Right_Limit->m_Visible = false;
 
+	ScoreScene = Sprite::Create(L"Painting/GameScreen/ScoreScene.png");
+	ScoreScene->SetScale(0, 1.f);
+	ScoreScene->SetPosition(Camera::GetInst()->m_Position.x + 1920 / 2, 1080 / 2);
+
+	ScoreText = Sprite::Create(L"Painting/UI/Score.png");
+	ScoreText->SetScale(0, 1.f);
+	ScoreText->SetPosition(Camera::GetInst()->m_Position.x + 1920 / 2, 0);
 
 	GameInfo->ReleaseUI();
 	GameInfo->CreateUI();
@@ -81,21 +90,41 @@ void Stage1::Update(float deltaTime, float time)
 			for (int i = 0; i < 6; i++) {
 				if (m_BackGround[i][0]->A < 255)
 					m_BackGround[i][0]->A += 1;
-				else
+				else if (m_BackGround[i][0]->A > 255) 
 					m_BackGround[i][0]->A = 255;
 
 				if (m_BackGround[i][1]->A < 255)
 					m_BackGround[i][1]->A += 1;
-				else
+				else if(m_BackGround[i][1]->A > 255){
 					m_BackGround[i][1]->A = 255;
+				}
 			}
-			MoveBG();
-			ResetBG();
+			if(sdTime <= 3)
+			sdTime += dt;
+			if (!one && sdTime > 3) {
+				GameInfo->isPause = true;
+				one = true;
+				sdTime = 4;
+			}
+			if (!GameInfo->isBossSpawn){
+				MoveBG();
+				ResetBG();
+			}
 			m_Cover->m_Visible = false;
 			GameInfo->SpawnEnemy();
 		}
 		else {
 			m_Cover->m_Visible = true;
+			if (INPUT->GetButtonDown()|| INPUT->GetKey(VK_SPACE)==KeyState::DOWN) {
+				GameInfo->isPause = false;
+				GameInfo->isSpawnEnemy = true;
+				GameInfo->CK_TimePause = false;
+				m_Cover = Sprite::Create(L"Painting/UI/Cover1.png");
+				m_Cover->SetPosition(1920 / 2, 1080 / 2);
+			}
+		}
+		if (GameInfo->isScoreScene) {
+			NextScene();
 		}
 	}
 }
@@ -106,6 +135,9 @@ void Stage1::Render()
 		m_BackGround[i][0]->Render();
 		m_BackGround[i][1]->Render();
 	}
+	m_Cover->Render();
+	ScoreScene->Render();
+	ScoreText->Render();
 }
 
 void Stage1::BGInit()
@@ -152,4 +184,25 @@ void Stage1::OnCollisionCard()
 
 void Stage1::NextScene()
 {
+	ScoreScene->SetPosition(Camera::GetInst()->m_Position.x + 1920 / 2, 1080 / 2);
+	ScoreText->SetPosition(Camera::GetInst()->m_Position.x + 1920 / 2, 100);
+
+	if (ScaleScene <= 1)
+		ScaleScene += dt;
+
+	if (ScaleText <= 1 && ScaleScene >= 1)
+		ScaleText += dt;
+
+	ScoreScene->SetScale(ScaleScene, 1.f);
+	ScoreText->SetScale(ScaleText, 1.f);
+	GameInfo->isPause = true;
+
+	if (CollisionMgr::GetInst()->MouseWithBoxSize(ScoreScene))
+	{
+		if (INPUT->GetButtonDown()) {
+			GameInfo->isPause = false;
+			GameInfo->isScoreScene = false;
+			SceneDirector::GetInst()->ChangeScene(new Stage2);
+		}
+	}
 }

@@ -28,6 +28,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="EffectMgr.cpp" />
+    <ClCompile Include="EnemyMissile.cpp" />
     <ClCompile Include="InputScoreScene.cpp" />
     <ClCompile Include="EnemyDirBullet.cpp" />
     <ClCompile Include="GameMgr.cpp" />
@@ -72,6 +73,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CollisionMgr.h" />
     <ClInclude Include="EffectMgr.h" />
+    <ClInclude Include="EnemyMissile.h" />
     <ClInclude Include="InputScoreScene.h" />
     <ClInclude Include="EnemyDirBullet.h" />
     <ClInclude Include="GameMgr.h" />

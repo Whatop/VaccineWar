@@ -4,18 +4,17 @@
 
 Pet::Pet(int type, bool display)
 {
-	m_Pet = Sprite::Create(L"Painting/Player/Player0.png");
+	m_Pet = Sprite::Create(L"Painting/Skill/Player0.png");
 	m_Pet->SetParent(this);
 	
 	SetPosition(GetPlayer->m_Position.x, GetPlayer->m_Position.x + 200);
-	SetScale(0.4f, 0.4f);
+	SetScale(0.2f, 0.2f);
 
 	m_Speed = 300.f;
 	Limit = 1.f;	
 
 	GameInfo->PetCount++;
 	Count = GameInfo->PetCount;
-	std::cout << "Æê »ý¼º" << std::endl;
 	m_Rotation = D3DXToRadian(90);
 	// Æê ³×¸¶¸®±îÁö
 	Gun = type;
@@ -32,9 +31,11 @@ void Pet::Update(float deltaTime, float Time)
 	}
 	if (!GameInfo->isPause) {
 		Move(); 
-		if (!(!GameInfo->isBossSpawn && !GameInfo->isOneBoss)) {
-			Attack();
-		}
+		Attack();
+	}
+	DelayDestroy(this,20);
+	if (m_Destroy) {
+		GameInfo->PetCount--;
 	}
 }
 
@@ -87,40 +88,9 @@ void Pet::Move()
 
 void Pet::Attack()
 {
-	// ¾ÕÀ¸·Î ³ª°¡´Â ÃÑÅº, À¯µµÅº, 
 	ShotTime += dt;
-	if (Gun == 0) {
-		if (ShotTime > 0.35f) {
-			ObjMgr->AddObject(new Bullet(m_Position,true), "Bullet");
-			ShotTime = 0.f;
-		}
-	}
-	else if (Gun == 1) {
-		if (ShotTime > 0.35f) {
-			Gun++;
-			ShotTime = 0.f;
-		}
-	}
-	else if (Gun == 2) {
-		if (ShotTime > 0.4f) {
-			ShotTime = 0.f;
-			Gun++;
-		}
-	}
-	else if (Gun == 3) {
-		if (ShotTime > 0.4f) {
-
-			ShotTime = 0.f;
-		}
-	}
-	else if (Gun == 4) {
-		if (ShotTime > 0.5f) {
-			ShotTime = 0.f;
-		}
-	}
-	else if (Gun == 5) {
-		if (ShotTime > 0.3f) {
-			ShotTime = 0.f;
-		}
+	if (ShotTime > 0.35f) {
+		ObjMgr->AddObject(new Bullet(m_Position,true), "Bullet");
+		ShotTime = 0.f;
 	}
 }

@@ -11,8 +11,8 @@ class Input : public Singleton<Input>
 {
 	int m_CurrentState[256];
 	int m_PrevState[256];
-	bool m_bCurrentState;
 	bool m_bPrevState;
+	bool m_bCurrentState;
 
 	Vec2 m_MousePosition;
 

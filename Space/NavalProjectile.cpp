@@ -18,13 +18,13 @@ NavalProjectile::NavalProjectile(Vec2 spawnpoint, bool minibullet)
 	DelayTime = 1.f;
 	DestroyTime = 0.f;
 	m_Layer = 2;
-	m_Atk = 20.f * GameInfo->Player_Coefficient;
+	m_Atk = 30.f * GameInfo->Player_Coefficient;
 	
-	SetScale(0.75f, 0.75f);
+	SetScale(1.75f, 1.75f);
 	if (GameInfo->EnemyCount[0] > 0) {
 		Vec2 Enemy =
-			Vec2(GameInfo->CloseEnemy[0].x + rand() % 100
-				, GameInfo->CloseEnemy[0].y + rand() % 100) - m_Position;
+			Vec2(GameInfo->CloseEnemy[0].x + rand() % 100 + 50
+				, GameInfo->CloseEnemy[0].y + rand() % 100 + 50) - m_Position;
 		D3DXVec2Normalize(&Dire, &Enemy);
 	}
 	else {

@@ -2,6 +2,7 @@
 #include "Oceanic1.h"
 #include "EnemyDirBullet.h"
 #include "Item.h"
+#include "Obstacle.h"
 
 Oceanic1::Oceanic1(Vec2 Pos,int enemyCount)
 {
@@ -21,7 +22,7 @@ Oceanic1::Oceanic1(Vec2 Pos,int enemyCount)
 	m_Layer = 2;
 	std::cout << "적 해군 1 생성" << std::endl;
 
-	EnemyOcTag = enemyCount;
+	EnemyOcTag = GameInfo->EnemyTag[1];
 	EnemyAllTag = GameInfo->EnemyTag[0];
 	GameInfo->EnemyCount[0]++;
 	GameInfo->EnemyCount[1]++;
@@ -148,6 +149,7 @@ void Oceanic1::Move()
 		D3DXVec2Normalize(&Dir, &Dir);
 
 		ObjMgr->AddObject(new EnemyDirBullet(Vec2(m_Position.x - 10, m_Position.y), Dir), "EnemyBullet");
-
+		if (rand() % 5 == 0)
+			ObjMgr->AddObject(new Obstacle(m_Position, true), "Mine");
 	}
 }

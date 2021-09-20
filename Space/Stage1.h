@@ -20,7 +20,8 @@ class Stage1 : public Scene
 	float ScaleText;
 	int RCrad[3];
 
-	
+	bool one;
+	float sdTime;
 public:
 	Stage1();
 	~Stage1();

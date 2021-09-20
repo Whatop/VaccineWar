@@ -34,6 +34,7 @@ void Torpedo::Update(float deltaTime, float Time)
 {
 	if (!GameInfo->isPause) {
 		DestroyTime += dt;
+		m_Torpedo->A = 170;
 		m_Torpedo->Update(deltaTime, Time);
 		Move();
 	}

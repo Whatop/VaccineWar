@@ -165,6 +165,9 @@
     <ClCompile Include="Obstacle.cpp">
       <Filter>Game\Object\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyMissile.cpp">
+      <Filter>Game\Object\Enemy\EnemyBullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -286,6 +289,9 @@
     </ClInclude>
     <ClInclude Include="Obstacle.h">
       <Filter>Game\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyMissile.h">
+      <Filter>Game\Object\Enemy\EnemyBullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

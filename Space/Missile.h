@@ -8,7 +8,6 @@ class Missile : public Object
 	float turnRadian, vrad, Delay;
 	float impellent;
 	float HomingTime;
-	float m_Speed;
 	bool isHoming;
 	float DestroyTime;
 	bool AllTarget;

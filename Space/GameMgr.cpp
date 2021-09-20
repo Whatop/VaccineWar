@@ -82,6 +82,7 @@ void GameMgr::Init()
 
 	Level_Petturn = 0;
 
+	isOneBoss = false;
 }
 
 void GameMgr::Release()
@@ -415,7 +416,6 @@ void GameMgr::SpawnEnemy()
 				else {
 					ObjMgr->AddObject(new Stage1Boss(1), "Enemy");
 				}
-				Level_Petturn++;
 			}
 		}
 

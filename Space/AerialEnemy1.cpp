@@ -2,6 +2,7 @@
 #include "AerialEnemy1.h"
 #include "EnemyDirBullet.h"
 #include "Item.h"
+#include "EnemyMissile.h"
 
 AerialEnemy1::AerialEnemy1(Vec2 Pos, int enemyCount)
 {
@@ -27,7 +28,7 @@ AerialEnemy1::AerialEnemy1(Vec2 Pos, int enemyCount)
 	m_Layer = 2;
 	std::cout << "적 공군 1 생성" << std::endl;
 
-	EnemyAirTag = enemyCount;
+	EnemyAirTag = GameInfo->EnemyTag[2];
 	EnemyAllTag = GameInfo->EnemyTag[0];
 	GameInfo->EnemyCount[0]++;
 	GameInfo->EnemyCount[2]++;
@@ -103,9 +104,9 @@ void AerialEnemy1::Update(float deltaTime, float Time)
 
 void AerialEnemy1::Render()
 {
-	HelicopterWing->Render();
-	HelicopterBackWing->Render();
 	m_AerialEnemy1->Render();
+	HelicopterBackWing->Render();
+	HelicopterWing->Render();
 }
 
 void AerialEnemy1::OnCollision(Object* obj)
@@ -159,6 +160,12 @@ void AerialEnemy1::Move()
 		D3DXVec2Normalize(&Dir, &Dir);
 
 		ObjMgr->AddObject(new EnemyDirBullet(Vec2(m_Position.x - 10, m_Position.y), Dir), "EnemyBullet");
+		
+		
+		ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x - 30, m_Position.y)), "EnemyBullet");
+		ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x - 30, m_Position.y+40)), "EnemyBullet");
+		ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x , m_Position.y)), "EnemyBullet");
+		ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x , m_Position.y+40)), "EnemyBullet");
 
 	}
 }

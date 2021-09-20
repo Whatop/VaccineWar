@@ -28,8 +28,10 @@ void EffectMgr::Update(float deltaTime, float time)
 		ObjMgr->RemoveObject(this);
 	}
 	if (!GameInfo->isPause) {
-		Effect->SetAnimeColor(105);
 		Effect->Update(deltaTime, time);
+	}
+	if (GameInfo->isPause || GameInfo->isScoreScene) {
+		Effect->SetAnimeColor(105);
 	}
 }
 

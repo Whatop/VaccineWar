@@ -14,6 +14,7 @@ EnemyRotationBullet::EnemyRotationBullet(Vec2 Pos, float r)
 	SetPosition(Pos);
 
 	m_Rotation=r;
+	m_Layer = 2;
 	m_Speed = 500.f;
 	m_Atk = 15.f;
 	if (GameInfo->m_Scene == StageScene::STAGE1)

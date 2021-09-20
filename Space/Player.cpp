@@ -5,6 +5,7 @@
 #include "Torpedo.h"
 #include "NavalProjectile.h"
 #include "AirForce.h"
+#include "Pet.h"
 
 Player::Player(float hp)
 {
@@ -115,7 +116,36 @@ void Player::Update(float deltaTime, float Time)
 		PlayerPlatform->Update(deltaTime, Time);
 
 		CollisionBox();
-
+		if (HitDelay) {
+			Shield->m_Visible = false;
+			m_Player->R = 255;
+			m_Player->G = 255;
+			m_Player->B = 255;
+			PlayerPlatform->SetAnimeColor();
+		}
+		if (!HitDelay) {
+			Shield->m_Visible = true;
+			defenseTime += dt;
+			if (defenseTime > 2.f) {
+				HitDelay = true;
+				GameInfo->PlayerHit = false;
+				defenseTime = 0.f;
+			}
+			m_Player->R = 255;
+			m_Player->G = 30;
+			m_Player->B = 30;
+			PlayerPlatform->SetAnimeColor(255, 255, 30, 30);
+		}
+		if (isInvincible) {
+			Shield->m_Visible = true;
+			InvincibleTime += dt;
+			GameInfo->PlayerHit = false;
+			if (InvincibleTime > 2) {
+				Shield->m_Visible = false;
+				isInvincible = false;
+				InvincibleTime = 0.f;
+			}
+		}
 		if (GameInfo->isTrash) {
 			Camera::GetInst()->ShakeTimeX = 0.3f;
 			GameInfo->isTrash = false;
@@ -142,26 +172,7 @@ void Player::Update(float deltaTime, float Time)
 				}
 			}
 		}
-		if (HitDelay) {
-			Shield->m_Visible = false;
-			m_Player->R = 255;
-			m_Player->G = 255;
-			m_Player->B = 255;
-			PlayerPlatform->SetAnimeColor();
-		}
-		if (!HitDelay) {
-			Shield->m_Visible = true;
-			defenseTime += dt;
-			if (defenseTime > 2.f) {
-				HitDelay = true;
-				GameInfo->PlayerHit = false;
-				defenseTime = 0.f;
-			}
-			m_Player->R = 255;
-			m_Player->G = 30;
-			m_Player->B = 30;
-			PlayerPlatform->SetAnimeColor(255,255,30,30);
-		}
+		
 		if (!isSpeed) {
 			if (GameInfo->PlayerSlow) {
 				SlowTime += dt;
@@ -191,21 +202,13 @@ void Player::Update(float deltaTime, float Time)
 			//气颇饶 Fail..
 		}
 		GameInfo->PlayerHpUpdate(m_MaxHp, m_Hp);
+		Skill();
 	}
 	else {
 		m_Player->A = 105;
 		PlayerPlatform->SetAnimeColor(105);
 	}
-	if (isInvincible) {
-		Shield->m_Visible = true;
-		InvincibleTime += dt;
-		if (InvincibleTime > 2) {
-			Shield->m_Visible = false;
-			isInvincible = false;
-			InvincibleTime = 0.f;
-		}
-	}
-	Skill();
+
 }
 
 void Player::Render()
@@ -317,7 +320,8 @@ void Player::Attack()
 			if (GameInfo->Ammo[GameInfo->PlayerType] > 0) {
 				if (GameInfo->PlayerType == 0) {
 					ObjMgr->AddObject(new Bullet(), "Bullet");
-					GameInfo->Ammo[GameInfo->PlayerType]--;
+					if (!GameInfo->SKILL_Focus_attck)
+						GameInfo->Ammo[GameInfo->PlayerType]--;
 				}
 				else if (GameInfo->PlayerType == 1) {
 					for (int i = 0; i < GameInfo->Ammo[1]; i++) {
@@ -435,6 +439,8 @@ void Player::Skill()
 		//气拜 家券
 
 		ObjMgr->AddObject(new AirForce(), "AirForce");
+		ObjMgr->AddObject(new Pet(), "AirForce");
+		ObjMgr->AddObject(new Pet(), "AirForce");
 		//GameInfo->SKILL_Air_force = false; 气拜俊 
 		//GameInfo->SKILL_CoolTime[0] = 40.f;
 		GameInfo->SKILL_Air_force = false;

@@ -48,6 +48,12 @@ void UI::Init()
 	UIAim = Sprite::Create(L"Painting/UI/Aim.png");
 	UIAim->SetPosition(1920 / 2, 700);
 
+	MiniMap[0] = Sprite::Create(L"Painting/UI/MiniMap.png",D3DCOLOR_XRGB(0,0,0));
+	MiniMap[0]->SetPosition(1920-390/2 - 10, 155);
+
+	MiniMap[1] = Sprite::Create(L"Painting/UI/MiniMapPlayer.png");
+	MiniMap[1]->SetPosition(1920 - 390 / 2-10, 155);
+
 	for (int i = 0; i < 2; i++) {
 		Skill_1[0] = Sprite::Create(L"Painting/UI/ShieldSkill.png");
 		Skill_1[1] = Sprite::Create(L"Painting/UI/SkillCooldown.png");
@@ -104,6 +110,8 @@ void UI::Init()
 	memset(limit, 0, sizeof(limit));
 	ScoredaleyTime = 0.f;
 
+	ObjMgr->AddObject(MiniMap[0], "UI");
+	ObjMgr->AddObject(MiniMap[1], "UI");
 	//ObjMgr->AddObject(StateWindow, "UI");
 	//ObjMgr->AddObject(SpeedImage, "UI");
 	//ObjMgr->AddObject(SpeedFrameImage, "UI");
@@ -180,6 +188,13 @@ void UI::Update()
 			BossBackGround->m_Position.y -= 40 * dt;
 			BossBar->m_Position.y -= 40 * dt;
 			BossBackGround->m_Visible = true;
+		}
+		if (!GameInfo->isBossSpawn) {
+			if (GameInfo->isOneBoss) {
+				BossBackGround->m_Position.y += 40 * dt;
+				BossBar->m_Position.y += 40 * dt;
+				BossBackGround->m_Visible = true;
+			}
 		}
 	}
 
