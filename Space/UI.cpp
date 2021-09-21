@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "UI.h"
+#include "Stage2.h"
+#include "InputScoreScene.h"
 
 UI::UI()
 {
@@ -17,9 +19,18 @@ void UI::Init()
 	BossBar = Sprite::Create(L"Painting/UI/BossHp.png");
 	BossBar->SetPosition(1920 / 2+90, 1080-169/2+10 + 200);
 	BossBar->m_Scale.y = 0.9f;
-	BossBackGround = Sprite::Create(L"Painting/UI/BossBar1.png");
-	BossBackGround->SetPosition(1920 / 2, 1080-169/2 + 200);
-
+	if (GameInfo->m_Scene == StageScene::STAGE1) {
+		BossBackGround = Sprite::Create(L"Painting/UI/BossBar1.png");
+		BossBackGround->SetPosition(1920 / 2, 1080 - 169 / 2 + 200);
+	}
+	else if (GameInfo->m_Scene == StageScene::STAGE2) {
+		BossBackGround = Sprite::Create(L"Painting/UI/BossBar2.png");
+		BossBackGround->SetPosition(1920 / 2, 1080 - 169 / 2 + 200);
+	}
+	else {
+		BossBackGround = Sprite::Create(L"Painting/UI/BossBar1.png");
+		BossBackGround->SetPosition(1920 / 2, 1080 - 169 / 2 + 200);
+	}
 	UIScoreFrame = Sprite::Create(L"Painting/UI/Cover.png");
 	UIScoreFrame->SetPosition(1920 / 2, 1080 / 2);
 
@@ -71,6 +82,13 @@ void UI::Init()
 	Skill_2[1]->m_Rotation = D3DXToRadian(-90);
 	//State
 
+	ScoreScene = Sprite::Create(L"Painting/GameScreen/ScoreScene.png");
+	ScoreScene->SetScale(0, 1.f);
+	ScoreScene->SetPosition(1920 / 2, 1080 / 2);
+
+	ScoreNameText = Sprite::Create(L"Painting/UI/Score.png");
+	ScoreNameText->SetScale(0, 1.f);
+	ScoreNameText->SetPosition(1920 / 2, 700);
 
 	ScoreText = new TextMgr();
 	ScoreText->Init(80, true, false, "±¼¸²");
@@ -295,6 +313,10 @@ void UI::Update()
 		Skill_2[i]->SetScale(1.5f, 1.5f);
 		Skill_1[i]->SetScale(1.5f, 1.5f);
 	}
+
+	if (GameInfo->isScoreScene) {
+		NextScene();
+	}
 }
 
 
@@ -319,7 +341,11 @@ void UI::Render()
 		Skill_2[i]->Render();
 	}
 	Bar();
+	ScoreScene->Render();
+	ScoreNameText->Render();
 	Text();
+
+	
 }
 
 void UI::ScoreUI()
@@ -486,4 +512,33 @@ void UI::Text()
 	ReloadText->print("Reload" + a, GetPlayer->m_Position.x - 40, GetPlayer->m_Position.y - GetPlayer->m_Size.y / 2);
 
 	Renderer::GetInst()->GetSprite()->End();
+}
+
+void UI::NextScene()
+{
+	ScoreScene->SetPosition(1920 / 2, 1080 / 2);
+	ScoreNameText->SetPosition(1920 / 2, 200);
+
+	if (ScaleScene <= 1)
+		ScaleScene += dt;
+
+	if (ScaleText <= 1 && ScaleScene >= 1)
+		ScaleText += dt;
+
+	ScoreScene->SetScale(ScaleScene, 1.f);
+	ScoreNameText->SetScale(ScaleText, 1.f);
+
+	GameInfo->isPause = true;
+
+	if (CollisionMgr::GetInst()->MouseWithBoxSize(ScoreScene))
+	{
+		if (INPUT->GetButtonDown()|| INPUT->GetKey(VK_SPACE) == KeyState::DOWN) {
+			GameInfo->isPause = false;
+			GameInfo->isScoreScene = false;
+			if(GameInfo->m_Scene == StageScene::STAGE1)
+				SceneDirector::GetInst()->ChangeScene(new Stage2);
+			else
+				SceneDirector::GetInst()->ChangeScene(new InputScoreScene);
+		}
+	}
 }

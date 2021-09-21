@@ -37,7 +37,6 @@ void Stage1::Init()
 	Right_Limit->SetPosition(1970, 1080 / 2);
 	Right_Limit->SetScale(1, 10.8f);
 
-	//ObjMgr->AddObject(, "UI");
 	ObjMgr->AddObject(UpWall, "Wall");
 	ObjMgr->AddObject(DownWall, "Wall");
 	ObjMgr->AddObject(Left_Limit, "Wall");
@@ -48,17 +47,9 @@ void Stage1::Init()
 	Left_Limit->m_Visible = false;
 	Right_Limit->m_Visible = false;
 
-	ScoreScene = Sprite::Create(L"Painting/GameScreen/ScoreScene.png");
-	ScoreScene->SetScale(0, 1.f);
-	ScoreScene->SetPosition(Camera::GetInst()->m_Position.x + 1920 / 2, 1080 / 2);
-
-	ScoreText = Sprite::Create(L"Painting/UI/Score.png");
-	ScoreText->SetScale(0, 1.f);
-	ScoreText->SetPosition(Camera::GetInst()->m_Position.x + 1920 / 2, 0);
-
+	GameInfo->m_Scene = StageScene::STAGE1;
 	GameInfo->ReleaseUI();
 	GameInfo->CreateUI();
-	GameInfo->m_Scene = StageScene::STAGE1;
 
 	if (!GameInfo->m_isCreatePlayer)
 		GameMgr::GetInst()->CreatePlayer();
@@ -123,9 +114,7 @@ void Stage1::Update(float deltaTime, float time)
 				m_Cover->SetPosition(1920 / 2, 1080 / 2);
 			}
 		}
-		if (GameInfo->isScoreScene) {
-			NextScene();
-		}
+	
 	}
 }
 
@@ -136,8 +125,7 @@ void Stage1::Render()
 		m_BackGround[i][1]->Render();
 	}
 	m_Cover->Render();
-	ScoreScene->Render();
-	ScoreText->Render();
+
 }
 
 void Stage1::BGInit()
@@ -180,29 +168,4 @@ void Stage1::ResetBG()
 
 void Stage1::OnCollisionCard()
 {
-}
-
-void Stage1::NextScene()
-{
-	ScoreScene->SetPosition(Camera::GetInst()->m_Position.x + 1920 / 2, 1080 / 2);
-	ScoreText->SetPosition(Camera::GetInst()->m_Position.x + 1920 / 2, 100);
-
-	if (ScaleScene <= 1)
-		ScaleScene += dt;
-
-	if (ScaleText <= 1 && ScaleScene >= 1)
-		ScaleText += dt;
-
-	ScoreScene->SetScale(ScaleScene, 1.f);
-	ScoreText->SetScale(ScaleText, 1.f);
-	GameInfo->isPause = true;
-
-	if (CollisionMgr::GetInst()->MouseWithBoxSize(ScoreScene))
-	{
-		if (INPUT->GetButtonDown()) {
-			GameInfo->isPause = false;
-			GameInfo->isScoreScene = false;
-			SceneDirector::GetInst()->ChangeScene(new Stage2);
-		}
-	}
 }

@@ -47,9 +47,6 @@ void GameMgr::Init()
 
 	StageScore = m_Score; // 스테이지 넘어갈때마다 저장
 
-	KillScore = 0.f;
-	ItemScore = 0.f;
-	BonusScore = 0.f;
 
 	PetCount = 0;
 	
@@ -182,6 +179,9 @@ void GameMgr::RankInit()
 	Ranks.push_back(m_Rank);
 	m_Score = 0;
 
+	KillScore = 0.f;
+	ItemScore = 0.f;
+	BonusScore = 0.f;
 }
 
 bool Sort(const RankingPlayer* pSour, const RankingPlayer* pDest)

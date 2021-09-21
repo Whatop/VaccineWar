@@ -10,16 +10,6 @@ class Stage1 : public Scene
 	Sprite* Right_Limit;
 	Sprite* Left_Limit;
 
-	Sprite* m_Choice;
-	Sprite* ChoicePack[3];
-
-	Sprite* ScoreScene;
-	Sprite* ScoreText;
-
-	float ScaleScene;
-	float ScaleText;
-	int RCrad[3];
-
 	bool one;
 	float sdTime;
 public:
@@ -37,6 +27,5 @@ public:
 	void MoveBG();
 	void ResetBG();
 	void OnCollisionCard();
-	void NextScene();
 };
 

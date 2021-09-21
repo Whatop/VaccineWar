@@ -49,6 +49,12 @@ class UI : public Singleton<UI>
 	//MachineGun, NavalProjectile, Torpedo, Missile;
 	Sprite* GunTpye;
 
+
+	Sprite* ScoreScene;
+	Sprite* ScoreNameText;
+
+	float ScaleScene;
+	float ScaleText;
 	//Reload
 	float Reload;
 	std::string a;
@@ -70,5 +76,7 @@ public:
 	void Timer();
 	void Bar();
 	void Text();
+
+	void NextScene();
 };
 

@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Stage1.h"
 #include "Stage2.h"
 
 Stage2::Stage2()
@@ -9,7 +10,7 @@ Stage2::~Stage2()
 {
 }
 
-void Stage2::Init() 
+void Stage2::Init()
 {
 	ObjMgr->Release();
 	GameInfo->Init();
@@ -18,6 +19,7 @@ void Stage2::Init()
 
 	m_Cover = Sprite::Create(L"Painting/UI/Cover.png");
 	m_Cover->SetPosition(1920 / 2, 1080 / 2);
+	m_Cover->m_Visible = false;
 
 	UpWall = Sprite::Create(L"Painting/Wall.png");
 	UpWall->SetPosition(1920 / 2, 500);
@@ -35,7 +37,6 @@ void Stage2::Init()
 	Right_Limit->SetPosition(1970, 1080 / 2);
 	Right_Limit->SetScale(1, 10.8f);
 
-	ObjMgr->AddObject(m_Cover, "UI");
 	ObjMgr->AddObject(UpWall, "Wall");
 	ObjMgr->AddObject(DownWall, "Wall");
 	ObjMgr->AddObject(Left_Limit, "Wall");
@@ -46,15 +47,14 @@ void Stage2::Init()
 	Left_Limit->m_Visible = false;
 	Right_Limit->m_Visible = false;
 
-
+	GameInfo->m_Scene = StageScene::STAGE2;
 	GameInfo->ReleaseUI();
 	GameInfo->CreateUI();
-	GameInfo->m_Scene = StageScene::STAGE2;
 
 	if (!GameInfo->m_isCreatePlayer)
 		GameMgr::GetInst()->CreatePlayer();
 
-
+	GameInfo->isSpawnEnemy = false;
 }
 
 void Stage2::Release()
@@ -78,13 +78,43 @@ void Stage2::Update(float deltaTime, float time)
 			Right_Limit->m_Visible = false;
 		}
 		if (!GameInfo->isPause) {
-			ResetBG();
-			MoveBG();
+			for (int i = 0; i < 6; i++) {
+				if (m_BackGround[i][0]->A < 255)
+					m_BackGround[i][0]->A += 1;
+				else if (m_BackGround[i][0]->A > 255)
+					m_BackGround[i][0]->A = 255;
+
+				if (m_BackGround[i][1]->A < 255)
+					m_BackGround[i][1]->A += 1;
+				else if (m_BackGround[i][1]->A > 255) {
+					m_BackGround[i][1]->A = 255;
+				}
+			}
+			if (sdTime <= 3)
+				sdTime += dt;
+			if (!one && sdTime > 3) {
+				GameInfo->isPause = true;
+				one = true;
+				sdTime = 4;
+			}
+			if (!GameInfo->isBossSpawn) {
+				MoveBG();
+				ResetBG();
+			}
 			m_Cover->m_Visible = false;
+			GameInfo->SpawnEnemy();
 		}
 		else {
 			m_Cover->m_Visible = true;
+			if (INPUT->GetButtonDown() || INPUT->GetKey(VK_SPACE) == KeyState::DOWN) {
+				GameInfo->isPause = false;
+				GameInfo->isSpawnEnemy = true;
+				GameInfo->CK_TimePause = false;
+				m_Cover = Sprite::Create(L"Painting/UI/Cover1.png");
+				m_Cover->SetPosition(1920 / 2, 1080 / 2);
+			}
 		}
+
 	}
 }
 
@@ -94,6 +124,8 @@ void Stage2::Render()
 		m_BackGround[i][0]->Render();
 		m_BackGround[i][1]->Render();
 	}
+	m_Cover->Render();
+
 }
 
 void Stage2::BGInit()
@@ -103,8 +135,10 @@ void Stage2::BGInit()
 		m_BackGround[i][0]->SetPosition(1920 / 2, 1080 / 2);
 		m_BackGround[i][1] = Sprite::Create(L"Painting/GameScreen/Stage2/" + std::to_wstring(i) + L".png");
 		m_BackGround[i][1]->SetPosition(m_BackGround[i][0]->m_Position.x + 1920, 1080 / 2);
-		m_BackGround[i][0]->SetScale(1.1f, 1);
-		m_BackGround[i][1]->SetScale(1.1f, 1);
+		m_BackGround[i][0]->SetScale(1, 1);
+		m_BackGround[i][1]->SetScale(1, 1);
+		m_BackGround[i][0]->A = 0;
+		m_BackGround[i][1]->A = 0;
 	}
 }
 
@@ -132,10 +166,3 @@ void Stage2::ResetBG()
 	}
 }
 
-void Stage2::OnCollisionCard()
-{
-}
-
-void Stage2::NextScene()
-{
-}
