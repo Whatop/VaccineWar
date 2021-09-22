@@ -11,6 +11,10 @@ class MainScene : public Scene
 
 	Sprite* m_BackGround[6][2];
 
+
+	Sprite* HelpScene;
+	float HelpScale;
+
 	float ShackX;
 	float acc1,acc2;
 
@@ -18,6 +22,18 @@ class MainScene : public Scene
 	bool isMovePlayer;
 	float AccTime;
 
+	//Rank
+	Sprite* RankScene;
+	float RankScale;
+
+	Sprite* m_BG;
+
+	TextMgr* m_First;
+	TextMgr* m_Secend;
+	TextMgr* m_Third;
+
+	bool isRankScene;
+	bool isHelpScene;
 public:
 	MainScene();
 	~MainScene();
@@ -32,5 +48,7 @@ public:
 
 	void MoveBG();
 	void ResetBG();
+
+	void RankRender();
 };
 

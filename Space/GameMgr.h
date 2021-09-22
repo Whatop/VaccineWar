@@ -122,6 +122,10 @@ public:
 	int Level_Petturn;
 
 	// BossSpawn
+
+
+	// Clock
+	float Clock;
 public:
 	void Init();
 	void Release();

@@ -281,6 +281,12 @@ void Player::OnCollision(Object* obj)
 		InvincibleTime = 0.f;
 		obj->SetDestroy(true);
 	}
+	if (obj->m_Tag == "Bonus")
+	{
+		GameInfo->MaxScore += 100;
+		GameInfo->ItemScore += 100;
+		obj->SetDestroy(true);
+	}
 	if (obj->m_Tag == "EnemyBullet") {
 		RECT rc;
 		if (IntersectRect(&rc, &ColBox[4]->m_Collision, &obj->m_Collision)) {

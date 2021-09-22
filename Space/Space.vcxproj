@@ -43,7 +43,6 @@
     <ClCompile Include="Oceanic1.cpp" />
     <ClCompile Include="Pet.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="RankScene.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceMgr.cpp" />
     <ClCompile Include="EnemyRotationBullet.cpp" />
@@ -55,6 +54,7 @@
     <ClCompile Include="Stage1.cpp" />
     <ClCompile Include="Stage1Boss.cpp" />
     <ClCompile Include="Stage2.cpp" />
+    <ClCompile Include="Stage2Boss.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
@@ -88,7 +88,6 @@
     <ClInclude Include="Oceanic1.h" />
     <ClInclude Include="Pet.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="RankScene.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceMgr.h" />
     <ClInclude Include="EnemyRotationBullet.h" />
@@ -100,6 +99,7 @@
     <ClInclude Include="Stage1.h" />
     <ClInclude Include="Stage1Boss.h" />
     <ClInclude Include="Stage2.h" />
+    <ClInclude Include="Stage2Boss.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TextMgr.h" />
     <ClInclude Include="Texture.h" />

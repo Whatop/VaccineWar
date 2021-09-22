@@ -63,7 +63,7 @@ void AerialEnemy1::Update(float deltaTime, float Time)
 		else {
 			if (ones) {
 				//519~1041
-				m_RandomPosition = Vec2((rand() % 920 + 1000), (rand() %  470 + 100));
+				m_RandomPosition = Vec2((rand() % 920 + 1000), (rand() % 432 + 123));
 				ones = false;
 				GameInfo->AllEnemyPos.at(EnemyAllTag) = m_Position;
 				GameInfo->AerialPos.at(EnemyAirTag) = m_Position;
@@ -144,10 +144,10 @@ void AerialEnemy1::Move()
 	else
 	{
 		if (m_Position.y < 777.5f)
-			m_RandomPosition = Vec2((rand() % 920 + 1000), (rand() % 470 + 100));
+			m_RandomPosition = Vec2((rand() % 920 + 1000), (rand() % 432 + 123));
 
 		else
-			m_RandomPosition = Vec2((rand() % 920 + 1000), (rand() % 470 + 100));
+			m_RandomPosition = Vec2((rand() % 920 + 1000), (rand() % 432 + 123));
 
 		m_LastMoveTime = 2.f;
 

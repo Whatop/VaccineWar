@@ -96,6 +96,8 @@ void Stage1Boss::Update(float deltaTime, float Time)
 
 				GameInfo->MaxScore += 2000;
 				GameInfo->KillScore += 2000;
+				GameInfo->MaxScore += GameInfo->GetPlayerHp() * GameInfo->Clock / 5;
+				GameInfo->BonusScore += GameInfo->GetPlayerHp() * GameInfo->Clock / 5;
 				GameInfo->AllEnemyPos.at(EnemyAllTag) = Vec2(9999, 9999);
 				GameInfo->AerialPos.at(EnemyAirTag) = Vec2(9999, 9999);
 				GameInfo->EnemyCount[0]--;
@@ -108,6 +110,8 @@ void Stage1Boss::Update(float deltaTime, float Time)
 		}
 		if (isDie) {
 			NextTime += dt;
+			if ((rand() % 30) == 0)
+				ObjMgr->AddObject(new Item(m_Position,999), "Heal");
 			float randx = (rand() % (int)m_Size.x * m_Scale.x) + m_Position.x - m_Size.x / 2 * m_Scale.x;
 			float randy = (rand() % (int)m_Size.y * m_Scale.y) + m_Position.y - m_Size.y / 2 * m_Scale.y;
 

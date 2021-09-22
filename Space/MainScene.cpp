@@ -2,7 +2,6 @@
 #include "MainScene.h"
 #include "Stage1.h"
 #include "Stage2.h"
-#include "RankScene.h"
 #include "InputScoreScene.h"
 
 MainScene::MainScene()
@@ -63,6 +62,25 @@ void MainScene::Init()
     Player->SetPosition(100,700);
     Player->SetScale(0.55f, 0.55f);
     AccTime = 1.f;
+
+    m_First = new TextMgr();
+    m_Secend = new TextMgr();
+    m_Third = new TextMgr();
+
+    m_First->Init(72, true, false, "Arial");
+    m_Secend->Init(72, true, false, "Arial");
+    m_Third->Init(72, true, false, "Arial");
+
+    RankScene = Sprite::Create(L"Painting/GameScreen/RankScene.png");
+    RankScene->SetPosition(1920/2, 1080/2);
+    RankScene->m_Visible = false;
+
+    HelpScene = Sprite::Create(L"Painting/GameScreen/HelpScene.png");
+    HelpScene->SetPosition(1920/2, 1080/2);
+    HelpScene->m_Visible = false;
+
+    isRankScene = false;
+    isHelpScene = false;
 }
 
 void MainScene::Release()
@@ -145,31 +163,101 @@ void MainScene::Update(float deltaTime, float Time)
             if (AccTime > 8) {
                 SceneDirector::GetInst()->ChangeScene(new Stage1());
             }
+            
         }
         else {
-            //게임시작, 게임소개, 게임방법, 게임랭킹(score), 크래딧(credit)
-            if (CollisionMgr::GetInst()->MouseWithBoxSize(m_Button[0]) && INPUT->GetButtonDown())
-            {
-                isMovePlayer = true;
-                INPUT->ButtonDown(false);
+            if (isRankScene) {
+                GameInfo->SortRanking();
+                RankScene->m_Visible = true;
+
+                if (CollisionMgr::GetInst()->MouseWithBoxSize(RankScene) && (INPUT->GetButtonDown() || INPUT->GetKey(VK_SPACE) == KeyState::DOWN))
+                {
+                    RankScene->m_Visible = false;
+                    isRankScene = false;
+
+                    INPUT->ButtonDown(false);
+                }
+                for (int i = 0; i < 4; i++) {
+                    if (m_Button[i]->A > 0)
+                        m_Button[i]->A -= 1;
+                    else
+                        m_Button[i]->A = 0;
+                }
+                if (m_Title->A > 0)
+                    m_Title->A -= 1;
+                else
+                    m_Title->A = 0;
             }
-            else if (CollisionMgr::GetInst()->MouseWithBoxSize(m_Button[1]) && INPUT->GetButtonDown())
-            {
-                SceneDirector::GetInst()->ChangeScene(new RankScene());
-                INPUT->ButtonDown(false);
+            else if (!isHelpScene && !isRankScene) {
+                for (int i = 0; i < 4; i++) {
+                    if (m_Button[i]->A < 255)
+                        m_Button[i]->A += 1;
+                    else
+                        m_Button[i]->A = 255;
+                }
+                if (m_Title->A < 255)
+                    m_Title->A += 1;
+                else
+                    m_Title->A = 255;
             }
-            else if (CollisionMgr::GetInst()->MouseWithBoxSize(m_Button[2]) && INPUT->GetButtonDown())
-            {
-                SceneDirector::GetInst()->ChangeScene(new InputScoreScene());
-                INPUT->ButtonDown(false);
+            if (isHelpScene) {
+                HelpScene->m_Visible = true;
+                if (CollisionMgr::GetInst()->MouseWithBoxSize(HelpScene) && (INPUT->GetButtonDown() || INPUT->GetKey(VK_SPACE) == KeyState::DOWN))
+                {
+                    HelpScene->m_Visible = false;
+                    isHelpScene = false;
+
+                    INPUT->ButtonDown(false);
+                }
+                for (int i = 0; i < 4; i++) {
+                    if (m_Button[i]->A > 0)
+                        m_Button[i]->A -= 1;
+                    else
+                        m_Button[i]->A = 0;
+                }
+                if (m_Title->A > 0)
+                    m_Title->A -= 1;
+                else
+                    m_Title->A = 0;
             }
-            else if (CollisionMgr::GetInst()->MouseWithBoxSize(m_Button[3]) && INPUT->GetButtonDown())
-            {
-                App::GetInst()->Release();
-                exit(0);
+            else if (!isHelpScene && !isRankScene) {
+                for (int i = 0; i < 4; i++) {
+                    if (m_Button[i]->A < 255)
+                        m_Button[i]->A += 1;
+                    else
+                        m_Button[i]->A = 255;
+                }
+                if (m_Title->A < 255)
+                    m_Title->A += 1;
+                else
+                    m_Title->A = 255;
             }
         }
-    }
+            //게임시작, 게임소개, 게임방법, 게임랭킹(score), 크래딧(credit)
+            if (!isRankScene && !isHelpScene) {
+                if (CollisionMgr::GetInst()->MouseWithBoxSize(m_Button[0]) && INPUT->GetButtonDown())
+                {
+                    isMovePlayer = true;
+                    INPUT->ButtonDown(false);
+                }
+                else if (CollisionMgr::GetInst()->MouseWithBoxSize(m_Button[1]) && INPUT->GetButtonDown())
+                {
+                    isRankScene = true;
+                    INPUT->ButtonDown(false);
+                }
+                else if (CollisionMgr::GetInst()->MouseWithBoxSize(m_Button[2]) && INPUT->GetButtonDown())
+                {
+                    isHelpScene = true;
+                    INPUT->ButtonDown(false);
+                }
+                else if (CollisionMgr::GetInst()->MouseWithBoxSize(m_Button[3]) && INPUT->GetButtonDown())
+                {
+                    App::GetInst()->Release();
+                    exit(0);
+                }
+            }
+        }
+    
 }
 
 void MainScene::Render()
@@ -185,7 +273,11 @@ void MainScene::Render()
     m_Title->Render();
     Player->Render();
     PlayerAnimation->Render();
+    RankScene->Render();
+    HelpScene->Render();
    
+    if (isRankScene)
+        RankRender();
 }
 
 void MainScene::BGInit()
@@ -222,4 +314,17 @@ void MainScene::ResetBG()
             m_BackGround[i][1]->m_Position.x = m_BackGround[i][1]->m_Position.x + m_BackGround[0][1]->m_Size.x * 2;
         }
     }
+}
+
+void MainScene::RankRender()
+{
+    Renderer::GetInst()->GetSprite()->Begin(D3DXSPRITE_ALPHABLEND);
+    std::vector<RankingPlayer*> s = GameInfo->Ranks;
+    m_First->print("(1) NAME : " + GameInfo->Ranks.at(0)->name + " / SCORE : " + std::to_string(GameInfo->Ranks.at(0)->score), 400, 300);
+    m_Secend->print("(2) NAME : " + GameInfo->Ranks.at(1)->name + " / SCORE : " + std::to_string(GameInfo->Ranks.at(1)->score), 400, 400);
+    m_Third->print("(3) NAME : " + GameInfo->Ranks.at(2)->name + " / SCORE : " + std::to_string(GameInfo->Ranks.at(2)->score), 400, 500);
+    if (GameInfo->Ranks.at(2)->score > GameInfo->m_Rank->score)
+        m_Third->print("(?) NAME : " + GameInfo->m_Rank->name + " / SCORE : " + std::to_string(GameInfo->m_Rank->score), 400, 650);
+    Renderer::GetInst()->GetSprite()->End();
+
 }

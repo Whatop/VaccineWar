@@ -102,9 +102,6 @@
     <ClCompile Include="InputScoreScene.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="RankScene.cpp">
-      <Filter>Game\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Game\Object\Player</Filter>
     </ClCompile>
@@ -168,6 +165,9 @@
     <ClCompile Include="EnemyMissile.cpp">
       <Filter>Game\Object\Enemy\EnemyBullet</Filter>
     </ClCompile>
+    <ClCompile Include="Stage2Boss.cpp">
+      <Filter>Game\Object\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -222,9 +222,6 @@
       <Filter>Game\Object\Enemy\EnemyBullet</Filter>
     </ClInclude>
     <ClInclude Include="InputScoreScene.h">
-      <Filter>Game\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="RankScene.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
@@ -292,6 +289,9 @@
     </ClInclude>
     <ClInclude Include="EnemyMissile.h">
       <Filter>Game\Object\Enemy\EnemyBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage2Boss.h">
+      <Filter>Game\Object\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,11 +5,13 @@ Obstacle::Obstacle(Vec2 SpawnPoint, bool isboom)
 {
 	isMine = isboom;
 	if (!isMine) {
-		m_Obstacle = Sprite::Create(L"Painting/Obstacle/trash.png");
+		m_Obstacle = Sprite::Create(L"Painting/Obstacle/1.png");
 		m_Obstacle->SetParent(this);
+		SetScale(2, 2);
 
-		m_ColBox = Sprite::Create(L"Painting/Obstacle/trash.png");
+		m_ColBox = Sprite::Create(L"Painting/Obstacle/1.png");
 		m_ColBox->m_Visible = false;
+		m_ColBox->SetScale(2, 2);
 	}
 	else {
 		m_Mine = new Animation();

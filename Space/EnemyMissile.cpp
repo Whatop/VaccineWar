@@ -29,6 +29,28 @@ EnemyMissile::EnemyMissile(Vec2 Pos,float r)
 	if(r!=370)
 	m_Rotation = D3DXToRadian(r);
 	turnRadian = m_Rotation;
+	Enemy = GetPlayer->m_Position - m_Position;
+
+	D3DXVec2Normalize(&Dire, &Enemy);
+	Delay += dt;
+	if (Delay > 0.1f) {
+		vrad += dt * 0.01;
+		Delay = 0;
+	}
+	float pi2 = D3DX_PI * 2;
+	float diff = std::atan2f(Dire.y, Dire.x) - turnRadian;
+	while (diff < -D3DX_PI) diff += pi2;
+	while (diff >= D3DX_PI) diff -= pi2;
+
+	if (abs(diff) < vrad)
+		turnRadian += diff;
+	else {
+		turnRadian += (diff < 0 ? -vrad : vrad);
+	}
+
+	Dire.y = sin(turnRadian);
+	Dire.x = cos(turnRadian);
+	m_Rotation = std::atan2f(Dire.y, Dire.x);
 }
 
 EnemyMissile::~EnemyMissile()
@@ -74,7 +96,7 @@ void EnemyMissile::Move()
 		}
 
 		int Limit = (sqrt(pow(GetPlayer->m_Position.x - m_Position.x, 2) + pow(GetPlayer->m_Position.y - m_Position.y, 2)) / m_Speed);
-		if (Limit > 0.5f && !one) {
+		if (Limit > 0.1f && !one) {
 			Enemy = GetPlayer->m_Position - m_Position;
 
 			D3DXVec2Normalize(&Dire, &Enemy);

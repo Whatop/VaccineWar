@@ -161,6 +161,7 @@ void UI::Release()
 
 void UI::Update()
 {
+	GameInfo->Clock -= dt;
 	if (GunTpye->A < 255) {
 		GunTpye->A += 1;
 		UIAim->A += 1;
@@ -377,7 +378,7 @@ void UI::ScoreTextUI()
 		ScoreText->print("+ " + std::to_string(int(GameInfo->KillScore * limit[0])), 700, 350);
 	}
 	if (limit[1] > 0) {
-		ScoreText->print("Item", 450, 450);
+		ScoreText->print("Vaccin", 450, 450);
 		ScoreText->print("+ " + std::to_string(int(GameInfo->ItemScore * limit[1])), 700, 450);
 	}
 	if (limit[2] > 0) {
