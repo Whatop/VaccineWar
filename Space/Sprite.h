@@ -12,8 +12,6 @@ class Sprite : public Object
 {
 	LPD3DXSPRITE m_pSp;
 	Texture* m_Texture;
-
-
 public:
 	Sprite();
 	~Sprite();

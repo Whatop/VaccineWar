@@ -10,8 +10,6 @@ public:
 	Renderer();
 	~Renderer();
 
-	HRESULT HR;
-
 	void Release();
 	bool Init(int width = 1920, int height = 1080, bool windowMode = false);
 

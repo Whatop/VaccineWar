@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include"Texture.h"
 #include "Animation.h"
 
 Animation::Animation()
@@ -48,9 +47,9 @@ void Animation::BackFrame()
 	m_CurrentFrame--;
 	m_FrameCount = 0.f;
 
-	if (m_CurrentFrame > m_Anims.size() - 1)
+	if (m_CurrentFrame < 0)
 	{
-		m_CurrentFrame = 0;
+		m_CurrentFrame = m_Anims.size() - 1;
 	}
 }
 

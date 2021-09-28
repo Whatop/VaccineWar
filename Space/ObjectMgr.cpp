@@ -70,10 +70,12 @@ void ObjectMgr::Update(float deltaTime, float time)
 		(iter)->Update(deltaTime, time);
 	}
 }
-
+bool Sort(Object* obj1, Object* obj2) {
+	return (obj1->m_Layer < obj2->m_Layer);
+}
 void ObjectMgr::Render()
 {
-	m_Objects.sort(stLISTsort());
+	m_Objects.sort(Sort);
 
 	for (const auto& iter : m_Objects)
 	{

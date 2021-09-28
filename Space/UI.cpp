@@ -89,6 +89,19 @@ void UI::Init()
 	ScoreNameText = Sprite::Create(L"Painting/UI/Score.png");
 	ScoreNameText->SetScale(0, 1.f);
 	ScoreNameText->SetPosition(1920 / 2, 700);
+	
+	//Buff
+	BuffState[0] = Sprite::Create(L"Painting/Buff/1.png");
+	BuffState[0]->SetScale(0.5f, 0.5f);
+	BuffState[0]->SetPosition(360, 82+ BuffState[0]->m_Size.y/2*0.5f);
+
+	BuffState[1] = Sprite::Create(L"Painting/Buff/2.png");
+	BuffState[1]->SetScale(0.5f, 0.5f);
+	BuffState[1]->SetPosition(440, 82 + BuffState[0]->m_Size.y / 2 * 0.5f);
+	
+	BuffState[2] = Sprite::Create(L"Painting/Buff/3.png");
+	BuffState[2]->SetScale(0.5f, 0.5f);
+	BuffState[2]->SetPosition(520,82 + BuffState[0]->m_Size.y / 2 * 0.5f);
 
 	ScoreText = new TextMgr();
 	ScoreText->Init(80, true, false, "굴림");
@@ -113,6 +126,10 @@ void UI::Init()
 	ReloadText = new TextMgr();
 	ReloadText->Init(30, true, false, "굴림");
 	ReloadText->SetColor(255, 255, 255, 255);
+
+	CoolTimeText = new TextMgr();
+	CoolTimeText->Init(82, false, false, "굴림");
+	CoolTimeText->SetColor(255, 0, 255, 255);
 
 	Time[0] = 0;
 	Time[1] = 3;
@@ -161,6 +178,12 @@ void UI::Release()
 
 void UI::Update()
 {
+	if (GameInfo->Level_Petturn == 5) {
+		MiniMap[1]->m_Position.x = 2018;
+	}
+	else {
+		MiniMap[1]->m_Position.x = MiniMap[0]->m_Position.x + MiniMap[0]->m_Size.x / 7 * GameInfo->Level_Petturn;
+	}
 	GameInfo->Clock -= dt;
 	if (GunTpye->A < 255) {
 		GunTpye->A += 1;
@@ -293,20 +316,26 @@ void UI::Update()
 			UIAim->Translate(Dire.x * 500.f * dt, Dire.y * 500.f * dt);
 	}
 
-	if (GameInfo->isReload) {
-		ReloadText->SetColor(255, 255, 255, 255);
-		Reload += dt;
-		if (Reload > 0.2f) {
-			a += ".";
-			Reload = 0.f;
+	if (!GameInfo->PlayerSlow) {
+		if (GameInfo->isReload) {
+			ReloadText->SetColor(255, 255, 255, 255);
+			Reload += dt;
+			if (Reload > 0.2f) {
+				a += ".";
+				Reload = 0.f;
+			}
+			if (a.size() > 5) {
+				a = "";
+			}
 		}
-		if (a.size() > 5) {
-			a = "";
+		else {
+			ReloadText->SetColor(0, 255, 255, 255);
 		}
 	}
 	else {
-		ReloadText->SetColor(0, 255, 255, 255);
+		ReloadText->SetColor(255, 255, 0, 0);
 	}
+
 
 	for (int i = 0; i < 2; i++) {
 		Skill_1[i]->SetPosition(190 / 2, 330);
@@ -345,8 +374,9 @@ void UI::Render()
 	ScoreScene->Render();
 	ScoreNameText->Render();
 	Text();
-
-	
+	for (int i = 0; i < 3; i++) {
+		BuffState[i]->Render();
+	}
 }
 
 void UI::ScoreUI()
@@ -509,9 +539,46 @@ void UI::Text()
 		+ " / " + std::to_string(GameInfo->MaxAmmo[GameInfo->PlayerType]), 170, 90);
 
 	TestText->print(std::to_string(int(GetPlayer->m_Position.x)) + " / " + std::to_string(int(GetPlayer->m_Position.y)), 1920 / 2, -4);
+	if (GameInfo->PlayerSlow) {
+		ReloadText->print("느려짐!", GetPlayer->m_Position.x - 40, GetPlayer->m_Position.y - GetPlayer->m_Size.y / 2);
+	}
+	else {
+		ReloadText->print("Reload" + a, GetPlayer->m_Position.x - 40, GetPlayer->m_Position.y - GetPlayer->m_Size.y / 2);
+	}
 
-	ReloadText->print("Reload" + a, GetPlayer->m_Position.x - 40, GetPlayer->m_Position.y - GetPlayer->m_Size.y / 2);
-
+	if (GameInfo->isAmmoText) {
+		if (!isDelay) {
+			Camera::GetInst()->ShakeTimeX = 0.1f;
+			isDelay = true;
+		}
+		DelayCoolTime += dt;
+		CoolTimeText->SetColor(255, 255, 0, 0);
+		CoolTimeText->print("총알이 준비되지 않았습니다.", 500 - 82 / 2, 1080 / 2 - 82 / 2);
+		if (DelayCoolTime > 0.4f) {
+			GameInfo->isAmmoText = false;
+			GameInfo->isSkillText = false;
+			isDelay = false;
+			DelayCoolTime = 0.f;
+			CoolTimeText->SetColor(0, 255, 255, 255);
+		}
+	}
+	if (GameInfo->isSkillText) {
+		if (!isDelay) {
+			Camera::GetInst()->ShakeTimeX = 0.1f;
+			isDelay = true;
+		}
+		DelayCoolTime += dt;
+		CoolTimeText->SetColor(255, 255, 0, 0);
+		CoolTimeText->print("스킬이 준비되지 않았습니다.", 500 - 82 / 2, 1080 / 2 - 82 / 2);
+		if (DelayCoolTime > 0.4f) {
+			GameInfo->isAmmoText = false;
+			GameInfo->isSkillText = false;
+			isDelay = false;
+			DelayCoolTime = 0.f;
+			CoolTimeText->SetColor(0, 255, 255, 255);
+		}
+	}
+	
 	Renderer::GetInst()->GetSprite()->End();
 }
 

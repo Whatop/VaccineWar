@@ -123,9 +123,17 @@ public:
 
 	// BossSpawn
 
+	// CoolTime
+	bool isAmmoText;
+	bool isSkillText;
 
 	// Clock
 	float Clock;
+
+	//BuffTime
+	float BuffSpeed;
+	float BuffGod;
+	float BuffForce;
 public:
 	void Init();
 	void Release();

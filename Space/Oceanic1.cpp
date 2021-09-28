@@ -9,10 +9,10 @@ Oceanic1::Oceanic1(Vec2 Pos,int enemyCount)
 	m_Oceanic1 = Sprite::Create(L"Painting/Enemy/Oceanic1/Temp.png");
 	m_Oceanic1->SetParent(this);
 	
-	//WaterEffect = new Animation();
-	//WaterEffect->Init(0.2f, true);
-	//WaterEffect->SetParent(this);
-	//WaterEffect->AddContinueFrame(L"Painting/Enemy/Oceanic1/", 0, 4);
+	WaterEffect = new Animation();
+	WaterEffect->Init(0.2f, true);
+	WaterEffect->SetParent(this);
+	WaterEffect->AddContinueFrame(L"Painting/Enemy/Oceanic1/", 0, 4);
 
 	SetPosition(Pos);
 	m_Hp = 100;
@@ -56,8 +56,8 @@ void Oceanic1::Update(float deltaTime, float Time)
 				//519~1041
 				m_RandomPosition = Vec2((rand() % 920 + 1000), (rand() % 519 + 520));
 				ones = false;
-			///	GameInfo->AllEnemyPos.at(EnemyAllTag) = m_Position;
-			///	GameInfo->OceanicPos.at(EnemyOcTag) = m_Position;
+				GameInfo->AllEnemyPos.at(EnemyAllTag) = m_Position;
+				GameInfo->OceanicPos.at(EnemyOcTag) = m_Position;
 			}
 			ObjMgr->CollisionCheak(this, "Bullet");
 			m_LastMoveTime += dt;
@@ -65,15 +65,15 @@ void Oceanic1::Update(float deltaTime, float Time)
 				Move();
 
 			m_Oceanic1->A = 255;
-			//WaterEffect->SetAnimeColor();
-			//WaterEffect->Update(deltaTime, Time);
+			WaterEffect->SetAnimeColor();
+			WaterEffect->Update(deltaTime, Time);
 			
 			
 		}
 	}
 	else {
 		m_Oceanic1->A = 105;
-		//WaterEffect->SetAnimeColor(105);
+		WaterEffect->SetAnimeColor(105);
 	}
 	if (m_Hp <= 0)
 	{
@@ -95,7 +95,7 @@ void Oceanic1::Update(float deltaTime, float Time)
 void Oceanic1::Render()
 {
 	m_Oceanic1->Render();
-	//WaterEffect->Render();
+	WaterEffect->Render();
 }
 
 void Oceanic1::OnCollision(Object* obj)

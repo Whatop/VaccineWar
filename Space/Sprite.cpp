@@ -70,7 +70,7 @@ void Sprite::Render()
 	if (m_Tag == "UI")
 		transForm = GetMatrix();
 	else
-		transForm = Camera::GetInst()->GetWorld() * GetMatrix();
+		transForm = Camera::GetInst()-> GetWorld() * GetMatrix();
 	
 	m_pSp->SetTransform(&transForm);
 

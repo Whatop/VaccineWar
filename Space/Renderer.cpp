@@ -34,8 +34,7 @@ bool Renderer::Init(int width, int height, bool windowMode)
 	if FAILED(hr)
 		return false;
 	D3DXCreateSprite(m_pDevice, &m_pSprite);
-	HR = hr;
-
+	
 	return true;
 }
 

@@ -2,7 +2,7 @@
 class Obstacle : public Object
 {
 	Animation* m_Mine;
-	Sprite* m_Obstacle;
+	Animation* m_Obstacle;
 	Sprite* m_ColBox;
 	Sprite* ColBox[20];
 	bool isMine;

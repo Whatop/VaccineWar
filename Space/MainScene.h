@@ -5,13 +5,12 @@ class MainScene : public Scene
 	Animation* PlayerAnimation;
 
 	Sprite* m_Title;
-	Sprite* m_MainScene;
 	Sprite* m_Blind;
 	Sprite* m_Button[4];
 
 	Sprite* m_BackGround[6][2];
 
-
+		
 	Sprite* HelpScene;
 	float HelpScale;
 
@@ -31,6 +30,9 @@ class MainScene : public Scene
 	TextMgr* m_First;
 	TextMgr* m_Secend;
 	TextMgr* m_Third;
+
+	HWND m_Sound1;
+	HWND m_Sound2;
 
 	bool isRankScene;
 	bool isHelpScene;

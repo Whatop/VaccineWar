@@ -25,10 +25,7 @@ void MainScene::Init()
 
     m_Title = Sprite::Create(L"Painting/MainScreen/Title.png");
     m_Title->SetPosition(1920 / 2, 1080 / 2-300);
-  
-    m_MainScene = Sprite::Create(L"Painting/MainScreen/Main.png");
-    m_MainScene->SetPosition(1920 / 2, 1080 / 2);
-  
+    
     m_Blind = Sprite::Create(L"Painting/MainScreen/blind.png");
     m_Blind->SetPosition(1920 / 2, 1080 / 2);
 
@@ -120,6 +117,10 @@ void MainScene::Update(float deltaTime, float Time)
     } 
     if (INPUT->GetKey('R') == KeyState::DOWN) {
         SoundMgr::GetInst()->Pause();
+    }
+   
+     if (INPUT->GetKey('T') == KeyState::DOWN) {
+        SoundMgr::GetInst()->SetOwner(m_Sound1);
     }
    
  

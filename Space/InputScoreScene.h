@@ -2,6 +2,7 @@
 class InputScoreScene : public Scene
 {
 	Sprite* m_BG;
+	Sprite* m_RankText;
 	Sprite* m_ScoreText;
 	Sprite* m_NameText;
 

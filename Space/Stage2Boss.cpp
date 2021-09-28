@@ -6,15 +6,28 @@
 
 Stage2Boss::Stage2Boss(int enemyCount)
 {
-	m_Boss = Sprite::Create(L"Painting/Boss/Stage2/Boss.png", D3DCOLOR_XRGB(255, 255, 255));
+	m_Boss = Sprite::Create(L"Painting/Boss/Stage2/Boss1.png", D3DCOLOR_XRGB(255, 255, 255));
 	m_Boss->SetParent(this);
 
 	WaterEffect = new Animation();
-	WaterEffect->Init(0.2f, true);
+	WaterEffect->Init(0.25f, true);
 	WaterEffect->SetParent(this);
 	WaterEffect->AddContinueFrame(L"Painting/Boss/Stage2/Boss", 1, 4);
 
-	SetPosition(1920-m_Size.x, 800);
+	Turret[0] = new Animation();
+	Turret[0] ->Init(0.2f, false);
+	Turret[0] ->AddContinueFrame(L"Painting/Boss/Stage2/Gun", 1, 2);
+
+	Turret[1] = new Animation();
+	Turret[1] ->Init(0.2f, true);
+	Turret[1] ->AddContinueFrame(L"Painting/Boss/Stage2/Turret", 1, 7);
+	Turret[0]->SetScale(1.7f, 1.7f);
+	Turret[1]->SetScale(1.7f, 1.7f);
+
+	SetScale(1.7f, 1.7f);
+
+	SetPosition(2200+m_Size.x*m_Scale.x, 650);
+
 
 	m_MaxHp = 2000;
 	m_Hp = m_MaxHp;
@@ -22,18 +35,17 @@ Stage2Boss::Stage2Boss(int enemyCount)
 	m_Layer = 2;
 	std::cout << "보스 공군 생성" << std::endl;
 
-	EnemyOcTag = GameInfo->EnemyTag[2];;
+	EnemyOcTag = GameInfo->EnemyTag[1];;
 	EnemyAllTag = GameInfo->EnemyTag[0];
 	GameInfo->EnemyCount[0]++;
-	GameInfo->EnemyCount[2]++;
+	GameInfo->EnemyCount[1]++;
 	GameInfo->EnemyTag[0]++;
-	GameInfo->EnemyTag[2]++;
+	GameInfo->EnemyTag[1]++;
 
 
 	GameInfo->AllEnemyPos.push_back(Vec2(9999, 9999));
 	GameInfo->OceanicPos.push_back(Vec2(9999, 9999));
 	ones = true;
-	SetScale(1.1f, 1.1f);
 	isSpawnMove = true;
 
 	GameInfo->isOneBoss = true;
@@ -44,7 +56,7 @@ Stage2Boss::Stage2Boss(int enemyCount)
 	DelayTime = 1.f;// 1초
 	AttackTime = 1.f;
 	PatternCount = 0;
-	GameInfo->Level_Petturn++;
+	GameInfo->Level_Petturn=5;
 }
 Stage2Boss::~Stage2Boss()
 {
@@ -59,8 +71,8 @@ void Stage2Boss::Update(float deltaTime, float Time)
 		if (GameInfo->isBossSpawn) {
 			Move();
 			if (isSpawnMove) {
-				m_Position.y += 100 * dt;
-				if (m_Position.y > 220) {
+				m_Position.x -= 100 * dt;
+				if (m_Position.x < 1425 + m_Size.x * m_Scale.x) {
 					isSpawnMove = false;
 				}
 			}
@@ -69,7 +81,7 @@ void Stage2Boss::Update(float deltaTime, float Time)
 				if (Camera::GetInst()->ShakeTimeX > 0.4f) {
 					GameInfo->isDangerBoss = false;
 				}
-				Attack();
+				Attack1();
 			}
 			if (m_Hp <= 0 && !isDie)
 			{
@@ -84,13 +96,12 @@ void Stage2Boss::Update(float deltaTime, float Time)
 				GameInfo->MaxScore += GameInfo->GetPlayerHp() * GameInfo->Clock / 5;
 				GameInfo->BonusScore += GameInfo->GetPlayerHp() * GameInfo->Clock / 5;
 				GameInfo->AllEnemyPos.at(EnemyAllTag) = Vec2(9999, 9999);
-				GameInfo->AerialPos.at(EnemyOcTag) = Vec2(9999, 9999);
+				GameInfo->OceanicPos.at(EnemyOcTag) = Vec2(9999, 9999);
 				GameInfo->EnemyCount[0]--;
-				GameInfo->EnemyCount[2]--;
+				GameInfo->EnemyCount[1]--;
 				GameInfo->isBossSpawn = false;
 				GameInfo->isOneBoss = true;
 			}
-			RotationTurret();
 			WaterEffect->Update(deltaTime,Time);
 
 		}
@@ -114,6 +125,8 @@ void Stage2Boss::Render()
 {
 	m_Boss->Render();
 	WaterEffect->Render();
+	Turret[0]->Render();
+	Turret[1]->Render();
 }
 
 void Stage2Boss::OnCollision(Object* obj)
@@ -129,23 +142,44 @@ void Stage2Boss::OnCollision(Object* obj)
 
 void Stage2Boss::Move()
 {
+	Turret[0]->SetPosition(m_Position);
+	Turret[1]->SetPosition(m_Position);
 }
 
-void Stage2Boss::RotationTurret()
-{
-}
-
-void Stage2Boss::Attack()
+void Stage2Boss::Attack1()
 {
 	AttackTime += dt;
 	if (AttackTime > DelayTime) {
-		for (int i = 0; i < 7; i++) {
-			//ObjMgr->AddObject(new EnemyRotationBullet(Turret[i]->m_Position, Turret[i]->m_Rotation + D3DXToRadian(90)), "EnemyBullet");
-			if (PatternCount == 0)
-				AttackTime = 0.5f;
-			else
-				AttackTime = 0.75f;
-		}
+		Turret[0]->m_CurrentFrame = 1;
+		ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x-80, Turret[0]->m_Position.y+5),D3DXToRadian(-135)), "EnemyBullet");
+		AttackTime = 0.25f;
 		AttackCount++;
 	}
+	if(AttackTime > 0.45f)
+		Turret[0]->m_CurrentFrame = 0;
+}
+
+void Stage2Boss::Attack2()
+{
+	AttackTime += dt;
+	if (AttackTime > DelayTime) {
+		
+		AttackTime = 0.25f;
+		AttackCount++;
+	}
+	if (AttackTime > 0.45f)
+		Turret[0]->m_CurrentFrame = 0;
+}
+
+void Stage2Boss::Attack3()
+{
+	AttackTime += dt;
+	if (AttackTime > DelayTime) {
+		Turret[0]->m_CurrentFrame = 1;
+		ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135)), "EnemyBullet");
+		AttackTime = 0.25f;
+		AttackCount++;
+	}
+	if (AttackTime > 0.45f)
+		Turret[0]->m_CurrentFrame = 0;
 }

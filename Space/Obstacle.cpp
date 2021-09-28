@@ -5,8 +5,11 @@ Obstacle::Obstacle(Vec2 SpawnPoint, bool isboom)
 {
 	isMine = isboom;
 	if (!isMine) {
-		m_Obstacle = Sprite::Create(L"Painting/Obstacle/1.png");
+		m_Obstacle = new Animation();
+		m_Obstacle->Init(1.4f, true);
 		m_Obstacle->SetParent(this);
+		m_Obstacle->AddContinueFrame(L"Painting/Obstacle/", 1, 4);
+
 		SetScale(2, 2);
 
 		m_ColBox = Sprite::Create(L"Painting/Obstacle/1.png");
@@ -75,6 +78,8 @@ void Obstacle::Update(float deltaTime, float Time)
 		Move();
 		if (!isMine) {
 			m_Obstacle->A = 255;
+			m_Obstacle->Update(deltaTime, Time);
+
 			m_ColBox->m_Position = m_Position;
 		}
 		else {

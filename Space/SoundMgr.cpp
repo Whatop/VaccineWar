@@ -123,7 +123,7 @@ HRESULT SoundMgr::Stop()
 
 HRESULT SoundMgr::Pause()
 {   
-    HRESULT hr;
+    HRESULT hr; 
 
     if (!pMediaControl)
     {
@@ -149,6 +149,17 @@ void SoundMgr::SetOwner(HWND hOwner)
 {
     this->hOwner = hOwner;
 }
+
+HRESULT SoundMgr::Close()
+{
+  //  CoInitialize(NULL);
+  /*  COM_RELEASE();
+    COM_RELEASE(this->pMediaSeeking);
+    COM_RELEASE(this->pGraphBuilder);*/
+
+    return S_OK;
+}
+
 
 /*
 void SoundMgr::Play(const WCHAR* pFileName, bool loop)

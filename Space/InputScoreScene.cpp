@@ -18,20 +18,23 @@ void InputScoreScene::Init()
 	m_BG = Sprite::Create(L"Painting/Scene/Black.png");
 	m_BG->SetPosition(1920 / 2, 1080 / 2);
 
+	m_RankText = Sprite::Create(L"Painting/Scene/Rank.png");
+	m_RankText->SetPosition(1920 / 2, 100);
+	
 	m_ScoreText = Sprite::Create(L"Painting/Scene/Score.png");
-	m_ScoreText->SetPosition(1920 / 2, 600);
+	m_ScoreText->SetPosition(1920 / 2 - 200, 600);
 
 	m_NameText = Sprite::Create(L"Painting/Scene/Name.png");
-	m_NameText->SetPosition(1920 / 2, 300);
+	m_NameText->SetPosition(1920 / 2 - 200, 500);
 
 	m_BackButton = Sprite::Create(L"Painting/Scene/BackButton.png");
-	m_BackButton->SetPosition(1700, 900);
+	m_BackButton->SetPosition(1900- m_BackButton->m_Size.x/2, 900);
 
 	m_Name = new TextMgr();
 	m_Score = new TextMgr();
 
-	m_Name->Init(72, false, false, "Arial");
-	m_Score->Init(72, false, false, "Arial");
+	m_Name->Init(78, false, false, "Arial");
+	m_Score->Init(78, false, false, "Arial");
 
 	m_isTextEntered = true;
 	GameInfo->m_Scene = StageScene::NONE;
@@ -104,12 +107,13 @@ void InputScoreScene::Update(float deltaTime, float Time)
 void InputScoreScene::Render()
 {
 	m_BG->Render();
+	m_RankText->Render();
 	m_ScoreText->Render();
 	m_NameText->Render();
 	m_BackButton->Render();
 
 	Renderer::GetInst()->GetSprite()->Begin(D3DXSPRITE_ALPHABLEND);
-	m_Score->print(std::to_string(int(TempScore * ScoreTime)), 1100, 570);
-	m_Name->print(name, 1100, 270);
+	m_Name->print(name, 1920 / 2-50, 500 - 78/2);
+	m_Score->print(std::to_string(int(TempScore * ScoreTime)), 1920 / 2 - 50, 600- 78 / 2);
 	Renderer::GetInst()->GetSprite()->End();
 }

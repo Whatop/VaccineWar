@@ -12,9 +12,8 @@ Camera::~Camera()
 
 void Camera::Init()
 {
-	 
 	m_Rotation = 0;
-	m_Position = Vec2(0, -180);
+	m_Position = Vec2(0, 0);
 	m_Scale = Vec2(1.f, 1.f);
 	Follow(nullptr);
 	m_MinMapSize = Vec2(960, 0); //Stage1
@@ -78,9 +77,9 @@ void Camera::Update(float deltaTime, float time)
 			}
 	}
 	else if (ShakeTimeX < 0.5f) {
-		m_Position.x += (sin(2.0f * 3.14159f * ShakeTimeX * 4) * 2.3f +
-			sin(2.0f * 3.14159f * ShakeTimeX * 8 + 0.2f) * 2.2f +
-			sin(2.0f * 3.14159f * ShakeTimeX * 16 + 0.5f) * 2.1f) * (5 - ShakeTimeX) / 5;
+		m_Position.x += sin(2.f * 3.141592f * ShakeTimeX * 4.f) +
+			sin(2.f * 3.141592f * ShakeTimeX * 8.f) +
+			sin(2.f * 3.141592f * ShakeTimeX * 16.f) * (5 - ShakeTimeX) / 5;
 		if (m_Position.x < 100) {
 			m_Position.x += 5 * dt;
 		}

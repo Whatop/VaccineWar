@@ -3,7 +3,7 @@ class Stage2Boss : public Object
 {
 	Sprite* m_Boss;
 	Animation* WaterEffect;
-	Sprite* Turret[7];
+	Animation* Turret[2];
 
 	float m_Hp, m_MaxHp;
 
@@ -38,7 +38,8 @@ public:
 	void OnCollision(Object* obj);
 
 	void Move();
-	void RotationTurret();
-	void Attack();
+	void Attack1();//Gun
+	void Attack2();//Missile
+	void Attack3();//
 };
 

@@ -21,7 +21,14 @@ class UI : public Singleton<UI>
 	TextMgr* Timelimit;
 	TextMgr* AmmoText;
 	TextMgr* ReloadText;
+	TextMgr* CoolTimeText;
+
+	TextMgr* BuffCoolTime;
 	
+	//delay
+	float DelayCoolTime;
+	bool isDelay;
+
 	//Buff : 스피드, 무적, 집중 공격
 	Sprite* BuffState[3];
 
@@ -42,7 +49,7 @@ class UI : public Singleton<UI>
 	//03:00:00
 	float Time[6];
 
-	//MiniMap
+	//MiniMap 0=BACKGROUND 1=PLAYER
 	Sprite* MiniMap[2];
 
 	//Gun

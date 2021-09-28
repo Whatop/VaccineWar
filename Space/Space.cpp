@@ -2,7 +2,6 @@
 #include"MainScene.h"
 
 INT WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
-
 {
 #if _DEBUG
 	AllocConsole();

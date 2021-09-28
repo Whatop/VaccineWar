@@ -57,7 +57,7 @@ Stage1Boss::Stage1Boss(int enemyCount)
 	DelayTime = 1.f;// 1ÃÊ
 	AttackTime = 1.f;
 	PatternCount = 0;
-	GameInfo->Level_Petturn++;
+	GameInfo->Level_Petturn = 5;
 }
 Stage1Boss::~Stage1Boss()
 {

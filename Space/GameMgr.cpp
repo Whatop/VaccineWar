@@ -81,7 +81,12 @@ void GameMgr::Init()
 	Level_Petturn = 0;
 
 	isOneBoss = false;
+	isBossSpawn = false;
+	isDangerBoss = false;
 	Clock = 180.f;
+
+	isSkillText = false;
+	isAmmoText = false;
 }
 
 void GameMgr::Release()

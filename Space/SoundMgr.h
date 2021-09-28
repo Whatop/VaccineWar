@@ -12,7 +12,6 @@ class SoundMgr :public Singleton<SoundMgr>
 	IMediaSeeking* pMediaSeeking;    // 재생 위치를 읽어오거나 변경하기 위한 인터페이스
 
 public:
-	DWORD Sound1, Sound2;
 
 	SoundMgr();
 	~SoundMgr();
@@ -27,6 +26,7 @@ public:
 	HRESULT Play(); // 미디어 파일을 재생한다.
 	HRESULT Stop();        // 재생을 중단한다.
 	HRESULT Pause();     // 재생을 일시정지한다.
+	HRESULT Close();     // 재생을 일시정지한다.
 
 	void SetOwner(HWND hOwner);
 

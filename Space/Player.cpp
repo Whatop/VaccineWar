@@ -82,7 +82,7 @@ void Player::Init()
 
 void Player::Update(float deltaTime, float Time)
 {
-	if (INPUT->GetKey('1') == KeyState::DOWN) {
+	if (INPUT->GetKey('O') == KeyState::DOWN) {
 		GameInfo->Level_Petturn = 4;
 	}
 	GameInfo->SpriteUpdate(ColBox[HIT]); // 지뢰 충돌 판정
@@ -140,6 +140,9 @@ void Player::Update(float deltaTime, float Time)
 			Shield->m_Visible = true;
 			InvincibleTime += dt;
 			GameInfo->PlayerHit = false;
+			GameInfo->PlayerSlow = false;
+			GameInfo->isTrash = false;
+			GameInfo->MineDamage = false;
 			if (InvincibleTime > 2) {
 				Shield->m_Visible = false;
 				isInvincible = false;
@@ -159,7 +162,7 @@ void Player::Update(float deltaTime, float Time)
 							GameInfo->MineDamage = false;
 							GameInfo->PlayerSlow = true;
 						}
-						else if (!GameInfo->MineDamage)
+						else 
 							m_Hp -= Damage_Received;
 				
 					float randx = (rand() % (int)m_Size.x * m_Scale.x) + m_Position.x - m_Size.x / 2 * m_Scale.x;
@@ -337,12 +340,10 @@ void Player::Attack()
 				}
 				else if (GameInfo->PlayerType == 2) {
 					ObjMgr->AddObject(new Torpedo(m_Position), "Bullet");
-					GameInfo->Ammo[GameInfo->PlayerType]++;
 					GameInfo->Ammo[GameInfo->PlayerType]--;
 				}
 				else if (GameInfo->PlayerType == 3) {
 					ObjMgr->AddObject(new Missile(m_Position), "Bullet");
-					GameInfo->Ammo[GameInfo->PlayerType]++;
 					GameInfo->Ammo[GameInfo->PlayerType]--;
 				}
 			}
@@ -384,6 +385,11 @@ void Player::Attack()
 	if (chargeTime > 1) {
 		GameInfo->Ammo[1]++;
 		chargeTime = 0.f;
+	}
+
+	// 총알이 비어있습니다.
+	if (GameInfo->Ammo[GameInfo->PlayerType] <= 0 && INPUT->GetKey('Z') == KeyState::DOWN) {
+		GameInfo->isAmmoText = true;
 	}
 	
 }
@@ -430,9 +436,17 @@ void Player::Skill()
 		GameInfo->SKILL_Focus_attck = true;
 		GameInfo->SKILL_CoolTime[0] = 20.f;
 	}
-	if (INPUT->GetKey('C') == KeyState::DOWN &&		
-		GameInfo->SKILL_CoolTime[1] <= 0.f){
+	else if (INPUT->GetKey('X') == KeyState::DOWN &&
+		GameInfo->SKILL_CoolTime[0] >= 0.f) {
+		GameInfo->isSkillText = true;
+	}
+	if (INPUT->GetKey('C') == KeyState::DOWN &&
+		GameInfo->SKILL_CoolTime[1] <= 0.f) {
 		GameInfo->SKILL_Air_force = true;
+	}
+	else if (INPUT->GetKey('C') == KeyState::DOWN &&
+		GameInfo->SKILL_CoolTime[1] >= 0.f) {
+		GameInfo->isSkillText = true;
 	}
 	
 	GameInfo->SKILL_CoolTime[0] -= dt;
@@ -451,4 +465,6 @@ void Player::Skill()
 		//GameInfo->SKILL_CoolTime[0] = 40.f;
 		GameInfo->SKILL_Air_force = false;
 	}
+
+
 }

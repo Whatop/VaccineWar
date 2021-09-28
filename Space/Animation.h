@@ -1,6 +1,6 @@
 #pragma once
 
-class Texture;
+//class Texture;
 class Animation : public Object
 {
 private:
@@ -9,9 +9,6 @@ private:
 	float m_Delay;
 	bool m_AutoPlay;
 	float m_FrameCount;
-
-	int m_FirstFrame;
-	int m_LastFrame;
 
 public:
 	int m_CurrentFrame;

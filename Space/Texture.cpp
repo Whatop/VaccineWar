@@ -17,8 +17,13 @@ Texture::~Texture()
 bool Texture::Init(std::wstring fileName, D3DCOLOR ColorKey)
 {
 	HRESULT hr;
-	hr = D3DXCreateTextureFromFileEx(m_pDev, fileName.c_str(), D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, 1, 0,
-		D3DFMT_A8R8G8B8, D3DPOOL_MANAGED, D3DX_DEFAULT, D3DX_DEFAULT, ColorKey, 0, 0, &m_pTexture);
+	hr = D3DXCreateTextureFromFileEx(
+		m_pDev, fileName.c_str(),
+		D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, 
+		1, 0,
+		D3DFMT_A8R8G8B8, D3DPOOL_MANAGED, 
+		D3DX_DEFAULT, D3DX_DEFAULT, 
+		ColorKey, 0, 0, &m_pTexture);
 
 	if FAILED(hr)
 	{
