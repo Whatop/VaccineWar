@@ -26,6 +26,5 @@ public:
 
 	void MoveBG();
 	void ResetBG();
-	void OnCollisionCard();
 };
 

@@ -10,7 +10,7 @@ Stage1::~Stage1()
 {
 }
 
-void Stage1::Init() 
+void Stage1::Init()
 {
 	ObjMgr->Release();
 	GameInfo->Init();
@@ -18,7 +18,7 @@ void Stage1::Init()
 	BGInit();
 
 	m_Cover = Sprite::Create(L"Painting/UI/Cover.png");
-	m_Cover->SetPosition(1920 / 2, 1080/2);
+	m_Cover->SetPosition(1920 / 2, 1080 / 2);
 	m_Cover->m_Visible = false;
 
 	UpWall = Sprite::Create(L"Painting/Wall.png");
@@ -81,23 +81,23 @@ void Stage1::Update(float deltaTime, float time)
 			for (int i = 0; i < 6; i++) {
 				if (m_BackGround[i][0]->A < 255)
 					m_BackGround[i][0]->A += 1;
-				else if (m_BackGround[i][0]->A > 255) 
+				else if (m_BackGround[i][0]->A > 255)
 					m_BackGround[i][0]->A = 255;
 
 				if (m_BackGround[i][1]->A < 255)
 					m_BackGround[i][1]->A += 1;
-				else if(m_BackGround[i][1]->A > 255){
+				else if (m_BackGround[i][1]->A > 255) {
 					m_BackGround[i][1]->A = 255;
 				}
 			}
-			if(sdTime <= 3)
-			sdTime += dt;
+			if (sdTime <= 3)
+				sdTime += dt;
 			if (!one && sdTime > 3) {
 				GameInfo->isPause = true;
 				one = true;
 				sdTime = 4;
 			}
-			if (!GameInfo->isBossSpawn){
+			if (!GameInfo->isBossSpawn) {
 				MoveBG();
 				ResetBG();
 			}
@@ -106,7 +106,7 @@ void Stage1::Update(float deltaTime, float time)
 		}
 		else {
 			m_Cover->m_Visible = true;
-			if (INPUT->GetButtonDown()|| INPUT->GetKey(VK_SPACE)==KeyState::DOWN) {
+			if (INPUT->GetButtonDown() || INPUT->GetKey(VK_SPACE) == KeyState::DOWN) {
 				GameInfo->isPause = false;
 				GameInfo->isSpawnEnemy = true;
 				GameInfo->CK_TimePause = false;
@@ -114,7 +114,7 @@ void Stage1::Update(float deltaTime, float time)
 				m_Cover->SetPosition(1920 / 2, 1080 / 2);
 			}
 		}
-	
+
 	}
 }
 
@@ -127,7 +127,6 @@ void Stage1::Render()
 	m_Cover->Render();
 
 }
-
 void Stage1::BGInit()
 {
 	for (int i = 0; i < 6; i++) {
@@ -135,8 +134,7 @@ void Stage1::BGInit()
 		m_BackGround[i][0]->SetPosition(1920 / 2, 1080 / 2);
 		m_BackGround[i][1] = Sprite::Create(L"Painting/GameScreen/Stage1/" + std::to_wstring(i) + L".png");
 		m_BackGround[i][1]->SetPosition(m_BackGround[i][0]->m_Position.x + 1920, 1080 / 2);
-		m_BackGround[i][0]->SetScale(1, 1);
-		m_BackGround[i][1]->SetScale(1, 1);
+
 		m_BackGround[i][0]->A = 0;
 		m_BackGround[i][1]->A = 0;
 	}
@@ -144,28 +142,29 @@ void Stage1::BGInit()
 
 void Stage1::MoveBG()
 {
+	float bgspeed = 1;
+	if (INPUT->GetKey('T') == KeyState::PRESS)
+		bgspeed = 10.f;
+	else
+		bgspeed = 1.f;
 	for (int i = 0; i < 2; i++) {
-		m_BackGround[5][i]->m_Position.x -= 10 * dt;
-		m_BackGround[4][i]->m_Position.x -= 15 * dt;
-		m_BackGround[3][i]->m_Position.x -= 25 * dt;
-		m_BackGround[2][i]->m_Position.x -= 50 * dt;
-		m_BackGround[1][i]->m_Position.x -= 75 * dt;
-		m_BackGround[0][i]->m_Position.x -= 100 * dt;
+		m_BackGround[5][1 - i]->m_Position.x -= 10 * bgspeed * dt;
+		m_BackGround[4][1 - i]->m_Position.x -= 15 * bgspeed * dt;
+		m_BackGround[3][1 - i]->m_Position.x -= 25 * bgspeed * dt;
+		m_BackGround[2][1 - i]->m_Position.x -= 50 * bgspeed * dt;
+		m_BackGround[1][1 - i]->m_Position.x -= 75 * bgspeed * dt;
+		m_BackGround[0][1 - i]->m_Position.x -= 100 * bgspeed * dt;
 	}
 }
 
 void Stage1::ResetBG()
 {
-		for (int i = 0; i < 5; i++) {
-			if (m_BackGround[i][0]->m_Position.x <= -1920 / 2) {
-				m_BackGround[i][0]->m_Position.x = m_BackGround[i][0]->m_Position.x + m_BackGround[0][0]->m_Size.x * 2;
-			}
-			if (m_BackGround[i][1]->m_Position.x <= -1920 / 2) {
-				m_BackGround[i][1]->m_Position.x = m_BackGround[i][1]->m_Position.x + m_BackGround[0][1]->m_Size.x * 2;
-			}
+	for (int i = 0; i < 5; i++) {
+		if (m_BackGround[i][0]->m_Position.x < -1920 / 2) {
+			m_BackGround[i][0]->m_Position.x = m_BackGround[i][0]->m_Position.x + m_BackGround[0][0]->m_Size.x * 2;
 		}
-}
-
-void Stage1::OnCollisionCard()
-{
+		else if (m_BackGround[i][1]->m_Position.x < -1920 / 2) {
+			m_BackGround[i][1]->m_Position.x = m_BackGround[i][1]->m_Position.x + m_BackGround[0][1]->m_Size.x * 2;
+		}
+	}
 }

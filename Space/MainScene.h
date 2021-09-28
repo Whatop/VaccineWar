@@ -1,21 +1,19 @@
 #pragma once
 class MainScene : public Scene
 {
+
+	Sprite* m_BackGround[6][2];
+	Sprite* m_Title;
+	Sprite* m_Button[4];
+
 	Sprite* Player;
 	Animation* PlayerAnimation;
 
-	Sprite* m_Title;
-	Sprite* m_Blind;
-	Sprite* m_Button[4];
 
-	Sprite* m_BackGround[6][2];
-
-		
-	Sprite* HelpScene;
-	float HelpScale;
-
-	float ShackX;
-	float acc1,acc2;
+	//Title
+	float TM_Time;
+	float TM_Up;
+	float TM_Down;
 
 	//movePlayer
 	bool isMovePlayer;
@@ -24,17 +22,12 @@ class MainScene : public Scene
 	//Rank
 	Sprite* RankScene;
 	float RankScale;
-
-	Sprite* m_BG;
-
-	TextMgr* m_First;
-	TextMgr* m_Secend;
-	TextMgr* m_Third;
-
-	HWND m_Sound1;
-	HWND m_Sound2;
-
 	bool isRankScene;
+	TextMgr* m_RankText;
+
+	//Help
+	Sprite* HelpScene;
+	float HelpScale;
 	bool isHelpScene;
 public:
 	MainScene();
@@ -43,7 +36,7 @@ public:
 	void Init();
 	void Release();
 
-	void Update(float deltaTime,float time);
+	void Update(float deltaTime, float time);
 	void Render();
 
 	void BGInit();

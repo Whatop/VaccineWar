@@ -33,8 +33,8 @@ void InputScoreScene::Init()
 	m_Name = new TextMgr();
 	m_Score = new TextMgr();
 
-	m_Name->Init(78, false, false, "Arial");
-	m_Score->Init(78, false, false, "Arial");
+	m_Name->Init(78, false, false, "DungGeunMo");
+	m_Score->Init(78, false, false, "DungGeunMo");
 
 	m_isTextEntered = true;
 	GameInfo->m_Scene = StageScene::NONE;
