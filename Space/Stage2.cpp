@@ -132,11 +132,9 @@ void Stage2::BGInit()
 {
 	for (int i = 0; i < 6; i++) {
 		m_BackGround[i][0] = Sprite::Create(L"Painting/GameScreen/Stage2/" + std::to_wstring(i) + L".png");
-		m_BackGround[i][0]->SetPosition(1920 / 2, 1080 / 2);
+		m_BackGround[i][0]->SetPosition(1920 / 2 + 0.1f, 1080 / 2);
 		m_BackGround[i][1] = Sprite::Create(L"Painting/GameScreen/Stage2/" + std::to_wstring(i) + L".png");
-		m_BackGround[i][1]->SetPosition(m_BackGround[i][0]->m_Position.x + 1920, 1080 / 2);
-		m_BackGround[i][0]->SetScale(1, 1);
-		m_BackGround[i][1]->SetScale(1, 1);
+		m_BackGround[i][1]->SetPosition(m_BackGround[i][0]->m_Position.x + 1920 - 0.1f, 1080 / 2);
 		m_BackGround[i][0]->A = 0;
 		m_BackGround[i][1]->A = 0;
 	}
@@ -144,13 +142,18 @@ void Stage2::BGInit()
 
 void Stage2::MoveBG()
 {
+	float bgspeed = 1;
+	if (INPUT->GetKey('T') == KeyState::PRESS)
+		bgspeed = 10.f;
+	else
+		bgspeed = 1.f;
 	for (int i = 0; i < 2; i++) {
-		m_BackGround[5][i]->m_Position.x -= 10 * dt;
-		m_BackGround[4][i]->m_Position.x -= 15 * dt;
-		m_BackGround[3][i]->m_Position.x -= 25 * dt;
-		m_BackGround[2][i]->m_Position.x -= 50 * dt;
-		m_BackGround[1][i]->m_Position.x -= 75 * dt;
-		m_BackGround[0][i]->m_Position.x -= 100 * dt;
+		m_BackGround[5][1 - i]->m_Position.x -= 10 * bgspeed * dt;
+		m_BackGround[4][1 - i]->m_Position.x -= 15 * bgspeed * dt;
+		m_BackGround[3][1 - i]->m_Position.x -= 25 * bgspeed * dt;
+		m_BackGround[2][1 - i]->m_Position.x -= 50 * bgspeed * dt;
+		m_BackGround[1][1 - i]->m_Position.x -= 75 * bgspeed * dt;
+		m_BackGround[0][1 - i]->m_Position.x -= 100 * bgspeed * dt;
 	}
 }
 

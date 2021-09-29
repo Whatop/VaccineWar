@@ -129,12 +129,12 @@ void Stage1::Render()
 }
 void Stage1::BGInit()
 {
+
 	for (int i = 0; i < 6; i++) {
 		m_BackGround[i][0] = Sprite::Create(L"Painting/GameScreen/Stage1/" + std::to_wstring(i) + L".png");
-		m_BackGround[i][0]->SetPosition(1920 / 2, 1080 / 2);
+		m_BackGround[i][0]->SetPosition(1920 / 2 + 0.1f, 1080 / 2);
 		m_BackGround[i][1] = Sprite::Create(L"Painting/GameScreen/Stage1/" + std::to_wstring(i) + L".png");
-		m_BackGround[i][1]->SetPosition(m_BackGround[i][0]->m_Position.x + 1920, 1080 / 2);
-
+		m_BackGround[i][1]->SetPosition(m_BackGround[i][0]->m_Position.x + 1920 - 0.1f, 1080 / 2);
 		m_BackGround[i][0]->A = 0;
 		m_BackGround[i][1]->A = 0;
 	}
@@ -163,7 +163,7 @@ void Stage1::ResetBG()
 		if (m_BackGround[i][0]->m_Position.x < -1920 / 2) {
 			m_BackGround[i][0]->m_Position.x = m_BackGround[i][0]->m_Position.x + m_BackGround[0][0]->m_Size.x * 2;
 		}
-		else if (m_BackGround[i][1]->m_Position.x < -1920 / 2) {
+		else if (m_BackGround[i][1]->m_Position.x <= -1920 / 2) {
 			m_BackGround[i][1]->m_Position.x = m_BackGround[i][1]->m_Position.x + m_BackGround[0][1]->m_Size.x * 2;
 		}
 	}

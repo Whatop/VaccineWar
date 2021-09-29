@@ -12,12 +12,11 @@ class Pet : public Object
 
 	int Gun;
 public:
-	Pet(int type = 1,bool display = false);
+	Pet(int type = 1);
 	~Pet();
 
 	void Update(float deltaTime, float Time);
 	void Render();
-	void OnCollision(Object* obj);
 	
 	void Move();
 	void Attack();

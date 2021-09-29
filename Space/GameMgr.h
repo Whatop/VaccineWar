@@ -115,9 +115,6 @@ public:
 	//ÀçÀåÀü
 	bool isReload;
 
-	//pet
-	int PetCount;
-
 	//Stage Level Patturn
 	int Level_Petturn;
 

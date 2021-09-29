@@ -48,9 +48,6 @@ void GameMgr::Init()
 
 	StageScore = m_Score; // 스테이지 넘어갈때마다 저장
 
-
-	PetCount = 0;
-	
 	CK_TimePause = true;
 	isPause = false;
 

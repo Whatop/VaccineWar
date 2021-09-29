@@ -1,46 +1,4 @@
-﻿  GameMgr.cpp
-D:\VaccineWar\Space\GameMgr.cpp(49,15): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(161,13): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(301,9): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(317,9): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(333,9): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(351,65): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(352,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(353,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(356,65): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(357,65): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(358,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(359,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(362,60): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(368,65): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(369,65): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(370,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(373,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(374,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(375,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(376,65): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(384,65): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(385,65): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(386,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(387,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(388,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(391,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(392,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(393,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(394,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(403,65): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(404,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(405,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(406,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(409,65): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(410,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(411,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(412,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\GameMgr.cpp(413,61): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  MainScene.cpp
-  Stage1.cpp
-  Stage2.cpp
-  UI.cpp
+﻿  UI.cpp
 D:\VaccineWar\Space\UI.cpp(265,15): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 D:\VaccineWar\Space\UI.cpp(277,15): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 D:\VaccineWar\Space\UI.cpp(286,15): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
@@ -80,5 +38,4 @@ D:\VaccineWar\Space\UI.cpp(543,89): warning C4244: '인수': 'FLOAT'에서 'int'
 D:\VaccineWar\Space\UI.cpp(543,59): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 D:\VaccineWar\Space\UI.cpp(546,89): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 D:\VaccineWar\Space\UI.cpp(546,59): warning C4244: '인수': 'FLOAT'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  코드를 생성하고 있습니다...
   Space.vcxproj -> D:\VaccineWar\x64\Debug\Space.exe

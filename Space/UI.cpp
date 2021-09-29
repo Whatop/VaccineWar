@@ -44,7 +44,7 @@ void UI::Init()
 	HpImage->SetPosition(130, 35);
 
 	TimeLmitImage = Sprite::Create(L"Painting/UI/timer_f.png");
-	TimeLmitImage->SetPosition(1920 / 2 + 600, 72 / 2);
+	TimeLmitImage->SetPosition(1920 / 2 + 550, 72 / 2);
 
 	SpeedImage = Sprite::Create(L"Painting/UI/SpeedBar.png");
 	SpeedImage->SetPosition(76 / 2, 72 / 2);
@@ -104,31 +104,31 @@ void UI::Init()
 	BuffState[2]->SetPosition(520,82 + BuffState[0]->m_Size.y / 2 * 0.5f);
 
 	ScoreText = new TextMgr();
-	ScoreText->Init(80, true, false, "±¼¸²");
+	ScoreText->Init(80, true, false, "DungGeunMo");
 	ScoreText->SetColor(255, 255, 255, 0);
 
 	AmmoText = new TextMgr();
-	AmmoText->Init(50, true, false, "±¼¸²");
+	AmmoText->Init(50, true, false, "DungGeunMo");
 	AmmoText->SetColor(255, 255, 255, 255);
 
 	ResultScoreText = new TextMgr();
-	ResultScoreText->Init(80, true, false, "±¼¸²");
+	ResultScoreText->Init(80, true, false, "DungGeunMo");
 	ResultScoreText->SetColor(255, 255, 255, 0);
 
 	Timelimit = new TextMgr();
-	Timelimit->Init(80, true, false, "±¼¸²");
+	Timelimit->Init(80, true, false, "DungGeunMo");
 	Timelimit->SetColor(255, 255, 255, 255);
 
 	TestText = new TextMgr();
-	TestText->Init(80, true, false, "±¼¸²");
+	TestText->Init(80, true, false, "DungGeunMo");
 	TestText->SetColor(255, 255, 255, 255);
 
 	ReloadText = new TextMgr();
-	ReloadText->Init(30, true, false, "±¼¸²");
+	ReloadText->Init(30, true, false, "DungGeunMo");
 	ReloadText->SetColor(255, 255, 255, 255);
 
 	CoolTimeText = new TextMgr();
-	CoolTimeText->Init(82, false, false, "±¼¸²");
+	CoolTimeText->Init(82, false, false, "DungGeunMo");
 	CoolTimeText->SetColor(255, 0, 255, 255);
 
 	Time[0] = 0;
@@ -259,7 +259,7 @@ void UI::Update()
 	}
 	// ÀûÀÌ ÀÖ°í ÇÃ·¹ÀÌ¾î ÁÁÀÌ ¸Ó½Å°Ç or ÇÔÆ÷ »óÅÂ
 	if (GameInfo->EnemyCount[0] > 0 && (GameInfo->PlayerType == 1 || GameInfo->PlayerType == 0)) {
-
+			
 		D3DXVec2Normalize(&Dire, &Enemy);
 		A = UIAim->m_Position;
 		float limit = (sqrt(pow(A.x - B.x, 2) + pow(A.y - B.y, 2)) / 500.f);
@@ -532,11 +532,11 @@ void UI::Text()
 	Timelimit->print(
 		std::to_string((int)Time[0]) + std::to_string((int)Time[1]) + ":" +
 		std::to_string((int)Time[2]) + std::to_string((int)Time[3]) + ":" +
-		std::to_string((int)Time[4]) + std::to_string((int)Time[5]), 1600, -4);
+		std::to_string((int)Time[4]) + std::to_string((int)Time[5]), 1550, -4);
 
 	AmmoText->print(
 		std::to_string(GameInfo->Ammo[GameInfo->PlayerType])
-		+ " / " + std::to_string(GameInfo->MaxAmmo[GameInfo->PlayerType]), 170, 90);
+		+ "/" + std::to_string(GameInfo->MaxAmmo[GameInfo->PlayerType]), 170, 90);
 
 	TestText->print(std::to_string(int(GetPlayer->m_Position.x)) + " / " + std::to_string(int(GetPlayer->m_Position.y)), 1920 / 2, -4);
 	if (GameInfo->PlayerSlow) {

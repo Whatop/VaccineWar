@@ -174,6 +174,12 @@ void Player::Update(float deltaTime, float Time)
 					HitDelay = false;
 				}
 			}
+			else {
+				GameInfo->PlayerHit = false;
+				GameInfo->PlayerSlow = false;
+				GameInfo->isTrash = false;
+				GameInfo->MineDamage = false;
+			}
 		}
 		
 		if (!isSpeed) {
@@ -459,8 +465,8 @@ void Player::Skill()
 		//Æø°Ý ¼ÒÈ¯
 
 		ObjMgr->AddObject(new AirForce(), "AirForce");
-		ObjMgr->AddObject(new Pet(), "AirForce");
-		ObjMgr->AddObject(new Pet(), "AirForce");
+		ObjMgr->AddObject(new Pet(1), "AirForce");
+		ObjMgr->AddObject(new Pet(2), "AirForce");
 		//GameInfo->SKILL_Air_force = false; Æø°Ý¿¡ 
 		//GameInfo->SKILL_CoolTime[0] = 40.f;
 		GameInfo->SKILL_Air_force = false;
