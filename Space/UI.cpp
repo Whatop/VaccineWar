@@ -40,8 +40,11 @@ void UI::Init()
 	ScoreImage = Sprite::Create(L"Painting/UI/Money.png");
 	ScoreImage->SetPosition(1920 / 2 - 270, 72 / 2);
 
-	HpImage = Sprite::Create(L"Painting/UI/HpUI.png");
-	HpImage->SetPosition(130, 35);
+	HpImage[0] = Sprite::Create(L"Painting/UI/HpUI.png");
+	HpImage[0]->SetPosition(130, 35);
+
+	HpImage[1] = Sprite::Create(L"Painting/UI/HpUI.png");
+	HpImage[1]->SetPosition(130, 35);
 
 	TimeLmitImage = Sprite::Create(L"Painting/UI/timer_f.png");
 	TimeLmitImage->SetPosition(1920 / 2 + 550, 72 / 2);
@@ -164,7 +167,8 @@ void UI::Init()
 	SpeedImage->A = 0;
 	SpeedFrameImage->A = 0;
 	PlayerBar->A = 0;
-	HpImage->A = 0;
+	HpImage[0]->A = 0;
+	HpImage[1]->A = 0;
 	TimeLmitImage->A = 0;
 	UIScoreFrame->A = 0;
 	ScoreImage->A = 0;
@@ -192,7 +196,8 @@ void UI::Update()
 		SpeedImage->A += 1;
 		SpeedFrameImage->A += 1;
 		PlayerBar->A += 1;
-		HpImage->A += 1;
+		HpImage[0]->A += 1;
+		HpImage[1]->A += 1;
 		TimeLmitImage->A += 1;
 		UIScoreFrame->A += 1;
 		ScoreImage->A += 1;
@@ -206,7 +211,8 @@ void UI::Update()
 		SpeedImage->A = 255;
 		SpeedFrameImage->A = 255;
 		PlayerBar->A = 255;
-		HpImage->A = 255;
+		HpImage[0]->A = 255;
+		HpImage[1]->A = 255;
 		TimeLmitImage->A = 255;
 		UIScoreFrame->A = 255;
 		ScoreImage->A = 255;
@@ -359,7 +365,8 @@ void UI::Render()
 	SpeedImage->Render();
 	SpeedFrameImage->Render();
 	PlayerBar->Render();
-	HpImage->Render();
+	HpImage[0]->Render();
+	HpImage[1]->Render();
 	TimeLmitImage->Render();
 	UIScoreFrame->Render();
 	ScoreImage->Render();

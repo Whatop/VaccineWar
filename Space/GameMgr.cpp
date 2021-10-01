@@ -113,7 +113,7 @@ void GameMgr::CreatePlayer()
 	if (GameInfo->m_Scene == StageScene::STAGE1)
 		ObjMgr->AddObject(new Player(), "Player");
 	else
-		ObjMgr->AddObject(new Player(Hp), "Player");
+		ObjMgr->AddObject(new Player(100), "Player");
 
 	m_isCreatePlayer = true;
 }

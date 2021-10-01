@@ -129,7 +129,7 @@ void Obstacle::Render()
 
 void Obstacle::Move()
 {
-	m_Position.x -= 100 * dt;
+	m_Position.x -= 350 * dt;
 }
 
 void Obstacle::ColBoxPos()

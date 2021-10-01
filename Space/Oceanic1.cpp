@@ -145,9 +145,26 @@ void Oceanic1::Move()
 		D = GameInfo->GetPlayerInfo()->m_Position;
 
 		Dir = D - C;
+		
+		D3DXVec2Normalize(&Dir, &Dir);
+
+		ObjMgr->AddObject(new EnemyDirBullet(Vec2(m_Position.x - 10, m_Position.y), Dir), "EnemyBullet");
+		
+		C = m_Position;
+		D = Vec2(GameInfo->GetPlayerInfo()->m_Position.x, GameInfo->GetPlayerInfo()->m_Position.y+30);
+
+		Dir = D - C;
 
 		D3DXVec2Normalize(&Dir, &Dir);
 
+		ObjMgr->AddObject(new EnemyDirBullet(Vec2(m_Position.x - 10, m_Position.y), Dir), "EnemyBullet");
+
+		C = m_Position;
+		D = Vec2(GameInfo->GetPlayerInfo()->m_Position.x, GameInfo->GetPlayerInfo()->m_Position.y - 30);
+
+		Dir = D - C;
+
+		D3DXVec2Normalize(&Dir, &Dir);
 		ObjMgr->AddObject(new EnemyDirBullet(Vec2(m_Position.x - 10, m_Position.y), Dir), "EnemyBullet");
 		if (rand() % 5 == 0)
 			ObjMgr->AddObject(new Obstacle(m_Position, true), "Mine");

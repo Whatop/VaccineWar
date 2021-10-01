@@ -34,7 +34,9 @@ void InputScoreScene::Init()
 	m_Score = new TextMgr();
 
 	m_Name->Init(78, false, false, "DungGeunMo");
+	m_Name->SetColor(255, 255, 255, 0);
 	m_Score->Init(78, false, false, "DungGeunMo");
+	m_Score->SetColor(255, 255, 255, 0);
 
 	m_isTextEntered = true;
 	GameInfo->m_Scene = StageScene::NONE;

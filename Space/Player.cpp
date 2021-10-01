@@ -4,6 +4,7 @@
 #include "Missile.h"
 #include "Torpedo.h"
 #include "NavalProjectile.h"
+#include "InputScoreScene.h"
 #include "AirForce.h"
 #include "Pet.h"
 
@@ -209,6 +210,7 @@ void Player::Update(float deltaTime, float Time)
 		}
 		if (m_Hp <= 0) { 
 			//ÆøÆÄÈÄ Fail..
+			SceneDirector::GetInst()->ChangeScene(new InputScoreScene);
 		}
 		GameInfo->PlayerHpUpdate(m_MaxHp, m_Hp);
 		Skill();
@@ -300,6 +302,10 @@ void Player::OnCollision(Object* obj)
 		RECT rc;
 		if (IntersectRect(&rc, &ColBox[4]->m_Collision, &obj->m_Collision)) {
 			if (!isInvincible) {
+				GameInfo->PlayerHit = false;
+				GameInfo->PlayerSlow = false;
+				GameInfo->isTrash = false;
+				GameInfo->MineDamage = false;
 				GameInfo->PlayerHit = true;
 				Damage_Received = obj->m_Atk;
 			}

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "AerialEnemy1.h"
-#include "EnemyDirBullet.h"
+#include "EnemyRotationBullet.h"
 #include "Item.h"
 #include "EnemyMissile.h"
 
@@ -159,7 +159,9 @@ void AerialEnemy1::Move()
 
 		D3DXVec2Normalize(&Dir, &Dir);
 
-		ObjMgr->AddObject(new EnemyDirBullet(Vec2(m_Position.x - 10, m_Position.y), Dir), "EnemyBullet");
+		ObjMgr->AddObject(new EnemyRotationBullet(Vec2(m_Position.x - 10, m_Position.y), std::atan2(Dir.y, Dir.x)), "EnemyBullet");
+		ObjMgr->AddObject(new EnemyRotationBullet(Vec2(m_Position.x - 10, m_Position.y), std::atan2(Dir.y, Dir.x)+ D3DXToRadian(30)), "EnemyBullet");
+		ObjMgr->AddObject(new EnemyRotationBullet(Vec2(m_Position.x - 10, m_Position.y), std::atan2(Dir.y, Dir.x) - D3DXToRadian(30)), "EnemyBullet");
 		
 		
 		ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x - 30, m_Position.y)), "EnemyBullet");

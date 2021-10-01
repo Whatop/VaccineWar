@@ -9,7 +9,6 @@ TextMgr::TextMgr()
 	m_FontRect.left = 0;
 	m_FontRect.right = 1920;
 	m_FontRect.bottom = 1080;
-
 	m_pFont = NULL;
 	m_Angle = 0;
 }

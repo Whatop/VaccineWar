@@ -29,6 +29,10 @@ class Stage2Boss : public Object
 
 	int AttackCount;//어택카운트 5번발사-> 패턴 체인지
 	int PatternCount;//패턴
+
+	float BulletRotation;
+
+	bool BUP, BDOWN;
 public:
 	Stage2Boss(int enemyCount);
 	~Stage2Boss();

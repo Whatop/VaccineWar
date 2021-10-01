@@ -9,7 +9,7 @@ class UI : public Singleton<UI>
 	//StateWindow
 	Sprite* StateWindow;
 	Sprite* ScoreImage;
-	Sprite* HpImage;
+	Sprite* HpImage[2];
 	Sprite* TimeLmitImage;
 	Sprite* SpeedImage;
 	Sprite* SpeedFrameImage;

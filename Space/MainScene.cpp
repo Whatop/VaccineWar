@@ -58,6 +58,7 @@ void MainScene::Init()
 
     m_RankText = new TextMgr();
     m_RankText->Init(72, true, false, "DungGeunMo");
+    m_RankText->SetColor(255, 255, 255, 0);
 
     RankScene = Sprite::Create(L"Painting/GameScreen/RankScene.png");
     RankScene->SetPosition(1920 / 2, 1080 / 2);
@@ -69,6 +70,11 @@ void MainScene::Init()
 
     isRankScene = false;
     isHelpScene = false;
+
+    GameInfo->PlayerHit = false;
+    GameInfo->PlayerSlow = false;
+    GameInfo->isTrash = false;
+    GameInfo->MineDamage = false;
 }
 
 void MainScene::Release()

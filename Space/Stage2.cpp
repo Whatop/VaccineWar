@@ -97,10 +97,10 @@ void Stage2::Update(float deltaTime, float time)
 				one = true;
 				sdTime = 4;
 			}
-			if (!GameInfo->isBossSpawn) {
+
 				MoveBG();
 				ResetBG();
-			}
+
 			m_Cover->m_Visible = false;
 			GameInfo->SpawnEnemy();
 		}
@@ -142,11 +142,16 @@ void Stage2::BGInit()
 
 void Stage2::MoveBG()
 {
-	float bgspeed = 1;
+	float bgspeed = 4;
+
+	if (!GameInfo->isBossSpawn) {
+		bgspeed = 4.f;
+	}
+	else {
+		bgspeed = 1.f;
+	}
 	if (INPUT->GetKey('T') == KeyState::PRESS)
 		bgspeed = 10.f;
-	else
-		bgspeed = 1.f;
 	for (int i = 0; i < 2; i++) {
 		m_BackGround[5][1 - i]->m_Position.x -= 10 * bgspeed * dt;
 		m_BackGround[4][1 - i]->m_Position.x -= 15 * bgspeed * dt;

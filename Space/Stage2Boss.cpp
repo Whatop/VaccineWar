@@ -55,8 +55,9 @@ Stage2Boss::Stage2Boss(int enemyCount)
 
 	DelayTime = 1.f;// 1초
 	AttackTime = 1.f;
-	PatternCount = 0;
+	PatternCount = 2;
 	GameInfo->Level_Petturn=5;
+	BulletRotation = 0;
 }
 Stage2Boss::~Stage2Boss()
 {
@@ -81,7 +82,15 @@ void Stage2Boss::Update(float deltaTime, float Time)
 				if (Camera::GetInst()->ShakeTimeX > 0.4f) {
 					GameInfo->isDangerBoss = false;
 				}
-				Attack1();
+				if (PatternCount == 1) {
+					Attack1();
+				}
+				else if (PatternCount == 2) {
+					Attack2();
+				}
+				else {
+					Attack3();
+				}
 			}
 			if (m_Hp <= 0 && !isDie)
 			{
@@ -146,37 +155,108 @@ void Stage2Boss::Move()
 	Turret[1]->SetPosition(m_Position);
 }
 
-void Stage2Boss::Attack1()
+void Stage2Boss::Attack1()//특정각도로 쏴서 갈라져 제한두는 패턴 ++ 미사일
+{
+	AttackTime += 2*dt;
+	if (AttackTime > DelayTime) {
+
+		Turret[0]->m_CurrentFrame = 1;
+
+		//180 ~ 360
+		if (AttackCount == 0) {
+			BulletRotation = D3DXToRadian(-30);
+
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(45)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(65)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(85)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(105)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(125)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(145)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(165)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(185)), "EnemyBullet");
+
+			BulletRotation = D3DXToRadian(30);
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(5)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(05)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(25)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(45)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(65)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(85)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(125)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(145)), "EnemyBullet");
+
+			AttackTime = 0.415f;
+			AttackCount++;
+		}
+		else {
+			BulletRotation = D3DXToRadian(0);
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(05)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(45)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(85)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(125)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(165)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(205)), "EnemyBullet");
+
+			BulletRotation = D3DXToRadian(60);
+			
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(-35)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(05)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(45)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(85)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(125)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(165)), "EnemyBullet");
+
+			AttackTime = 0.415f;
+			AttackCount = 0;
+		}
+	}
+	if (AttackTime > 0.45f) {
+		Turret[0]->m_CurrentFrame = 0;
+	}
+}
+
+void Stage2Boss::Attack2()//난사하는 패턴
+{
+	AttackTime += 6 * dt;
+	if (AttackTime > DelayTime) {
+
+		Turret[0]->m_CurrentFrame = 1;
+
+		//180 ~ 360
+			BulletRotation = D3DXToRadian(AttackCount);
+
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(45)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(85)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(125)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(165)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(205)), "EnemyBullet");
+
+			AttackTime = 0.215f;
+			if (BUP)
+				AttackCount += 2;
+			else
+				AttackCount -= 2;
+
+			if (AttackCount > 50) {
+				BDOWN = true;
+				BUP = false;
+			}
+			if (AttackCount < 0) {
+				BDOWN = false;
+				BUP = true;
+			}
+	}
+	if (AttackTime > 0.45f) {
+		Turret[0]->m_CurrentFrame = 0;
+
+	}
+}
+
+void Stage2Boss::Attack3()//미사일 패턴
 {
 	AttackTime += dt;
 	if (AttackTime > DelayTime) {
 		Turret[0]->m_CurrentFrame = 1;
-		ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x-80, Turret[0]->m_Position.y+5),D3DXToRadian(-135)), "EnemyBullet");
-		AttackTime = 0.25f;
-		AttackCount++;
-	}
-	if(AttackTime > 0.45f)
-		Turret[0]->m_CurrentFrame = 0;
-}
-
-void Stage2Boss::Attack2()
-{
-	AttackTime += dt;
-	if (AttackTime > DelayTime) {
-		
-		AttackTime = 0.25f;
-		AttackCount++;
-	}
-	if (AttackTime > 0.45f)
-		Turret[0]->m_CurrentFrame = 0;
-}
-
-void Stage2Boss::Attack3()
-{
-	AttackTime += dt;
-	if (AttackTime > DelayTime) {
-		Turret[0]->m_CurrentFrame = 1;
-		ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135)), "EnemyBullet");
 		AttackTime = 0.25f;
 		AttackCount++;
 	}

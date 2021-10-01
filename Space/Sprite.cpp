@@ -36,7 +36,7 @@ Sprite* Sprite::Create(std::wstring fileName, D3DCOLOR ColorKey)
 	auto sprite = new (std::nothrow) Sprite();
 	if (sprite && sprite->Init(fileName, ColorKey))
 	{
-		return sprite;
+			return sprite;
 	}
 	else
 	{

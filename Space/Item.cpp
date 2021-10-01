@@ -56,11 +56,11 @@ void Item::Update(float deltaTime, float Time)
 		Move();
 		if (m_Position.y > 1080 - m_Size.y / 2)
 			m_Rotation = m_Rotation * -1;
-		if (m_Position.y < 73 + m_Size.y / 2)
+		else if (m_Position.y < 73 + m_Size.y / 2)
 			m_Rotation = m_Rotation * -1;
-		if (m_Position.x > Camera::GetInst()->m_Position.x + App::GetInst()->m_Width - m_Size.x / 2)
+		else if (m_Position.x > Camera::GetInst()->m_Position.x + App::GetInst()->m_Width - m_Size.x / 2)
 			m_Rotation = m_Rotation * -1.5f;
-		if (m_Position.x < Camera::GetInst()->m_Position.x + m_Size.x / 2)
+		else if (m_Position.x < Camera::GetInst()->m_Position.x + m_Size.x / 2)
 			m_Rotation = m_Rotation * -0.5f;
 		if (DestroyTime > 15.f) {
 			ObjMgr->RemoveObject(this);
