@@ -25,7 +25,7 @@ EnemyMissile::EnemyMissile(Vec2 Pos,float r)
 	
 	one = false;
 
-	m_Rotation = D3DXToRadian(180) + D3DXToRadian(rand() % 60 - 60);
+	m_Rotation = D3DXToRadian(180);
 	if(r!=370)
 	m_Rotation = D3DXToRadian(r);
 	turnRadian = m_Rotation;

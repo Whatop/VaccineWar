@@ -3,6 +3,7 @@
 #include "Item.h"
 #include "EnemyDirBullet.h"
 #include "EnemyRotationBullet.h"
+#include "AerialEnemy1.h"
 
 Stage2Boss::Stage2Boss(int enemyCount)
 {
@@ -47,6 +48,7 @@ Stage2Boss::Stage2Boss(int enemyCount)
 	GameInfo->OceanicPos.push_back(Vec2(9999, 9999));
 	ones = true;
 	isSpawnMove = true;
+	onme = true;
 
 	GameInfo->isOneBoss = true;
 	GameInfo->isDangerBoss = true;
@@ -157,6 +159,7 @@ void Stage2Boss::Move()
 
 void Stage2Boss::Attack1()//특정각도로 쏴서 갈라져 제한두는 패턴 ++ 미사일
 {
+	ChangeTime += dt;
 	AttackTime += 2*dt;
 	if (AttackTime > DelayTime) {
 
@@ -213,17 +216,23 @@ void Stage2Boss::Attack1()//특정각도로 쏴서 갈라져 제한두는 패턴 ++ 미사일
 	if (AttackTime > 0.45f) {
 		Turret[0]->m_CurrentFrame = 0;
 	}
+	if (ChangeTime > 10.f) {
+		PatternCount++;
+		ChangeTime = 0.f;
+		AttackTime = 0.f;
+	}
 }
 
 void Stage2Boss::Attack2()//난사하는 패턴
 {
+	ChangeTime += dt;
 	AttackTime += 6 * dt;
 	if (AttackTime > DelayTime) {
 
 		Turret[0]->m_CurrentFrame = 1;
 
 		//180 ~ 360
-			BulletRotation = D3DXToRadian(AttackCount);
+			BulletRotation = D3DXToRadian(AttackCount-30);
 
 			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(45)), "EnemyBullet");
 			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(Turret[0]->m_Position.x - 80, Turret[0]->m_Position.y + 5), D3DXToRadian(-135), BulletRotation + D3DXToRadian(85)), "EnemyBullet");
@@ -248,12 +257,17 @@ void Stage2Boss::Attack2()//난사하는 패턴
 	}
 	if (AttackTime > 0.45f) {
 		Turret[0]->m_CurrentFrame = 0;
-
+	}
+	if (ChangeTime > 10.f) {
+		PatternCount++;
+		ChangeTime = 0.f;
+		AttackTime = 0.f;
 	}
 }
 
 void Stage2Boss::Attack3()//미사일 패턴
 {
+	ChangeTime += dt;
 	AttackTime += dt;
 	if (AttackTime > DelayTime) {
 		Turret[0]->m_CurrentFrame = 1;
@@ -262,4 +276,10 @@ void Stage2Boss::Attack3()//미사일 패턴
 	}
 	if (AttackTime > 0.45f)
 		Turret[0]->m_CurrentFrame = 0;
+
+	if (ChangeTime > 10.f) {
+		PatternCount = 1;
+		ChangeTime = 0.f;
+		AttackTime = 0.f;
+	}
 }

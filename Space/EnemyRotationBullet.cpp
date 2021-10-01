@@ -47,7 +47,7 @@ void EnemyRotationBullet::Update(float deltaTime, float Time)
 				DelayDestroy(this, 4);
 			else {
 				if (GameInfo->isBossSpawn) 
-					DelayDestroy(this, 4);
+					DelayDestroy(this, 6);
 
 				else
 					DelayDestroy(this, 4);

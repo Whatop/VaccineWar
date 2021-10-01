@@ -33,7 +33,7 @@ AerialEnemy1::AerialEnemy1(Vec2 Pos, int enemyCount)
 	GameInfo->EnemyCount[0]++;
 	GameInfo->EnemyCount[2]++;
 	GameInfo->EnemyTag[0]++;
-	GameInfo->EnemyTag[2]++;
+	GameInfo->EnemyTag[2]++; 
 
 
 	GameInfo->AllEnemyPos.push_back(Vec2(9999, 9999));
@@ -159,15 +159,25 @@ void AerialEnemy1::Move()
 
 		D3DXVec2Normalize(&Dir, &Dir);
 
-		ObjMgr->AddObject(new EnemyRotationBullet(Vec2(m_Position.x - 10, m_Position.y), std::atan2(Dir.y, Dir.x)), "EnemyBullet");
-		ObjMgr->AddObject(new EnemyRotationBullet(Vec2(m_Position.x - 10, m_Position.y), std::atan2(Dir.y, Dir.x)+ D3DXToRadian(30)), "EnemyBullet");
-		ObjMgr->AddObject(new EnemyRotationBullet(Vec2(m_Position.x - 10, m_Position.y), std::atan2(Dir.y, Dir.x) - D3DXToRadian(30)), "EnemyBullet");
+		if (GameInfo->m_Scene == StageScene::STAGE2) {
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(m_Position.x - 10, m_Position.y), std::atan2(Dir.y, Dir.x)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(m_Position.x - 10, m_Position.y), std::atan2(Dir.y, Dir.x) + D3DXToRadian(30)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyRotationBullet(Vec2(m_Position.x - 10, m_Position.y), std::atan2(Dir.y, Dir.x) - D3DXToRadian(30)), "EnemyBullet");
 		
-		
-		ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x - 30, m_Position.y)), "EnemyBullet");
-		ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x - 30, m_Position.y+40)), "EnemyBullet");
-		ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x , m_Position.y)), "EnemyBullet");
-		ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x , m_Position.y+40)), "EnemyBullet");
-
+			if (!GameInfo->isBossSpawn) {
+				ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x + 10, m_Position.y)), "EnemyBullet");
+				ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x, m_Position.y + 60)), "EnemyBullet");
+				ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x - 30, m_Position.y)), "EnemyBullet");
+				ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x - 30, m_Position.y + 40)), "EnemyBullet");
+				ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x, m_Position.y)), "EnemyBullet");
+				ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x, m_Position.y + 40)), "EnemyBullet");
+			}
+		}
+		else {
+			ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x - 30, m_Position.y)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x - 30, m_Position.y + 40)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x, m_Position.y)), "EnemyBullet");
+			ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x, m_Position.y + 40)), "EnemyBullet");
+		}
 	}
 }

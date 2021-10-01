@@ -33,6 +33,8 @@ class Stage2Boss : public Object
 	float BulletRotation;
 
 	bool BUP, BDOWN;
+	bool onme;
+	float ChangeTime;
 public:
 	Stage2Boss(int enemyCount);
 	~Stage2Boss();

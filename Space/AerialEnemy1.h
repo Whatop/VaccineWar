@@ -21,6 +21,10 @@ class AerialEnemy1 : public Object
 
 	int	tempOceanic;
 	int	random;
+
+	float m_AtkTime;
+	float m_AtkDelay;
+
 public:
 	AerialEnemy1(Vec2 Pos, int enemyCount);
 	~AerialEnemy1();

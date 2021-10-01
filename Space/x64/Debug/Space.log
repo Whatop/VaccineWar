@@ -1,4 +1,12 @@
-﻿  Stage2Boss.cpp
-D:\VaccineWar\Space\Stage2Boss.cpp(105,72): warning C4244: '+=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\VaccineWar\Space\Stage2Boss.cpp(120,48): warning C4305: '인수': 'int'에서 'bool'(으)로 잘립니다.
-  Space.vcxproj -> D:\VaccineWar\x64\Debug\Space.exe
+﻿  AerialEnemy1.cpp
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\AerialEnemy1.cpp(66,66): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\AerialEnemy1.cpp(66,43): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\AerialEnemy1.cpp(147,65): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\AerialEnemy1.cpp(147,42): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\AerialEnemy1.cpp(150,65): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\AerialEnemy1.cpp(150,42): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Stage2Boss.cpp
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Stage2Boss.cpp(107,72): warning C4244: '+=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\Space\Stage2Boss.cpp(122,48): warning C4305: '인수': 'int'에서 'bool'(으)로 잘립니다.
+  코드를 생성하고 있습니다...
+  Space.vcxproj -> C:\Users\whdgk\OneDrive\바탕 화면\깃허브\POBG\VaccineWar\x64\Debug\Space.exe
