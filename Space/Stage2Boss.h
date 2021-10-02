@@ -1,5 +1,5 @@
 #pragma once
-class Stage2Boss : public Object
+class Stage2Boss	 : public Object
 {
 	Sprite* m_Boss;
 	Animation* WaterEffect;
@@ -35,6 +35,10 @@ class Stage2Boss : public Object
 	bool BUP, BDOWN;
 	bool onme;
 	float ChangeTime;
+
+	int MissileCount;
+	float MissileTime;
+	bool isMissile;
 public:
 	Stage2Boss(int enemyCount);
 	~Stage2Boss();
@@ -44,8 +48,10 @@ public:
 	void OnCollision(Object* obj);
 
 	void Move();
-	void Attack1();//Gun
-	void Attack2();//Missile
+	void Attack1();//Gun1
+	void Attack2();//Gun2
 	void Attack3();//
+
+	void Missile();
 };
 

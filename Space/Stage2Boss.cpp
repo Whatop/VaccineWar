@@ -3,7 +3,7 @@
 #include "Item.h"
 #include "EnemyDirBullet.h"
 #include "EnemyRotationBullet.h"
-#include "AerialEnemy1.h"
+#include "EnemyMissile.h"
 
 Stage2Boss::Stage2Boss(int enemyCount)
 {
@@ -16,18 +16,18 @@ Stage2Boss::Stage2Boss(int enemyCount)
 	WaterEffect->AddContinueFrame(L"Painting/Boss/Stage2/Boss", 1, 4);
 
 	Turret[0] = new Animation();
-	Turret[0] ->Init(0.2f, false);
-	Turret[0] ->AddContinueFrame(L"Painting/Boss/Stage2/Gun", 1, 2);
+	Turret[0]->Init(0.2f, false);
+	Turret[0]->AddContinueFrame(L"Painting/Boss/Stage2/Gun", 1, 2);
 
 	Turret[1] = new Animation();
-	Turret[1] ->Init(0.2f, true);
-	Turret[1] ->AddContinueFrame(L"Painting/Boss/Stage2/Turret", 1, 7);
+	Turret[1]->Init(0.2f, true);
+	Turret[1]->AddContinueFrame(L"Painting/Boss/Stage2/Turret", 1, 7);
 	Turret[0]->SetScale(1.7f, 1.7f);
 	Turret[1]->SetScale(1.7f, 1.7f);
 
 	SetScale(1.7f, 1.7f);
 
-	SetPosition(2200+m_Size.x*m_Scale.x, 650);
+	SetPosition(2200 + m_Size.x * m_Scale.x, 650);
 
 
 	m_MaxHp = 2000;
@@ -58,8 +58,11 @@ Stage2Boss::Stage2Boss(int enemyCount)
 	DelayTime = 1.f;// 1초
 	AttackTime = 1.f;
 	PatternCount = 2;
-	GameInfo->Level_Petturn=5;
+	GameInfo->Level_Petturn = 5;
 	BulletRotation = 0;
+	MissileCount = 0;
+	Turret[1]->m_CurrentFrame = MissileCount;
+
 }
 Stage2Boss::~Stage2Boss()
 {
@@ -93,6 +96,7 @@ void Stage2Boss::Update(float deltaTime, float Time)
 				else {
 					Attack3();
 				}
+				Missile();
 			}
 			if (m_Hp <= 0 && !isDie)
 			{
@@ -267,6 +271,7 @@ void Stage2Boss::Attack2()//난사하는 패턴
 
 void Stage2Boss::Attack3()//미사일 패턴
 {
+	PatternCount = 1;
 	ChangeTime += dt;
 	AttackTime += dt;
 	if (AttackTime > DelayTime) {
@@ -282,4 +287,48 @@ void Stage2Boss::Attack3()//미사일 패턴
 		ChangeTime = 0.f;
 		AttackTime = 0.f;
 	}
+}
+
+void Stage2Boss::Missile()
+{
+	if (MissileCount < 6&& !isMissile) {
+		MissileTime += dt;
+		if (MissileTime > 0.2f) {
+			if (MissileCount == 0)
+				ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x - 20, m_Position.y - 30), -130), "EnemyBullet");
+
+			else if (MissileCount == 1)
+				ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x - 25, m_Position.y - 30), -130), "EnemyBullet");
+
+			else if (MissileCount == 2)
+				ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x - 30, m_Position.y - 30), -130), "EnemyBullet");
+
+			else if (MissileCount == 3)
+				ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x - 20, m_Position.y - 20), -130), "EnemyBullet");
+
+			else if (MissileCount == 4)
+				ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x - 25, m_Position.y - 20), -130), "EnemyBullet");
+
+			else if (MissileCount == 5)
+				ObjMgr->AddObject(new EnemyMissile(Vec2(m_Position.x - 30, m_Position.y - 20), -130), "EnemyBullet");
+
+			MissileCount++;
+			MissileTime = 0.f;
+		}
+	}
+	else {
+		isMissile = true;
+	}
+	if (isMissile) {
+		MissileTime += dt;
+		if (MissileTime > 1.f) {
+			MissileCount--;
+			MissileTime = 0.f;
+		}
+		if (MissileCount <= 0) {
+			isMissile = false;
+		}
+	}
+	
+	Turret[1]->m_CurrentFrame = MissileCount;
 }

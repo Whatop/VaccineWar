@@ -15,7 +15,12 @@ EnemyMissile::EnemyMissile(Vec2 Pos,float r)
 
 	vrad = 0.01f;
 	Delay = 0.f;
-	isHoming = false;
+	if (GameInfo->isOneBoss) {
+		isHoming = true;
+		vrad = 0.024f;
+	}
+	else
+		isHoming = false;
 	HomingTime = 1.f;
 	impellent = 1.f;
 	m_Speed = 400.f;
@@ -28,6 +33,8 @@ EnemyMissile::EnemyMissile(Vec2 Pos,float r)
 	m_Rotation = D3DXToRadian(180);
 	if(r!=370)
 	m_Rotation = D3DXToRadian(r);
+
+
 	turnRadian = m_Rotation;
 	Enemy = GetPlayer->m_Position - m_Position;
 
@@ -51,6 +58,8 @@ EnemyMissile::EnemyMissile(Vec2 Pos,float r)
 	Dire.y = sin(turnRadian);
 	Dire.x = cos(turnRadian);
 	m_Rotation = std::atan2f(Dire.y, Dire.x);
+	
+	m_Layer = 2;
 }
 
 EnemyMissile::~EnemyMissile()
@@ -91,11 +100,11 @@ void EnemyMissile::Move()
 		}
 	}
 	else {
+		int Limit;
 		if (impellent < 2) {
 			impellent += dt;
 		}
-
-		int Limit = (sqrt(pow(GetPlayer->m_Position.x - m_Position.x, 2) + pow(GetPlayer->m_Position.y - m_Position.y, 2)) / m_Speed);
+		Limit = (sqrt(pow(GetPlayer->m_Position.x - m_Position.x, 2) + pow(GetPlayer->m_Position.y - m_Position.y, 2)) / m_Speed);
 		if (Limit > 0.1f && !one) {
 			Enemy = GetPlayer->m_Position - m_Position;
 
